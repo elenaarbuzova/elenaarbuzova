@@ -1,0 +1,8 @@
+{
+  "name": "artifacts-workspace",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev:portfolio": "pnpm --filter @workspace/portfolio run dev"
+  }
+}

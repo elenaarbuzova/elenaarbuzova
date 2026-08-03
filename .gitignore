@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+**/dist
+.DS_Store
+.env
+.env.*
+.vercel
+**/.vercel
+*.log
+.turbo
+sati
+stillness
+mockup-sandbox
+api-server
+_dev.log
+portfolio/attached_assets/generated_images/_stillness_probe.html
