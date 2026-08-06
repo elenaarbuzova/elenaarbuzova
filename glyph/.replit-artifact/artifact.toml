@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Glyph"
+version = "1.0.0"
+id = "artifacts/glyph"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21114
+
+[services.development]
+run = "pnpm --filter @workspace/glyph run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/glyph", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/glyph/dist"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21114"
+BASE_PATH = "/"

@@ -3,6 +3,8 @@
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev:portfolio": "pnpm --filter @workspace/portfolio run dev"
+    "dev:portfolio": "pnpm --filter @workspace/portfolio run dev",
+    "dev:glyph": "pnpm --filter @workspace/glyph run dev",
+    "build:glyph": "pnpm --filter @workspace/glyph run build"
   }
 }

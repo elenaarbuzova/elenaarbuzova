@@ -1,5 +1,6 @@
 packages:
   - portfolio
+  - glyph
 
 catalog:
   '@replit/vite-plugin-cartographer': ^0.3.1

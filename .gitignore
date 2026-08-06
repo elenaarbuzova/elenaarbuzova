@@ -14,3 +14,6 @@ mockup-sandbox
 api-server
 _dev.log
 portfolio/attached_assets/generated_images/_stillness_probe.html
+
+.vercel
+.env*

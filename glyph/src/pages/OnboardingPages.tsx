@@ -1,0 +1,303 @@
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'wouter';
+import { motion } from 'framer-motion';
+import { ArrowRight, Check, Sparkles, Upload } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
+import { Button } from '@/components/ui/Button';
+import { Field, Input } from '@/components/ui/Input';
+import { useApp } from '@/lib/store';
+import type { KnowledgeFile } from '@/lib/data';
+import { cn } from '@/lib/utils';
+
+function Shell({
+  step,
+  total,
+  children,
+}: {
+  step: number;
+  total: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative min-h-screen bg-white px-6 py-10 text-black">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,77,46,0.07),transparent_50%)]" />
+      <div className="relative mx-auto max-w-xl">
+        <div className="flex items-center justify-between">
+          <Logo />
+          <span className="font-mono text-xs text-zinc-400">
+            {step}/{total}
+          </span>
+        </div>
+        <div className="mt-6 flex gap-2">
+          {Array.from({ length: total }).map((_, i) => (
+            <div
+              key={i}
+              className={cn(
+                'h-0.5 flex-1 rounded-full transition-all duration-500',
+                i < step ? 'bg-accent' : 'bg-black/[0.08]',
+              )}
+            />
+          ))}
+        </div>
+        <motion.div
+          key={step}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="mt-14"
+        >
+          {children}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function WelcomeStep() {
+  const [, setLocation] = useLocation();
+  return (
+    <Shell step={1} total={4}>
+      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">Welcome</p>
+      <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-black md:text-4xl">
+        Your lab’s knowledge,
+        <br />
+        finally answerable.
+      </h1>
+      <p className="mt-5 text-zinc-500">
+        In a few minutes you’ll connect documents, create a research assistant, and ask your first
+        scientific question.
+      </p>
+      <Button
+        variant="accent"
+        size="lg"
+        className="mt-10"
+        rightIcon={<ArrowRight className="h-4 w-4" />}
+        onClick={() => setLocation('/onboarding/workspace')}
+      >
+        Begin setup
+      </Button>
+    </Shell>
+  );
+}
+
+function WorkspaceStep() {
+  const { setWorkspace } = useApp();
+  const [, setLocation] = useLocation();
+  const [name, setName] = useState('Helix Bio');
+  const [industry, setIndustry] = useState('Biotech');
+
+  return (
+    <Shell step={2} total={4}>
+      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">Organization</p>
+      <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-black">
+        Name your workspace
+      </h1>
+      <p className="mt-4 text-sm text-zinc-500">
+        This is the secure boundary for protocols, SOPs, and publications.
+      </p>
+      <form
+        className="mt-10 space-y-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setWorkspace({ name, website: '', industry });
+          setLocation('/onboarding/knowledge');
+        }}
+      >
+        <Field label="Organization">
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        </Field>
+        <Field label="Focus">
+          <Input
+            value={industry}
+            onChange={(e) => setIndustry(e.target.value)}
+            placeholder="Biotech, Pharma, Academic core…"
+          />
+        </Field>
+        <Button type="submit" variant="accent" size="lg" className="w-full">
+          Continue
+        </Button>
+      </form>
+    </Shell>
+  );
+}
+
+function KnowledgeStep() {
+  const { addFiles, setChatbot } = useApp();
+  const [, setLocation] = useLocation();
+  const [uploaded, setUploaded] = useState(false);
+  const [processing, setProcessing] = useState(false);
+
+  const simulateUpload = () => {
+    setProcessing(true);
+    const file: KnowledgeFile = {
+      id: `up-${Date.now()}`,
+      name: 'CRISPR_Cas9_Transfection_v3.pdf',
+      type: 'protocol',
+      status: 'processing',
+      size: '1.8 MB',
+      sizeBytes: 1_800_000,
+      uploadedAt: 'Just now',
+      addedAt: Date.now(),
+      folder: 'Protocols',
+      project: 'CRISPR_Cas9',
+      tags: ['CRISPR'],
+      activeInChatbot: true,
+    };
+    addFiles([file]);
+    setTimeout(() => {
+      setProcessing(false);
+      setUploaded(true);
+    }, 1400);
+  };
+
+  return (
+    <Shell step={3} total={4}>
+      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">Knowledge</p>
+      <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-black">
+        Upload your first protocol
+      </h1>
+      <p className="mt-4 text-sm text-zinc-500">
+        PDF, DOCX, Markdown, CSV, or research papers. We’ll preserve structure and citations.
+      </p>
+
+      <button
+        type="button"
+        onClick={simulateUpload}
+        disabled={processing || uploaded}
+        className={cn(
+          'mt-10 flex w-full flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-14 transition-all duration-300',
+          uploaded
+            ? 'border-success/30 bg-success/5'
+            : 'border-black/15 bg-zinc-50 hover:border-accent/40 hover:bg-accent/[0.03]',
+        )}
+      >
+        {processing ? (
+          <>
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+            <p className="mt-4 text-sm text-zinc-500">Indexing protocol…</p>
+          </>
+        ) : uploaded ? (
+          <>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-success/15 text-success">
+              <Check className="h-5 w-5" />
+            </div>
+            <p className="mt-4 text-sm font-medium text-success">Protocol indexed</p>
+            <p className="mt-1 text-xs text-zinc-500">CRISPR_Cas9_Transfection_v3.pdf</p>
+          </>
+        ) : (
+          <>
+            <Upload className="h-8 w-8 text-accent" />
+            <p className="mt-4 text-sm font-medium text-black">Drop files or click to upload</p>
+            <p className="mt-1 text-xs text-zinc-500">Demo: click to simulate</p>
+          </>
+        )}
+      </button>
+
+      <Button
+        variant="accent"
+        size="lg"
+        className="mt-8 w-full"
+        disabled={!uploaded}
+        onClick={() => {
+          setChatbot({
+            name: 'Lab Assistant',
+            purpose: 'Answers from your protocols and SOPs with citations.',
+            language: 'English',
+            tone: 'Precise',
+          });
+          setLocation('/onboarding/done');
+        }}
+      >
+        Generate assistant
+      </Button>
+      <button
+        type="button"
+        className="mt-4 w-full text-center text-sm text-zinc-500 hover:text-black"
+        onClick={() => {
+          setChatbot({
+            name: 'Lab Assistant',
+            purpose: 'Answers from your protocols and SOPs with citations.',
+            language: 'English',
+            tone: 'Precise',
+          });
+          setLocation('/onboarding/done');
+        }}
+      >
+        Skip for now
+      </button>
+    </Shell>
+  );
+}
+
+function DoneStep() {
+  const { completeOnboarding, setTrained } = useApp();
+  const [, setLocation] = useLocation();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setTrained(true);
+    const t = setTimeout(() => setReady(true), 1600);
+    return () => clearTimeout(t);
+  }, [setTrained]);
+
+  return (
+    <Shell step={4} total={4}>
+      <div className="text-center">
+        <motion.div
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 16 }}
+          className={cn(
+            'mx-auto flex h-16 w-16 items-center justify-center rounded-2xl text-white',
+            ready
+              ? 'bg-emerald-500 shadow-[0_0_32px_rgba(16,185,129,0.35)]'
+              : 'bg-gradient-to-br from-accent to-accent-2 shadow-[0_0_40px_rgba(255,77,46,0.3)]',
+          )}
+        >
+          {ready ? (
+            <Check className="h-8 w-8" strokeWidth={2.5} />
+          ) : (
+            <Sparkles className="h-7 w-7 animate-pulse" />
+          )}
+        </motion.div>
+        <h1 className="mt-8 font-display text-3xl font-semibold tracking-tight text-black">
+          {ready ? 'Your lab assistant is ready' : 'Training knowledge graph…'}
+        </h1>
+        <p className="mx-auto mt-4 max-w-sm text-sm text-zinc-500">
+          {ready
+            ? 'Ask about protocols, navigate SOPs, and cite every source.'
+            : 'Building embeddings across your documents.'}
+        </p>
+        <Button
+          variant="accent"
+          size="lg"
+          className="mt-10"
+          disabled={!ready}
+          rightIcon={<ArrowRight className="h-4 w-4" />}
+          onClick={() => {
+            completeOnboarding();
+            setLocation('/app');
+          }}
+        >
+          Enter workspace
+        </Button>
+      </div>
+    </Shell>
+  );
+}
+
+export function OnboardingRouter() {
+  const params = useParams<{ step?: string }>();
+  const { user } = useApp();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!user) setLocation('/signup');
+  }, [user, setLocation]);
+
+  const step = params.step ?? 'welcome';
+  if (step === 'workspace') return <WorkspaceStep />;
+  if (step === 'knowledge' || step === 'chatbot' || step === 'training') return <KnowledgeStep />;
+  if (step === 'done') return <DoneStep />;
+  return <WelcomeStep />;
+}
