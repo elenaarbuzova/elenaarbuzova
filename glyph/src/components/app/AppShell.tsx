@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
 import {
   BarChart3,
   Bell,
@@ -17,21 +17,41 @@ import {
   Sun,
 } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { PremiumLock } from '@/components/ui/PremiumLock';
 import { PaywallModal } from '@/components/app/PaywallModal';
 import { SettingsModal } from '@/components/app/SettingsModal';
 import { HeaderSearch } from '@/components/app/CommandSearch';
 import { UserMenu } from '@/components/app/UserMenu';
 import { WorkspacesSection } from '@/components/app/WorkspacesSection';
+import { DEFAULT_WORKSPACE_ID } from '@/lib/workspaces';
 import { useApp } from '@/lib/store';
 import { useTheme } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 
-const RAIL_NAV = [
+/** Left rail order: act → work → sources → context → ship → measure → account */
+const RAIL_PRIMARY = [
   { href: '/app', label: 'Overview', icon: Home, exact: true },
   { href: '/app/playground', label: 'Chat', icon: MessageSquare },
   { href: '/app/knowledge', label: 'Knowledge', icon: BookOpen },
-  { href: '/app/analytics', label: 'Analytics', icon: BarChart3 },
-  { href: '/app/builder', label: 'Widget', icon: Puzzle },
+] as const;
+
+const RAIL_SECONDARY = [
+  {
+    href: '/app/builder',
+    label: 'Widget',
+    icon: Puzzle,
+    premium: true,
+    paywall:
+      'The embed builder is on the Research plan. Customize the widget and copy the embed code.',
+  },
+  {
+    href: '/app/analytics',
+    label: 'Analytics',
+    icon: BarChart3,
+    premium: true,
+    paywall:
+      'Analytics is on the Research plan. It shows questions asked, accuracy, and sources cited.',
+  },
   { href: '/app/billing', label: 'Billing', icon: CreditCard },
 ] as const;
 
@@ -53,6 +73,8 @@ function RailButton({
   onClick,
   children,
   href,
+  locked,
+  lockLabel,
 }: {
   label: string;
   accent?: boolean;
@@ -60,6 +82,8 @@ function RailButton({
   onClick?: () => void;
   children: React.ReactNode;
   href?: string;
+  locked?: boolean;
+  lockLabel?: string;
 }) {
   const className = cn(
     'relative z-10 flex h-11 w-11 items-center justify-center rounded-full',
@@ -70,11 +94,24 @@ function RailButton({
         : 'bg-transparent text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300',
   );
 
+  const badge = locked ? (
+    <span className="pointer-events-auto absolute -bottom-1 -right-1 z-20">
+      <PremiumLock
+        size={17}
+        label={lockLabel ?? 'Research plan'}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick?.();
+        }}
+      />
+    </span>
+  ) : null;
+
   const inner = (
     <motion.span
       className={className}
-      title={label}
-      aria-label={label}
+      title={locked ? undefined : label}
+      aria-label={locked ? `${label} (Pro)` : label}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.9 }}
       transition={{ type: 'spring', stiffness: 500, damping: 28 }}
@@ -83,20 +120,24 @@ function RailButton({
     </motion.span>
   );
 
-  if (href) {
-    return <Link href={href}>{inner}</Link>;
+  if (href && !locked) {
+    return (
+      <Link href={href} className="relative">
+        {inner}
+      </Link>
+    );
   }
 
   return (
-    <button type="button" onClick={onClick} title={label} aria-label={label} className="relative">
-      <motion.span
-        className={className}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ type: 'spring', stiffness: 500, damping: 28 }}
-      >
-        {children}
-      </motion.span>
+    <button
+      type="button"
+      onClick={onClick}
+      title={locked ? undefined : label}
+      aria-label={locked ? `${label} (Pro)` : label}
+      className="relative cursor-pointer"
+    >
+      {inner}
+      {badge}
     </button>
   );
 }
@@ -134,7 +175,14 @@ function RailDroplet({ activeIndex }: { activeIndex: number }) {
   );
 }
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  children,
+  embedded = false,
+}: {
+  children: React.ReactNode;
+  /** Fit inside a scaled capture frame instead of the browser viewport */
+  embedded?: boolean;
+}) {
   const [location, setLocation] = useLocation();
   const {
     createConversation,
@@ -142,9 +190,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     activeProjectId,
     setActiveProjectId,
     openSettings,
+    openPaywall,
+    plan,
   } = useApp();
   const { theme, setTheme, isDark } = useTheme();
-  const [isWorkspacesOpen, setIsWorkspacesOpen] = useState(true);
+  const [isWorkspacesOpen, setIsWorkspacesOpen] = useState(false);
+  const isFree = plan === 'starter';
+
+  useEffect(() => {
+    if (
+      isFree &&
+      activeProjectId &&
+      activeProjectId !== DEFAULT_WORKSPACE_ID
+    ) {
+      setActiveProjectId(DEFAULT_WORKSPACE_ID);
+    }
+  }, [isFree, activeProjectId, setActiveProjectId]);
 
   const onNewChat = () => {
     createConversation();
@@ -160,15 +221,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     exact ? location === href : location.startsWith(href);
 
   const isChat = location.startsWith('/app/playground');
+  const isOverview = location === '/app';
+  const isAnalytics = location.startsWith('/app/analytics');
+  const isBuilder = location.startsWith('/app/builder');
+  const isLockedViewport = isOverview || isAnalytics || isBuilder;
+
+  useEffect(() => {
+    if (isOverview) setIsWorkspacesOpen(false);
+  }, [isOverview]);
 
   return (
-    <div className="app-shell flex h-screen flex-col overflow-hidden bg-surface-2 text-ink transition-colors duration-200">
+    <div
+      className={cn(
+        'app-shell flex flex-col overflow-hidden overscroll-none bg-surface-2 text-ink transition-colors duration-200',
+        embedded ? 'h-full max-h-full w-full' : 'h-dvh max-h-dvh',
+      )}
+    >
       <header className="z-30 flex h-[68px] shrink-0 items-center gap-4 border-0 bg-transparent px-3 shadow-none md:px-4">
         <Link href="/app">
           <span className="shrink-0">
             <Logo
               size="lg"
-              subtitle="AI Research Assistant"
+              subtitle="Research assistant"
               variant={isDark ? 'dark' : 'light'}
             />
           </span>
@@ -184,7 +258,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               'flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200',
               theme === 'dark'
                 ? 'bg-white/10 text-white'
-                : 'text-zinc-400 hover:text-zinc-600',
+                : 'text-zinc-500 hover:text-zinc-700',
             )}
             aria-label="Dark mode"
             aria-pressed={theme === 'dark'}
@@ -197,7 +271,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             className={cn(
               'flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200',
               theme === 'light'
-                ? 'bg-zinc-100 text-zinc-800 dark:bg-white/10 dark:text-white'
+                ? 'bg-zinc-100 text-zinc-800'
                 : 'text-zinc-500 hover:text-zinc-300',
             )}
             aria-label="Light mode"
@@ -243,6 +317,33 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Plus className="h-[18px] w-[18px]" strokeWidth={2.25} />
               </RailButton>
 
+              {/* Core: home → ask → sources */}
+              <div className="relative flex flex-col items-center gap-3">
+                <RailDroplet
+                  activeIndex={RAIL_PRIMARY.findIndex((item) =>
+                    isActive(item.href, 'exact' in item && item.exact),
+                  )}
+                />
+                {RAIL_PRIMARY.map((item) => {
+                  const Icon = item.icon;
+                  const active = isActive(
+                    item.href,
+                    'exact' in item && item.exact,
+                  );
+                  return (
+                    <RailButton
+                      key={item.href}
+                      href={item.href}
+                      label={item.label}
+                      accent={active}
+                    >
+                      <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                    </RailButton>
+                  );
+                })}
+              </div>
+
+              {/* Context switcher sits between daily work and publish/measure */}
               <button
                 type="button"
                 title="Workspaces"
@@ -276,22 +377,41 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </motion.span>
               </button>
 
+              {/* Ship → measure → account */}
               <div className="relative flex flex-col items-center gap-3">
                 <RailDroplet
-                  activeIndex={RAIL_NAV.findIndex((item) =>
+                  activeIndex={RAIL_SECONDARY.findIndex((item) =>
                     isActive(item.href, 'exact' in item && item.exact),
                   )}
                 />
-                {RAIL_NAV.map((item) => {
+                {RAIL_SECONDARY.map((item) => {
                   const Icon = item.icon;
-                  const active = isActive(item.href, 'exact' in item && item.exact);
+                  const active = isActive(
+                    item.href,
+                    'exact' in item && item.exact,
+                  );
+                  const locked = Boolean(
+                    'premium' in item && item.premium && isFree,
+                  );
 
                   return (
                     <RailButton
                       key={item.href}
-                      href={item.href}
+                      href={locked ? undefined : item.href}
                       label={item.label}
-                      accent={active}
+                      accent={active && !locked}
+                      locked={locked}
+                      lockLabel="Research plan"
+                      onClick={
+                        locked
+                          ? () =>
+                              openPaywall(
+                                'paywall' in item && item.paywall
+                                  ? item.paywall
+                                  : 'This feature is on the Research plan.',
+                              )
+                          : undefined
+                      }
                     >
                       <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
                     </RailButton>
@@ -330,14 +450,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             'flex min-h-0 min-w-0 flex-1 flex-col rounded-[2rem] bg-surface',
             isChat
               ? 'overflow-hidden p-0'
-              : 'overflow-auto p-8 md:p-10',
+              : isOverview || isAnalytics
+                ? 'h-full overflow-hidden overscroll-none p-3 md:p-4'
+                : isBuilder
+                  ? 'h-full overflow-hidden overscroll-none p-4 md:p-5'
+                  : 'overflow-auto p-8 md:p-10',
           )}
         >
-          {children}
+          {isLockedViewport ? (
+            <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
+              {children}
+            </div>
+          ) : (
+            children
+          )}
         </main>
       </div>
-      <PaywallModal />
-      <SettingsModal />
+      {!embedded ? (
+        <>
+          <PaywallModal />
+          <SettingsModal />
+        </>
+      ) : null}
     </div>
   );
 }

@@ -1,0 +1,9 @@
+{
+  "install": "pnpm install",
+  "terminals": [
+    {
+      "name": "glyph-dev",
+      "command": "pnpm --filter @workspace/glyph run dev"
+    }
+  ]
+}

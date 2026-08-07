@@ -26,11 +26,11 @@ const DOC_CHIPS = [
 ];
 
 const STATUS_LABELS = [
-  'Reading Documents...',
-  'Creating Embeddings...',
-  'Indexing Knowledge...',
-  'Building Semantic Search...',
-  'Applying Access Rules...',
+  'Reading documents…',
+  'Extracting text…',
+  'Indexing…',
+  'Building search…',
+  'Ready',
 ];
 
 function lerp(a: number, b: number, t: number) {
@@ -292,7 +292,12 @@ function StepDeployVisual({ active }: { active: boolean }) {
       <button
         type="button"
         onClick={copy}
-        className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-full bg-black text-[11px] font-semibold text-white transition-colors duration-300 hover:bg-[#ff4d2e]"
+        className={cn(
+          'inline-flex h-9 w-full items-center justify-center gap-2 rounded-full text-[11px] font-semibold text-white transition-colors duration-300',
+          copied
+            ? 'bg-emerald-600 hover:bg-emerald-600'
+            : 'bg-black hover:bg-zinc-800',
+        )}
       >
         {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
         {copied ? 'Copied' : 'Copy Embed Code'}
@@ -304,20 +309,20 @@ function StepDeployVisual({ active }: { active: boolean }) {
 const STEPS = [
   {
     id: '01',
-    title: 'Upload Your Knowledge',
-    body: 'Upload protocols, publications, laboratory SOPs, and research papers. LabAgent securely indexes your institutional knowledge.',
+    title: 'Upload documents',
+    body: 'Add protocols, SOPs, papers, and data files. LabAgent indexes them for search and citation.',
     Visual: StepUploadVisual,
   },
   {
     id: '02',
-    title: 'Generate Your AI Research Assistant',
-    body: 'LabAgent analyzes documents, maps scientific relationships, and builds an assistant that only answers from trusted sources.',
+    title: 'Build the assistant',
+    body: 'Answers come only from the files you uploaded. Each reply shows the source document.',
     Visual: StepProcessVisual,
   },
   {
     id: '03',
-    title: 'Deploy Everywhere',
-    body: 'Test inside LabAgent or embed into your portal, website, or knowledge base with a single click.',
+    title: 'Use it where you work',
+    body: 'Try Chat inside LabAgent, or paste an embed into your lab portal or site.',
     Visual: StepDeployVisual,
   },
 ] as const;
@@ -422,15 +427,14 @@ export function HowItWorksSticky() {
             How it works
           </p>
           <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.045em] text-black md:text-5xl lg:text-[3.25rem]">
-            From archive
+            From documents
             <br />
-            to assistant
+            to cited answers
             <br />
             in three steps.
           </h2>
           <p className="mt-8 max-w-sm text-[15px] leading-relaxed text-zinc-500">
-            LabAgent transforms scientific documentation into an AI research assistant —
-            indexed, cited, and ready for the bench.
+            Upload lab documents. Ask a question. Open the source that was cited.
           </p>
 
           <div className="mt-12 hidden items-center gap-3 lg:flex">

@@ -58,7 +58,7 @@ export function LoginPage() {
   return (
     <AuthShell
       title="Welcome back"
-      subtitle="Sign in to your research workspace."
+      subtitle="Sign in to your workspace."
     >
       <form
         className="space-y-5"
@@ -81,7 +81,7 @@ export function LoginPage() {
         </Field>
         <Button
           type="submit"
-          variant="accent"
+          variant="primary"
           className={cn('w-full', authBtnClass)}
           size="lg"
         >
@@ -95,7 +95,7 @@ export function LoginPage() {
         </Link>
       </p>
       <p className="mt-4 text-center text-xs text-zinc-400">
-        Demo: any credentials work — loads a seeded Helix Bio workspace.
+        Demo: any email and password open the Helix Bio sample workspace.
       </p>
     </AuthShell>
   );
@@ -109,8 +109,8 @@ export function SignupPage() {
 
   return (
     <AuthShell
-      title="Start your lab workspace"
-      subtitle="Transform institutional knowledge into an AI researcher."
+      title="Create a workspace"
+      subtitle="Upload documents. Ask questions. Answers cite your files."
     >
       <form
         className="space-y-5"
@@ -143,7 +143,7 @@ export function SignupPage() {
         </Field>
         <Button
           type="submit"
-          variant="accent"
+          variant="primary"
           className={cn('w-full', authBtnClass)}
           size="lg"
         >

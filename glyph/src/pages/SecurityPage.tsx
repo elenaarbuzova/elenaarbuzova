@@ -44,11 +44,10 @@ export function SecurityPage() {
         <Reveal>
           <Eyebrow>Security</Eyebrow>
           <h1 className="max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
-            Built for labs that treat knowledge as IP.
+            Security for laboratory documents
           </h1>
           <p className="mt-6 max-w-xl text-zinc-400">
-            LabAgent is designed for biotech, pharma, and regulated R&D — where provenance and
-            isolation matter as much as speed.
+            Workspaces are isolated. Enterprise adds SSO, private routing, and audit export.
           </p>
         </Reveal>
 
@@ -66,10 +65,10 @@ export function SecurityPage() {
 
         <Reveal delay={0.2}>
           <div className="mt-16 rounded-2xl border border-black/[0.08] bg-zinc-50 p-10">
-            <h2 className="text-xl font-semibold">Audit-ready trails</h2>
+            <h2 className="text-xl font-semibold">Query history</h2>
             <p className="mt-3 max-w-2xl text-sm text-zinc-400">
-              Every query can retain source provenance for inspection. Enterprise unlocks immutable
-              audit log export for GLP and quality systems.
+              Each answer can retain the query and cited sources. Enterprise exports that
+              history for quality review.
             </p>
             <Link href="/signup" className="mt-8 inline-block">
               <Button variant="accent">Start free</Button>

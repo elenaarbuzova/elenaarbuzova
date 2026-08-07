@@ -22,6 +22,8 @@ export type KnowledgeFile = {
   statusDetail?: string;
   /** Where the document entered the knowledge base */
   source?: 'upload' | 'chat';
+  /** Indexed text excerpt used for grounded answers in the prototype */
+  excerpt?: string;
 };
 
 export type ChatMessage = {
@@ -71,33 +73,33 @@ export const PLANS = {
     name: 'Starter',
     price: 0,
     annualPrice: 0,
-    description: 'Prove the value on a single research workspace.',
+    description: 'One workspace. Enough to try LabAgent on a real protocol library.',
     features: [
-      '500 indexed pages',
-      '1 research assistant',
+      '1 workspace',
+      '20 documents',
+      '1 assistant',
       'Protocol search',
-      'Basic citations',
-      'LabAgent branding',
+      'Source citations',
     ],
-    limits: { chatbots: 1, documents: 20, pages: 500, chats: 1000 },
+    limits: { chatbots: 1, documents: 20, pages: 20, chats: 1000, workspaces: 1 },
     highlighted: false,
   },
   research: {
     id: 'research' as const,
     name: 'Research',
-    price: 149,
-    annualPrice: 119,
-    description: 'For biotech teams accelerating discovery every day.',
+    price: 49,
+    annualPrice: 39,
+    description: 'For labs that keep protocols and papers in one place.',
     features: [
       'Unlimited documents',
-      'Protocol AI',
+      'Unlimited workspaces',
+      'Embeddable widget',
+      'Usage analytics',
+      'Team members',
       'Source citations',
-      'SOP navigation',
-      'Analytics & accuracy',
       'Remove LabAgent branding',
-      'Up to 10 assistants',
     ],
-    limits: { chatbots: 10, documents: 9999, pages: 99999, chats: 50000 },
+    limits: { chatbots: 10, documents: 9999, pages: 99999, chats: 50000, workspaces: 9999 },
     highlighted: true,
   },
   enterprise: {
@@ -105,17 +107,16 @@ export const PLANS = {
     name: 'Enterprise',
     price: null as number | null,
     annualPrice: null as number | null,
-    description: 'Security, compliance, and scale for pharma & R&D orgs.',
+    description: 'SSO, audit logs, and private routing for regulated teams.',
     features: [
       'SSO & SCIM',
       'Private model routing',
       'Audit logs',
       'API & VPC options',
       'SOC 2 & GDPR',
-      'Dedicated success',
-      'Unlimited everything',
+      'Dedicated support',
     ],
-    limits: { chatbots: 9999, documents: 9999, pages: 999999, chats: 999999 },
+    limits: { chatbots: 9999, documents: 9999, pages: 999999, chats: 999999, workspaces: 9999 },
     highlighted: false,
   },
 };
@@ -129,16 +130,18 @@ export const DEFAULT_WIDGET: WidgetConfig = {
   launcherIcon: 'chat',
   size: 'medium',
   avatar: 'L',
-  greeting: 'Ask about protocols, SOPs, or publications. I cite every source.',
+  greeting:
+    'Hello. Ask about your protocols, SOPs, publications, or laboratory documentation. I answer using only the documents your organization has uploaded.',
   suggestions: [
-    'Find the CRISPR transfection protocol',
-    'What are storage conditions for reagent X?',
-    'Summarize last quarter’s assay results',
+    'How should CRISPR samples be stored?',
+    'Find SOP-014',
+    'Summarize this publication',
+    'Where is the PCR preparation protocol?',
   ],
   darkMode: false,
   showBranding: true,
   showCitations: true,
-  showConfidence: true,
+  showConfidence: false,
   enableSuggestions: true,
 };
 
@@ -156,6 +159,8 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Genetics Archive',
     tags: ['CRISPR', 'Cell Culture'],
     activeInChatbot: true,
+    excerpt:
+      'CRISPR-Cas9 transfection v3: Seed HEK293T at 2×10⁵ cells/well. Prepare RNP: 20 pmol Cas9 + 25 pmol gRNA, 10 min RT. Transfect with Lipofectamine CRISPRMAX 1:1. Change medium after 6h; assay at 48–72h. Keep Cas9 on ice.',
   },
   {
     id: 'f2',
@@ -170,6 +175,8 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Oncology R&D',
     tags: ['Compliance', 'Samples'],
     activeInChatbot: true,
+    excerpt:
+      'SOP-042 §3.2: Store reagent X at −80°C in aliquots ≤50 µL. Thaw on ice; do not refreeze more than once. Working stocks at 4°C up to 7 days protected from light. Barcode into LIMS before and after retrieval.',
   },
   {
     id: 'f3',
@@ -184,6 +191,8 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Genetics Archive',
     tags: ['mRNA', 'Review'],
     activeInChatbot: false,
+    excerpt:
+      'LNP delivery remains the dominant clinical modality for mRNA therapeutics. Ionizable lipid optimization improves endosomal escape; cold-chain-independent formulations enter Phase I.',
   },
   {
     id: 'f4',
@@ -199,6 +208,8 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Clinical PCR Trials',
     tags: ['QC', 'Assay'],
     activeInChatbot: false,
+    excerpt:
+      'Q2 QC: mean recovery 98.4%, CV 3.1%, pass rate 95.8%. Two runs flagged on Plate Reader #3.',
   },
   {
     id: 'f5',
@@ -213,6 +224,8 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Clinical PCR Trials',
     tags: ['Calibration'],
     activeInChatbot: true,
+    excerpt:
+      'Plate Reader #3 recalibrated 14 Jun after drift. Pipettes due next quarter. Freezer −80 alarms cleared.',
   },
   {
     id: 'f6',
@@ -227,13 +240,18 @@ export const SEED_FILES: KnowledgeFile[] = [
     project: 'Oncology R&D',
     tags: ['GLP', 'Regulatory'],
     activeInChatbot: false,
+    excerpt:
+      'GLP requires documented SOPs, instrument calibration logs, sample chain-of-custody, and audit-ready electronic records.',
   },
 ];
 
 export const PROJECT_COLORS: Record<string, string> = {
-  'Oncology R&D': 'bg-violet-50 text-violet-700 ring-violet-200',
-  'Clinical PCR Trials': 'bg-teal-50 text-teal-700 ring-teal-200',
-  'Genetics Archive': 'bg-amber-50 text-amber-800 ring-amber-200',
+  'Oncology R&D':
+    'bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-500/15 dark:text-violet-300 dark:ring-violet-400/25',
+  'Clinical PCR Trials':
+    'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-500/15 dark:text-teal-300 dark:ring-teal-400/25',
+  'Genetics Archive':
+    'bg-amber-50 text-amber-800 ring-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:ring-amber-400/25',
 };
 
 /** Map legacy project labels → current workspace names */
@@ -247,9 +265,16 @@ const PROJECT_RENAME: Record<string, string> = {
 
 export function migrateKnowledgeFiles(files: KnowledgeFile[]): KnowledgeFile[] {
   return files.map((f) => {
-    if (!f.project) return f;
-    const next = PROJECT_RENAME[f.project];
-    return next ? { ...f, project: next } : f;
+    let next = f;
+    if (f.project) {
+      const renamed = PROJECT_RENAME[f.project];
+      if (renamed) next = { ...next, project: renamed };
+    }
+    if (!next.excerpt) {
+      const seed = SEED_FILES.find((s) => s.id === f.id || s.name === f.name);
+      if (seed?.excerpt) next = { ...next, excerpt: seed.excerpt };
+    }
+    return next;
   });
 }
 
@@ -292,7 +317,7 @@ export const PLAYGROUND_RESPONSES: Record<
 > = {
   default: {
     answer:
-      'I can search your protocols, SOPs, publications, and assay data. Ask about a procedure, reagent, instrument, or compliance requirement — I’ll cite the exact source.',
+      'I search the documents in this workspace. Ask about a procedure, reagent, instrument, or compliance requirement — answers point back to the source.',
     sources: [
       { title: 'CRISPR_Cas9_Transfection_v3.pdf', type: 'Protocol', page: '1' },
       { title: 'SOP-042_Sample_Handling.docx', type: 'SOP' },
@@ -337,7 +362,7 @@ export const PLAYGROUND_RESPONSES: Record<
   },
   glp: {
     answer:
-      'GLP compliance for this workspace requires: documented SOPs, instrument calibration logs, sample chain-of-custody, and audit-ready electronic records. LabAgent retains query + source provenance for every answer — suitable for inspection trails.\n\nEnable **Audit Logs** on Enterprise for immutable export.',
+      'GLP work in this workspace needs documented SOPs, calibration logs, sample chain-of-custody, and records you can hand to QA. Each answer keeps the query and cited sources.\n\nEnterprise adds exportable audit logs.',
     sources: [
       { title: 'GLP_Compliance_Manual.pdf', type: 'PDF', page: '1–8' },
       { title: 'SOP-042_Sample_Handling.docx', type: 'SOP' },
@@ -378,13 +403,13 @@ export const ANALYTICS = {
     { day: 'Aug', queries: 2920 },
   ],
   weeklySeries: [
-    { day: 'Mon', queries: 1100 },
-    { day: 'Tue', queries: 1450 },
-    { day: 'Wed', queries: 1680 },
-    { day: 'Thu', queries: 1520 },
-    { day: 'Fri', queries: 2100 },
-    { day: 'Sat', queries: 780 },
-    { day: 'Sun', queries: 520 },
+    { day: 'Mon', queries: 1100, responses: 860 },
+    { day: 'Tue', queries: 1450, responses: 1180 },
+    { day: 'Wed', queries: 1680, responses: 1420 },
+    { day: 'Thu', queries: 1520, responses: 980 },
+    { day: 'Fri', queries: 2100, responses: 1760 },
+    { day: 'Sat', queries: 780, responses: 540 },
+    { day: 'Sun', queries: 520, responses: 410 },
   ],
   topQuestions: [
     { q: 'CRISPR transfection protocol steps?', count: 412 },
@@ -398,22 +423,22 @@ export const ANALYTICS = {
 export const FAQS = [
   {
     q: 'How is this different from ChatGPT?',
-    a: 'LabAgent answers only from your lab’s documents — protocols, SOPs, papers, and data — with citations. Nothing leaves your knowledge boundary unless you choose.',
+    a: 'LabAgent answers only from the documents you upload — protocols, SOPs, papers, and data. Each answer shows the source. Your files stay in your workspace.',
   },
   {
     q: 'What file types are supported?',
-    a: 'PDF, DOCX, TXT, Markdown, CSV, research papers, and structured protocols. We preserve scientific formatting, tables, and section hierarchy.',
+    a: 'PDF, DOCX, TXT, Markdown, CSV, papers, and structured protocols. Sections and tables are kept where possible.',
   },
   {
     q: 'Can it cite sources?',
-    a: 'Every answer includes source titles, document type, and page or section references so researchers can verify instantly.',
+    a: 'Yes. Answers include the document title, type, and page or section so you can open the original.',
   },
   {
     q: 'Is our data private?',
-    a: 'Yes. Datasets are isolated per workspace. Enterprise adds SSO, private routing, audit logs, and VPC options. We never train foundation models on your content.',
+    a: 'Workspaces are isolated. We do not train foundation models on your content. Enterprise adds SSO, private routing, audit logs, and VPC options.',
   },
   {
     q: 'How long does indexing take?',
-    a: 'Most protocol libraries are searchable in under two minutes. Large publication archives show live progress as chunks become available.',
+    a: 'Most protocol libraries are searchable within a few minutes. Larger archives show progress as files finish indexing.',
   },
 ];

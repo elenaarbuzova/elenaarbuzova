@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BookOpen, Clock, Shield, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -19,8 +19,8 @@ type Reason = {
 const REASONS: Reason[] = [
   {
     id: 'memory',
-    title: 'Institutional memory fades',
-    body: 'Experts leave. Protocols scatter across drives. LabAgent keeps every SOP answerable.',
+    title: 'Protocols leave with people',
+    body: 'When experts leave, SOPs sit in shared drives. LabAgent keeps them searchable.',
     icon: BookOpen,
     // Mirrored corners: 8% inset, 14% from top/bottom — card gap 0.85rem from every dot
     anchor: 'left-[8%] top-[14%] -translate-x-1/2 -translate-y-1/2',
@@ -29,8 +29,8 @@ const REASONS: Reason[] = [
   },
   {
     id: 'compliance',
-    title: 'Compliance without friction',
-    body: 'Cited answers and provenance trails — ready for GLP review and audit.',
+    title: 'Audits need provenance',
+    body: 'Cited answers and query history for GLP review.',
     icon: Shield,
     anchor: 'right-[8%] top-[14%] translate-x-1/2 -translate-y-1/2',
     cardPos: 'left-1/2 top-[calc(100%+0.85rem)] -translate-x-1/2',
@@ -38,8 +38,8 @@ const REASONS: Reason[] = [
   },
   {
     id: 'onboard',
-    title: 'Onboarding takes months',
-    body: 'New researchers get the current protocol with page numbers — not a scavenger hunt.',
+    title: 'New hires spend weeks searching',
+    body: 'They can open the current protocol with page numbers on day one.',
     icon: Users,
     anchor: 'left-[8%] bottom-[14%] -translate-x-1/2 translate-y-1/2',
     cardPos: 'left-1/2 bottom-[calc(100%+0.85rem)] -translate-x-1/2',
@@ -47,8 +47,8 @@ const REASONS: Reason[] = [
   },
   {
     id: 'velocity',
-    title: 'Decisions wait on search',
-    body: 'Seconds to a cited answer instead of hours digging through PDFs.',
+    title: 'Finding the right PDF takes too long',
+    body: 'Ask a question. Get the passage and the file it came from.',
     icon: Clock,
     anchor: 'right-[8%] bottom-[14%] translate-x-1/2 translate-y-1/2',
     cardPos: 'left-1/2 bottom-[calc(100%+0.85rem)] -translate-x-1/2',
@@ -61,17 +61,32 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 export function ReasonsOrbit({ gather = 0 }: { gather?: number }) {
   const [active, setActive] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
+  // Show hotspots when section enters view (no longer tied to sphere gather)
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          setVisible(true);
+        }
+      },
+      { threshold: [0.35, 0.5] },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Legacy gather prop still works if a parent passes it
   useEffect(() => {
     if (gather >= 0.72) setVisible(true);
-    else if (gather < 0.28) {
-      setVisible(false);
-      setActive(null);
-    }
   }, [gather]);
 
   return (
     <section
+      ref={sectionRef}
       id="reasons"
       className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center bg-transparent px-6 py-20"
     >
@@ -86,10 +101,10 @@ export function ReasonsOrbit({ gather = 0 }: { gather?: number }) {
           className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em]"
           style={{ color: '#ff4d2e' }}
         >
-          Why labs need this
+          Why this exists
         </p>
         <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
-          Knowledge that holds together.
+          Everyday lab problems.
         </h2>
       </motion.div>
 

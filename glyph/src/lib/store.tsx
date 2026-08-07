@@ -10,6 +10,7 @@ import {
 import {
   DEFAULT_WIDGET,
   migrateKnowledgeFiles,
+  PLANS,
   SEED_ACTIVITY,
   SEED_FILES,
   type ActivityItem,
@@ -128,6 +129,37 @@ const defaultState: AppState = {
   activeProjectId: DEFAULT_WORKSPACE_ID,
 };
 
+/** Isolated in-memory workspace for the landing product recording */
+function demoCaptureState(): AppState {
+  const conversations = buildSeedConversations();
+  return {
+    ...defaultState,
+    user: { name: 'Researcher', email: 'researcher@helixbio.lab' },
+    workspace: {
+      name: 'Helix Bio',
+      website: 'helixbio.lab',
+      industry: 'Biotechnology',
+    },
+    chatbot: {
+      name: 'Lab Assistant',
+      purpose: 'Protocol and SOP research',
+      language: 'English',
+      tone: 'Precise',
+      published: true,
+    },
+    onboardingStep: 'done',
+    onboardingComplete: true,
+    files: migrateKnowledgeFiles(SEED_FILES),
+    plan: 'research',
+    widget: { ...DEFAULT_WIDGET },
+    activity: SEED_ACTIVITY,
+    trained: true,
+    conversations,
+    activeConversationId: conversations[0]?.id ?? null,
+    activeProjectId: DEFAULT_WORKSPACE_ID,
+  };
+}
+
 function migrateConversations(conversations: Conversation[]): Conversation[] {
   const mapped = conversations.map((c) => ({
     ...c,
@@ -165,20 +197,31 @@ function loadState(): AppState {
 
 const AppContext = createContext<(AppState & AppActions) | null>(null);
 
-export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AppState>(() =>
-    typeof window === 'undefined' ? defaultState : loadState(),
-  );
+export function AppProvider({
+  children,
+  mode = 'default',
+}: {
+  children: ReactNode;
+  /** demo-capture = in-memory Research workspace for landing screen recording */
+  mode?: 'default' | 'demo-capture';
+}) {
+  const persist = mode === 'default';
+  const [state, setState] = useState<AppState>(() => {
+    if (typeof window === 'undefined') return defaultState;
+    if (mode === 'demo-capture') return demoCaptureState();
+    return loadState();
+  });
 
   useEffect(() => {
+    if (!persist) return;
     const {
       showPaywall: _,
       paywallReason: __,
       showSettings: ___,
-      ...persist
+      ...persistable
     } = state;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(persist));
-  }, [state]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(persistable));
+  }, [state, persist]);
 
   const signUp = useCallback((user: User) => {
     setState((s) => ({
@@ -224,7 +267,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         },
         chatbot: s.chatbot ?? {
           name: 'Lab Assistant',
-          purpose: 'Answers research questions from your protocols, SOPs, and publications.',
+          purpose: 'Answers from uploaded protocols, SOPs, and publications.',
           language: 'English',
           tone: 'Precise',
           published: true,
@@ -279,7 +322,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ...(s.chatbot
           ? {}
           : {
-              greeting: `Ask ${chatbot.name} about protocols, SOPs, or publications.`,
+              greeting: `Hello. Ask ${chatbot.name} about your protocols, SOPs, or laboratory documentation. Answers come only from documents your organization has uploaded.`,
             }),
       },
       onboardingStep: s.onboardingComplete ? s.onboardingStep : 'knowledge',
@@ -413,7 +456,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const canAddDocument = useCallback(() => {
-    const limit = state.plan === 'starter' ? 20 : 9999;
+    const limit = PLANS[state.plan].limits.documents;
     return state.files.length < limit;
   }, [state.files.length, state.plan]);
 

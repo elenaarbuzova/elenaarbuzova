@@ -21,10 +21,10 @@ export function NotFoundPage() {
         transition={{ delay: 0.05 }}
         className="mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl"
       >
-        This sequence isn’t in the library.
+        Page not found
       </motion.h1>
       <p className="mt-4 max-w-md text-sm text-zinc-400">
-        The page you’re looking for doesn’t exist — or was moved when we reorganized the genome.
+        This URL doesn’t match a page in LabAgent.
       </p>
       <div className="mt-10 flex gap-3">
         <Link href="/">

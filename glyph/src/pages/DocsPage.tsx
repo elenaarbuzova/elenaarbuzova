@@ -8,35 +8,35 @@ const sections = [
   {
     title: 'Getting started',
     items: [
-      'Create a workspace for your lab or R&D org',
+      'Create a workspace for your lab',
       'Upload protocols, SOPs, and publications',
-      'Generate a research assistant with citations enabled',
-      'Ask your first scientific question in Chat',
+      'Ask a question in Chat — answers list sources',
+      'Optional: copy an embed for your portal',
     ],
   },
   {
-    title: 'Knowledge ingestion',
+    title: 'Knowledge',
     items: [
-      'Supported: PDF, DOCX, TXT, Markdown, CSV, research papers',
-      'Structure-aware chunking preserves sections and tables',
-      'Tags and collections organize institutional memory',
-      'Re-index when SOPs are revised — version awareness coming soon',
+      'Supported: PDF, DOCX, TXT, Markdown, CSV, papers',
+      'Sections and tables are kept where possible',
+      'Tags and folders help organize the library',
+      'Re-index when an SOP is revised',
     ],
   },
   {
-    title: 'Citations & trust',
+    title: 'Citations',
     items: [
-      'Every answer includes source title, type, and page/section',
-      'Confidence scores reflect retrieval strength',
-      'Researchers can open the original document from the citation chip',
+      'Answers include source title, type, and page or section',
+      'Confidence reflects retrieval strength',
+      'Open the original document from the citation chip',
     ],
   },
   {
-    title: 'Embed & API',
+    title: 'Embed',
     items: [
-      'iframe, JavaScript snippet, React, and Vue embeds',
-      'API keys under Settings → API Keys',
-      'Enterprise: SSO, audit logs, private model routing',
+      'Script tag or iframe from Embed builder',
+      'Appearance and greeting are editable in the builder',
+      'Enterprise: SSO, audit logs, private routing',
     ],
   },
 ];
@@ -62,10 +62,10 @@ export function DocsPage() {
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <Eyebrow>Documentation</Eyebrow>
         <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
-          Build a scientific assistant
+          How LabAgent works
         </h1>
         <p className="mt-5 text-zinc-400">
-          Concise reference for LabAgent — enough to ship a prototype tomorrow.
+          Short reference for the prototype — upload, ask, cite, embed.
         </p>
 
         <div className="mt-16 space-y-12">

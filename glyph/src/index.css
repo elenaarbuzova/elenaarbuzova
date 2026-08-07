@@ -37,7 +37,7 @@
   --surface: #ffffff;
   --surface-2: #f4f4f5;
   --ink: #0a0a0a;
-  --muted: #71717a;
+  --muted: #52525b;
   --line: rgba(0, 0, 0, 0.06);
   --line-strong: rgba(0, 0, 0, 0.12);
   --accent: #ff4d2e;
@@ -148,6 +148,22 @@ body {
   min-height: 100vh;
 }
 
+/* App shell: lock document scroll so pages like Analytics can't grow the page */
+html.app-locked,
+html.app-locked body {
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+html.app-locked #root {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
 h1,
 h2,
 h3,
@@ -205,18 +221,95 @@ button {
   text-stroke: 1.5px rgba(10, 10, 10, 0.9);
 }
 
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(24, 24, 27, 0.22) transparent;
+}
+
 .scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-button,
+.scrollbar-thin::-webkit-scrollbar-button:start:decrement,
+.scrollbar-thin::-webkit-scrollbar-button:end:increment,
+.scrollbar-thin::-webkit-scrollbar-button:vertical:start:decrement,
+.scrollbar-thin::-webkit-scrollbar-button:vertical:end:increment,
+.scrollbar-thin::-webkit-scrollbar-button:horizontal:start:decrement,
+.scrollbar-thin::-webkit-scrollbar-button:horizontal:end:increment {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
-  border-radius: 99px;
+  background: rgba(24, 24, 27, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
-.scrollbar-thin::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 24, 27, 0.32);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track,
+.scrollbar-thin::-webkit-scrollbar-track-piece,
+.scrollbar-thin::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Global: kill Windows scrollbar arrow boxes in dark mode */
+.dark *::-webkit-scrollbar-button,
+.dark *::-webkit-scrollbar-button:start:decrement,
+.dark *::-webkit-scrollbar-button:end:increment,
+.dark *::-webkit-scrollbar-button:vertical:start:decrement,
+.dark *::-webkit-scrollbar-button:vertical:end:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.dark * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+.dark *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.dark *::-webkit-scrollbar-track,
+.dark *::-webkit-scrollbar-track-piece,
+.dark *::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 @keyframes blink {

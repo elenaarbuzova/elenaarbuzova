@@ -110,11 +110,10 @@ export function ResearchNetwork({ items }: { items: Testimonial[] }) {
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20">
           <div className="max-w-xl">
             <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-5xl">
-              Researchers, not marketers.
+              From labs using LabAgent
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-zinc-500 md:text-base">
-              You don’t have to trust our pitch — hear it from discovery teams
-              who need answers they can cite.
+              Short notes from discovery and ops teams who need cited answers.
             </p>
           </div>
 

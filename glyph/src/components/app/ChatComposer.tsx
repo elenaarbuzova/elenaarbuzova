@@ -9,8 +9,10 @@ import {
   X,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { PLANS } from '@/lib/data';
 import { useApp } from '@/lib/store';
-import type { KnowledgeFile } from '@/lib/data';
+import { knowledgeFileFromUpload } from '@/lib/upload';
+import { createSampleProtocolFile } from '@/lib/sampleUpload';
 import { getWorkspace } from '@/lib/workspaces';
 import { cn } from '@/lib/utils';
 
@@ -26,8 +28,6 @@ export type ChatSendPayload = {
   file?: { id: string; name: string };
 };
 
-const DEMO_FILE = 'company_policy.pdf';
-const DEMO_SIZE = '2.4 MB';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 type Props = {
@@ -47,15 +47,21 @@ export function ChatComposer({ disabled, onSend }: Props) {
   const activeProject = getWorkspace(activeProjectId);
   const [input, setInput] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuSuccess, setMenuSuccess] = useState<string | null>(null);
   const [attachment, setAttachment] = useState<PendingAttachment | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const progressRef = useRef<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const menuCloseTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const onPointer = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setMenuOpen(false);
+      if (!rootRef.current?.contains(e.target as Node)) {
+        setMenuOpen(false);
+        setMenuSuccess(null);
+      }
     };
     document.addEventListener('mousedown', onPointer);
     return () => document.removeEventListener('mousedown', onPointer);
@@ -64,6 +70,7 @@ export function ChatComposer({ disabled, onSend }: Props) {
   useEffect(() => {
     return () => {
       if (progressRef.current) window.clearInterval(progressRef.current);
+      if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
     };
   }, []);
 
@@ -83,45 +90,39 @@ export function ChatComposer({ disabled, onSend }: Props) {
     setAttachment(null);
   };
 
-  const commitToKnowledge = (id: string, name: string) => {
-    if (files.some((f) => f.id === id)) return;
-    if (!canAddDocument()) {
-      openPaywall('Starter is limited to 20 documents. Upgrade for unlimited knowledge.');
-      clearAttachment();
-      return;
-    }
-    const doc: KnowledgeFile = {
-      id,
-      name,
-      type: 'pdf',
-      status: 'processing',
-      size: DEMO_SIZE,
-      sizeBytes: 1_200_000,
-      uploadedAt: new Date().toLocaleDateString('en-US', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }),
-      addedAt: Date.now(),
-      folder: 'Chat uploads',
-      project: activeProject.name,
-      tags: ['Chat'],
-      source: 'chat',
-      activeInChatbot: true,
-    };
-    addFiles([doc]);
-    window.setTimeout(() => {
-      updateFile(id, { status: 'ready' });
-    }, 2200);
+  const finishMenuSuccess = (name: string) => {
+    setMenuSuccess(name);
+    if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
+    menuCloseTimer.current = window.setTimeout(() => {
+      setMenuOpen(false);
+      setMenuSuccess(null);
+      menuCloseTimer.current = null;
+    }, 1100);
   };
 
-  const startUpload = () => {
-    setMenuOpen(false);
-    const id = `chat-${Date.now()}`;
-    setAttachment({ id, name: DEMO_FILE, status: 'uploading', progress: 0 });
+  const startSampleUpload = () => {
+    if (!canAddDocument()) {
+      setMenuOpen(false);
+      openPaywall(
+        `Starter is limited to ${PLANS.starter.limits.documents} documents. Research removes the limit.`,
+      );
+      return;
+    }
+
+    const doc = createSampleProtocolFile({
+      project: activeProject.name,
+      source: 'chat',
+      folder: 'Chat uploads',
+    });
+    doc.tags = ['Chat', 'Uploaded'];
+
+    setAttachment({ id: doc.id, name: doc.name, status: 'uploading', progress: 0 });
+    addFiles([doc]);
+    toast.success('File uploaded successfully');
+    finishMenuSuccess(doc.name);
 
     const started = performance.now();
-    const duration = 1700;
+    const duration = 900;
     if (progressRef.current) window.clearInterval(progressRef.current);
 
     progressRef.current = window.setInterval(() => {
@@ -129,19 +130,69 @@ export function ChatComposer({ disabled, onSend }: Props) {
       const eased = 1 - Math.pow(1 - t, 3);
       const progress = Math.round(eased * 100);
       setAttachment((prev) =>
-        prev && prev.id === id ? { ...prev, progress } : prev,
+        prev && prev.id === doc.id ? { ...prev, progress } : prev,
       );
       if (t >= 1) {
         if (progressRef.current) window.clearInterval(progressRef.current);
         progressRef.current = null;
         setAttachment((prev) =>
-          prev && prev.id === id
+          prev && prev.id === doc.id
             ? { ...prev, progress: 100, status: 'ready' }
             : prev,
         );
-        commitToKnowledge(id, DEMO_FILE);
+        updateFile(doc.id, { status: 'ready', activeInChatbot: true });
       }
     }, 16);
+  };
+
+  const startUpload = async (file: File) => {
+    if (!canAddDocument()) {
+      setMenuOpen(false);
+      openPaywall(
+        `Starter is limited to ${PLANS.starter.limits.documents} documents. Research removes the limit.`,
+      );
+      return;
+    }
+
+    const doc = await knowledgeFileFromUpload(file, {
+      project: activeProject.name,
+      source: 'chat',
+      folder: 'Chat uploads',
+    });
+    doc.tags = ['Chat', 'Uploaded'];
+    doc.activeInChatbot = true;
+
+    setAttachment({ id: doc.id, name: doc.name, status: 'uploading', progress: 0 });
+    addFiles([doc]);
+    toast.success('File uploaded successfully');
+    finishMenuSuccess(doc.name);
+
+    const started = performance.now();
+    const duration = 900;
+    if (progressRef.current) window.clearInterval(progressRef.current);
+
+    progressRef.current = window.setInterval(() => {
+      const t = Math.min(1, (performance.now() - started) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const progress = Math.round(eased * 100);
+      setAttachment((prev) =>
+        prev && prev.id === doc.id ? { ...prev, progress } : prev,
+      );
+      if (t >= 1) {
+        if (progressRef.current) window.clearInterval(progressRef.current);
+        progressRef.current = null;
+        setAttachment((prev) =>
+          prev && prev.id === doc.id
+            ? { ...prev, progress: 100, status: 'ready' }
+            : prev,
+        );
+        updateFile(doc.id, { status: 'ready', activeInChatbot: true });
+      }
+    }, 16);
+  };
+
+  const pickFile = () => {
+    startSampleUpload();
   };
 
   const canSend =
@@ -207,7 +258,7 @@ export function ChatComposer({ disabled, onSend }: Props) {
                   <p className="mt-0.5 text-[11px] text-zinc-400">
                     {attachment.status === 'uploading'
                       ? `Uploading… ${attachment.progress}%`
-                      : 'In Knowledge Base · Ready to send'}
+                      : 'File uploaded successfully · Ready to send'}
                   </p>
                 </div>
                 <button
@@ -255,45 +306,85 @@ export function ChatComposer({ disabled, onSend }: Props) {
             <div className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_12px_40px_rgba(0,0,0,0.1)]">
               <button
                 type="button"
-                onClick={startUpload}
+                onClick={pickFile}
+                disabled={!!menuSuccess}
                 onDragEnter={(e) => {
                   e.preventDefault();
-                  setDragOver(true);
+                  if (!menuSuccess) setDragOver(true);
                 }}
                 onDragOver={(e) => e.preventDefault()}
                 onDragLeave={() => setDragOver(false)}
                 onDrop={(e) => {
                   e.preventDefault();
                   setDragOver(false);
-                  startUpload();
+                  if (menuSuccess) return;
+                  const f = e.dataTransfer.files?.[0];
+                  if (f) void startUpload(f);
                 }}
                 className={cn(
                   'flex w-full flex-col items-center justify-center rounded-xl border border-dashed px-4 py-7 text-center transition-all duration-300 ease-in-out',
-                  dragOver
-                    ? 'border-blue-400 bg-blue-50/60'
-                    : 'border-black/15 bg-zinc-50/80 hover:border-black/25 hover:bg-zinc-50',
+                  menuSuccess
+                    ? 'border-emerald-500/40 bg-emerald-50'
+                    : dragOver
+                      ? 'border-blue-400 bg-blue-50/60'
+                      : 'border-black/15 bg-zinc-50/80 hover:border-black/25 hover:bg-zinc-50',
                 )}
               >
-                <CloudUpload
-                  className={cn(
-                    'h-6 w-6 transition-colors duration-300',
-                    dragOver ? 'text-blue-500' : 'text-zinc-400',
-                  )}
-                />
-                <p className="mt-2.5 text-[12px] font-medium text-zinc-700">
-                  Drop a file here or click to upload
-                </p>
-                <p className="mt-1 text-[10px] text-zinc-400">PDF, DOCX, TXT · demo</p>
+                {menuSuccess ? (
+                  <>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white">
+                      <Check className="h-4 w-4" strokeWidth={3} />
+                    </div>
+                    <p className="mt-2.5 text-[12px] font-medium text-emerald-700">
+                      File uploaded successfully
+                    </p>
+                    <p className="mt-1 truncate px-2 text-[10px] text-emerald-600/80">
+                      {menuSuccess}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <CloudUpload
+                      className={cn(
+                        'h-6 w-6 transition-colors duration-300',
+                        dragOver ? 'text-blue-500' : 'text-zinc-400',
+                      )}
+                    />
+                    <p className="mt-2.5 text-[12px] font-medium text-zinc-700">
+                      Drop a file here or click to upload
+                    </p>
+                    <p className="mt-1 text-[10px] text-zinc-400">
+                      PDF, DOCX, TXT, MD, CSV — indexed into Knowledge
+                    </p>
+                  </>
+                )}
               </button>
             </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
 
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.docx,.doc,.txt,.md,.csv,application/pdf,text/plain,text/markdown,text/csv"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) void startUpload(f);
+          e.target.value = '';
+        }}
+      />
+
       <div className="flex items-end gap-2 rounded-2xl border border-black/[0.08] bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out focus-within:border-black/15 focus-within:shadow-[0_10px_36px_rgba(0,0,0,0.08)]">
         <button
           type="button"
-          onClick={() => setMenuOpen((v) => !v)}
+          onClick={() =>
+            setMenuOpen((v) => {
+              if (v) setMenuSuccess(null);
+              return !v;
+            })
+          }
           disabled={disabled || attachment?.status === 'uploading'}
           className={cn(
             'mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-zinc-400 transition-all duration-300 ease-in-out hover:bg-zinc-100 hover:text-zinc-700 disabled:opacity-40',
@@ -315,7 +406,7 @@ export function ChatComposer({ disabled, onSend }: Props) {
             }
           }}
           rows={1}
-          placeholder="Ask a scientific question…"
+          placeholder="Ask about a protocol or SOP…"
           disabled={disabled}
           className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent py-2.5 text-sm text-black outline-none placeholder:text-zinc-400 disabled:opacity-50"
         />

@@ -3,11 +3,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Check, ChevronDown, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
 import {
+  DEFAULT_WORKSPACE_ID,
   WORKSPACES,
   WorkspaceAnchor,
   type Workspace,
   type WorkspaceId,
 } from '@/lib/workspaces';
+import { PremiumLock } from '@/components/ui/PremiumLock';
+import { useApp } from '@/lib/store';
 import { cn } from '@/lib/utils';
 
 const COLOR_OPTS = [
@@ -29,6 +32,8 @@ export function WorkspacesSection({
   onSelect: (id: WorkspaceId | null) => void;
   onClose?: () => void;
 }) {
+  const { plan, openPaywall } = useApp();
+  const isFree = plan === 'starter';
   const [items, setItems] = useState<Workspace[]>(WORKSPACES);
   const [open, setOpen] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -36,6 +41,9 @@ export function WorkspacesSection({
   const [draftColor, setDraftColor] = useState(COLOR_OPTS[0]);
   const [headerHover, setHeaderHover] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const isWorkspaceLocked = (id: WorkspaceId) =>
+    isFree && id !== DEFAULT_WORKSPACE_ID;
 
   const toggleOpen = () => {
     setOpen((v) => {
@@ -48,6 +56,12 @@ export function WorkspacesSection({
   };
 
   const startCreate = () => {
+    if (isFree) {
+      openPaywall(
+        'Starter includes one workspace. Research adds more workspaces for separate projects.',
+      );
+      return;
+    }
     if (!open) setOpen(true);
     setCreating(true);
     setDraftName('');
@@ -86,6 +100,16 @@ export function WorkspacesSection({
     toast.success(`Workspace “${name}” created`);
   };
 
+  const selectWorkspace = (id: WorkspaceId) => {
+    if (isWorkspaceLocked(id)) {
+      openPaywall(
+        'Other workspaces are on the Research plan.',
+      );
+      return;
+    }
+    onSelect(id);
+  };
+
   return (
     <div className="flex min-h-0 flex-1 flex-col px-1.5">
       <div
@@ -106,7 +130,7 @@ export function WorkspacesSection({
           >
             <ChevronDown className="h-3 w-3" strokeWidth={2.5} />
           </motion.span>
-          <span className="text-[11px] font-semibold lowercase tracking-[0.04em] text-zinc-500">
+          <span className="text-[11px] font-semibold lowercase tracking-[0.04em] text-zinc-600 dark:text-zinc-400">
             workspaces
           </span>
         </button>
@@ -155,32 +179,47 @@ export function WorkspacesSection({
             <div className="space-y-0.5">
               {items.map((ws) => {
                 const active = activeId === ws.id;
+                const locked = isWorkspaceLocked(ws.id);
                 return (
                   <button
                     key={ws.id}
                     type="button"
-                    onClick={() => onSelect(ws.id)}
+                    onClick={() => selectWorkspace(ws.id)}
                     className={cn(
                       'flex w-full items-center gap-2.5 rounded-lg border-l-2 px-2 py-1.5 text-left transition-all duration-150 ease-in-out',
-                      active
+                      active && !locked
                         ? cn(ws.border, ws.activeBg, 'text-zinc-900 dark:text-zinc-100')
-                        : 'border-transparent text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800/40 dark:hover:text-zinc-100',
+                        : locked
+                          ? 'border-transparent text-zinc-400/70 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/30'
+                          : 'border-transparent text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800/40 dark:hover:text-zinc-100',
                     )}
                   >
                     <WorkspaceAnchor color={ws.color} glow={ws.glow} shape={ws.shape} />
                     <span className="min-w-0 flex-1 truncate text-xs font-medium">
                       {ws.name}
                     </span>
-                    <span
-                      className={cn(
-                        'font-mono text-[10px] tabular-nums',
-                        active
-                          ? 'text-zinc-500 dark:text-zinc-400'
-                          : 'text-zinc-400/80',
-                      )}
-                    >
-                      {ws.count}
-                    </span>
+                    {locked ? (
+                      <PremiumLock
+                        size={16}
+                        label="Research plan"
+                        onClick={() =>
+                          openPaywall(
+                            'Other workspaces are on the Research plan.',
+                          )
+                        }
+                      />
+                    ) : (
+                      <span
+                        className={cn(
+                          'font-mono text-[10px] tabular-nums',
+                          active
+                            ? 'text-zinc-600 dark:text-zinc-400'
+                            : 'text-zinc-500 dark:text-zinc-500',
+                        )}
+                      >
+                        {ws.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}

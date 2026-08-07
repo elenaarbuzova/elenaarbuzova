@@ -5,7 +5,7 @@ import { Logo } from '@/components/ui/Logo';
 import { cn } from '@/lib/utils';
 
 const links = [
-  { href: '#reasons', label: 'Solutions' },
+  { href: '#demo', label: 'Demo' },
   { href: '#features', label: 'Features' },
   { href: '#testimonials', label: 'Customers' },
   { href: '#pricing', label: 'Pricing' },
@@ -25,8 +25,8 @@ export function LandingNav() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-        scrolled ? 'bg-white/85 backdrop-blur-md' : 'bg-transparent',
+        'fixed inset-x-0 top-0 z-50 border-b border-black/[0.08] transition-all duration-300',
+        scrolled ? 'bg-white/85 backdrop-blur-md' : 'bg-white/70 backdrop-blur-sm',
       )}
     >
       <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6 md:h-[72px]">

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -6,11 +6,12 @@ import {
   Check,
 } from 'lucide-react';
 import { LandingNav } from '@/components/landing/LandingNav';
-import { ReasonsOrbit } from '@/components/landing/ReasonsOrbit';
 import { LandingChatWidget } from '@/components/landing/LandingChatWidget';
+import { DemoVideoFullscreen } from '@/components/landing/DemoVideoFullscreen';
 import { HowItWorksSticky } from '@/components/landing/HowItWorksSticky';
 import { FeatureShowcase } from '@/components/landing/FeatureShowcase';
 import { ResearchNetwork } from '@/components/landing/ResearchNetwork';
+import { CtaParticleFrame } from '@/components/landing/CtaParticleFrame';
 import { DnaBackground } from '@/components/background/DnaBackground';
 import { Reveal, Section } from '@/components/ui/Reveal';
 import { Logo } from '@/components/ui/Logo';
@@ -20,7 +21,7 @@ import { cn } from '@/lib/utils';
 const testimonials = [
   {
     quote:
-      'LabAgent replaced our SharePoint scavenger hunts. New hires ask the AI for an SOP and get the exact protocol with page-level citations — usually in under a minute. It feels like institutional memory that never leaves the lab.',
+      'We stopped digging through SharePoint for SOPs. New hires ask for a protocol and get the right version with page numbers — usually in under a minute.',
     name: 'Dr. Amira Hassan',
     role: 'Head of Discovery at Helix Bio',
     photo:
@@ -28,7 +29,7 @@ const testimonials = [
   },
   {
     quote:
-      'What sold us on LabAgent was the citation quality. It isn’t a generic chatbot — it answers only from our papers, SOPs, and datasets, and every claim links back to a source. Scientists finally trust the AI enough to use it at the bench.',
+      'The citations are what matter. It answers from our papers and SOPs only, and every claim links back to a source. People actually use it at the bench.',
     name: 'James Okonkwo',
     role: 'VP R&D Operations at Northstar Pharma',
     photo:
@@ -36,7 +37,7 @@ const testimonials = [
   },
   {
     quote:
-      'Protocol deviations dropped once LabAgent became the single source of truth. The AI always surfaces the current SOP version, flags critical steps, and cites the document — so people stop improvising from outdated PDFs.',
+      'Fewer protocol deviations once everyone pulled from the same documents. It surfaces the current SOP and cites the section — less improvising from old PDFs.',
     name: 'Elena Vogt',
     role: 'Lab Manager at Cascade Genomics',
     photo:
@@ -44,7 +45,7 @@ const testimonials = [
   },
   {
     quote:
-      'Onboarding used to take a full quarter of shadowing. With LabAgent, scientists query our corpus on day one — reagents, methods, safety notes — and run safer experiments sooner. The AI compresses years of tribal knowledge into a searchable assistant.',
+      'Onboarding used to mean months of shadowing. Now scientists ask about reagents and methods on day one, from the same docs the rest of the lab uses.',
     name: 'Marcus Chen',
     role: 'Director of Research Ops at Meridian Labs',
     photo:
@@ -52,7 +53,7 @@ const testimonials = [
   },
   {
     quote:
-      'Audit prep went from a scramble to a checklist. LabAgent’s answers carry provenance we can hand straight to QA — who asked what, which protocol was cited, and when. It’s the first research AI that feels built for compliance, not demos.',
+      'Audit prep is quieter. Answers keep who asked what, which protocol was cited, and when — records we can hand to QA without rebuilding the trail.',
     name: 'Sofia Alvarez',
     role: 'Quality Lead at Vertex Bio',
     photo:
@@ -73,7 +74,7 @@ function PillBlack({
     <Link href={href}>
       <span
         className={cn(
-          'inline-flex h-12 items-center justify-center rounded-full bg-black px-6 text-[12px] font-semibold tracking-wide text-white transition-colors hover:bg-zinc-800',
+          'inline-flex h-12 items-center justify-center rounded-full bg-black px-6 text-[13px] font-semibold tracking-wide text-white transition-colors hover:bg-zinc-800',
           className,
         )}
       >
@@ -87,26 +88,51 @@ function PillOutline({
   children,
   className,
   href,
+  newTab = false,
 }: {
   children: React.ReactNode;
   className?: string;
   href: string;
+  newTab?: boolean;
 }) {
+  const pillClass = cn(
+    'inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-[13px] font-semibold tracking-wide text-black transition-colors hover:bg-zinc-50',
+    className,
+  );
+  const pillStyle = {
+    border: '1.5px solid transparent',
+    backgroundImage:
+      'linear-gradient(#fff, #fff), linear-gradient(105deg, #ff4d2e, #ff8a3d)',
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'padding-box, border-box',
+  } as const;
+
+  if (newTab) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={pillClass}
+        style={pillStyle}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  // Same-page anchors (#features) need a native <a> for smooth scroll
+  if (href.startsWith('#')) {
+    return (
+      <a href={href} className={pillClass} style={pillStyle}>
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link href={href}>
-      <span
-        className={cn(
-          'inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-[12px] font-semibold tracking-wide text-black transition-colors hover:bg-zinc-50',
-          className,
-        )}
-        style={{
-          border: '1.5px solid transparent',
-          backgroundImage:
-            'linear-gradient(#fff, #fff), linear-gradient(105deg, #ff4d2e, #ff8a3d)',
-          backgroundOrigin: 'border-box',
-          backgroundClip: 'padding-box, border-box',
-        }}
-      >
+      <span className={pillClass} style={pillStyle}>
         {children}
       </span>
     </Link>
@@ -115,22 +141,14 @@ function PillOutline({
 
 export function LandingPage() {
   const [openFaq, setOpenFaq] = useState(0);
-  const [gather, setGather] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const reasonsRef = useRef<HTMLDivElement>(null);
-  const onGatherChange = useCallback((t: number) => setGather(t), []);
 
   return (
     <div
       ref={scrollRef}
       className="relative min-h-screen overflow-x-clip bg-white text-black"
     >
-      <DnaBackground
-        scrollTarget={scrollRef}
-        reasonsTarget={reasonsRef}
-        theme="light"
-        onGatherChange={onGatherChange}
-      />
+      <DnaBackground scrollTarget={scrollRef} theme="light" />
       <LandingNav />
       <LandingChatWidget />
       {/* HERO — Casely split composition */}
@@ -165,9 +183,9 @@ export function LandingPage() {
               transition={{ duration: 0.7, delay: 0.06 }}
               className="font-display text-[2.5rem] font-bold leading-[1.05] tracking-[-0.045em] text-black md:text-[3.75rem] lg:text-[4.25rem]"
             >
-              Turn every research
+              Search protocols,
               <br />
-              document into
+              publications, and SOPs
             </motion.h1>
 
             <motion.p
@@ -176,12 +194,12 @@ export function LandingPage() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="mt-6 max-w-sm text-sm leading-relaxed text-zinc-500 md:text-[15px]"
             >
-              LabAgent transforms protocols, publications, and SOPs into a secure research
-              assistant — with citations your scientists can trust.
+              A research assistant built from your laboratory documents. Answers include
+              the source.
             </motion.p>
           </div>
 
-          {/* Spacer for DNA */}
+          {/* Spacer for particles */}
           <div className="pointer-events-none flex-1" aria-hidden />
 
           {/* Bottom-right cluster */}
@@ -192,7 +210,7 @@ export function LandingPage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="font-display text-[2.5rem] font-bold leading-[1.05] tracking-[-0.045em] text-black md:text-[3.75rem] lg:text-[4.25rem]"
             >
-              an AI scientist.
+              from one place.
             </motion.h2>
 
             <motion.div
@@ -201,17 +219,17 @@ export function LandingPage() {
               transition={{ duration: 0.55, delay: 0.32 }}
               className="mt-8 flex flex-wrap items-center gap-3 md:justify-end"
             >
-              <PillBlack href="/tutorial">START FOR FREE</PillBlack>
-              <PillOutline href="/signup">LEARN MORE</PillOutline>
+              <PillBlack href="/signup">Start free</PillBlack>
+              <PillOutline href="#demo" className="font-medium">
+                See how it works
+              </PillOutline>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* WHY — stars gather into sphere + hotspot reasons */}
-      <div ref={reasonsRef}>
-        <ReasonsOrbit gather={gather} />
-      </div>
+      {/* DEMO — autonomous product reel (no recording needed) */}
+      <DemoVideoFullscreen />
 
       {/* HOW — Apple-style sticky scroll */}
       <HowItWorksSticky />
@@ -233,10 +251,10 @@ export function LandingPage() {
               Pricing
             </p>
             <h2 className="max-w-xl font-display text-3xl font-bold tracking-tight text-black md:text-5xl">
-              Simple, transparent pricing
+              Pricing
             </h2>
             <p className="mt-3 max-w-md text-sm text-zinc-500 md:text-base">
-              No contracts. No surprise fees.
+              Monthly billing. Cancel anytime.
             </p>
           </Reveal>
 
@@ -323,7 +341,7 @@ export function LandingPage() {
             FAQ
           </p>
           <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-5xl">
-            Straight answers.
+            Questions
           </h2>
         </Reveal>
         <div className="mt-14 max-w-3xl space-y-3">
@@ -359,20 +377,20 @@ export function LandingPage() {
       {/* CTA */}
       <Section className="bg-white">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-black/[0.06] bg-zinc-50 px-8 py-16 text-center md:px-16 md:py-24">
+          <CtaParticleFrame className="rounded-3xl border border-orange-200/70 bg-zinc-50 px-8 py-16 text-center md:px-16 md:py-24">
             <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-5xl">
-              Give your lab a memory
+              Start with the documents
               <br />
-              that never leaves.
+              you already have.
             </h2>
             <p className="mx-auto mt-6 max-w-md text-zinc-500">
-              Start with one protocol library. Ship a research assistant before the next experiment.
+              Upload a protocol library. Ask a question. Read the cited answer.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <PillBlack href="/signup">START FREE</PillBlack>
-              <PillOutline href="/docs">READ THE DOCS</PillOutline>
+              <PillBlack href="/signup">Start free</PillBlack>
+              <PillOutline href="/docs">Read the docs</PillOutline>
             </div>
-          </div>
+          </CtaParticleFrame>
         </Reveal>
       </Section>
 
@@ -381,13 +399,16 @@ export function LandingPage() {
           <div>
             <Logo variant="light" />
             <p className="mt-4 max-w-xs text-sm text-zinc-500">
-              AI knowledge platform for scientific laboratories, biotech, and R&D teams.
+              Document search and cited answers for laboratory teams.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <div>
               <p className="text-xs uppercase tracking-widest text-zinc-400">Product</p>
               <div className="mt-4 flex flex-col gap-2.5 text-sm text-zinc-500">
+                <a href="#demo" className="hover:text-black">
+                  Demo
+                </a>
                 <a href="#features" className="hover:text-black">
                   Features
                 </a>
@@ -405,9 +426,9 @@ export function LandingPage() {
                 <Link href="/security" className="hover:text-black">
                   Security
                 </Link>
-                <Link href="/tutorial" className="hover:text-black">
+                <a href="#demo" className="hover:text-black">
                   Demo
-                </Link>
+                </a>
                 <Link href="/login" className="hover:text-black">
                   Sign in
                 </Link>
@@ -423,7 +444,7 @@ export function LandingPage() {
           </div>
         </div>
         <div className="mx-auto mt-16 max-w-6xl border-t border-black/[0.06] pt-8 text-xs text-zinc-400">
-          © {new Date().getFullYear()} LabAgent.ai — Built for science.
+          © {new Date().getFullYear()} LabAgent.ai
         </div>
       </footer>
     </div>

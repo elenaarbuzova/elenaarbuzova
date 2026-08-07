@@ -26,8 +26,8 @@ type Hit = {
 
 const PAGES: Hit[] = [
   { id: 'p-overview', label: 'Overview', hint: 'Dashboard', href: '/app', group: 'Pages', icon: LayoutDashboard },
-  { id: 'p-sources', label: 'Sources', hint: 'Knowledge base', href: '/app/knowledge', group: 'Pages', icon: BookOpen },
   { id: 'p-chat', label: 'Chat', hint: 'Research assistant', href: '/app/playground', group: 'Pages', icon: MessageSquare },
+  { id: 'p-sources', label: 'Knowledge', hint: 'Documents & sources', href: '/app/knowledge', group: 'Pages', icon: BookOpen },
   { id: 'p-builder', label: 'Widget', hint: 'Embed builder & copy code', href: '/app/builder', group: 'Pages', icon: Puzzle },
   { id: 'p-analytics', label: 'Analytics', hint: 'Usage & queries', href: '/app/analytics', group: 'Pages', icon: BarChart3 },
   { id: 'p-billing', label: 'Billing', hint: 'Plans & invoices', href: '/app/billing', group: 'Pages', icon: CreditCard },
@@ -48,7 +48,7 @@ function matchQuery(text: string, q: string) {
 
 export function HeaderSearch({ className }: { className?: string }) {
   const [, setLocation] = useLocation();
-  const { files } = useApp();
+  const { files, plan, openPaywall } = useApp();
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -89,6 +89,20 @@ export function HeaderSearch({ className }: { className?: string }) {
   }, []);
 
   const go = (hit: Hit) => {
+    if (
+      plan === 'starter' &&
+      (hit.href === '/app/builder' || hit.href === '/app/analytics')
+    ) {
+      openPaywall(
+        hit.href === '/app/builder'
+          ? 'The embed builder is on the Research plan. Customize the widget and copy the embed code.'
+          : 'Analytics is on the Research plan. It shows questions asked, accuracy, and sources cited.',
+      );
+      setQuery('');
+      setOpen(false);
+      inputRef.current?.blur();
+      return;
+    }
     setLocation(hit.href);
     setQuery('');
     setOpen(false);

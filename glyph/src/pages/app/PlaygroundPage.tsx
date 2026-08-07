@@ -28,7 +28,7 @@ import {
   type ConversationMessage,
   type KnowledgeBaseId,
 } from '@/lib/conversations';
-import { matchResponse } from '@/lib/data';
+import { answerFromKnowledge } from '@/lib/knowledge';
 import { useApp } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import {
@@ -169,15 +169,38 @@ export function PlaygroundPage() {
           `“${file.name}” is no longer in the Knowledge Base — I can’t answer from it. Upload the file again via the paperclip.`,
         );
       } else {
+        const attached = filesRef.current.find((f) => f.id === file.id);
         await streamAssistant(
           conversationId,
-          `I’ve reviewed “${file.name}”. Ask me anything about it!`,
+          attached?.excerpt
+            ? `I’ve indexed “${file.name}”. Key extract:\n> ${attached.excerpt.slice(0, 280)}${attached.excerpt.length > 280 ? '…' : ''}\n\nAsk me anything about it.`
+            : `I’ve reviewed “${file.name}”. Ask me anything about it!`,
           {
             sources: [{ title: file.name, type: 'PDF', page: '1' }],
             confidence: 97,
           },
         );
       }
+      setStreaming(false);
+      return;
+    }
+
+    if (file && text.trim()) {
+      const grounded = answerFromKnowledge(
+        `${text}\n${file.name}`,
+        filesRef.current,
+      );
+      const attached = filesRef.current.find((f) => f.id === file.id);
+      const sources = [
+        ...(attached
+          ? [{ title: attached.name, type: 'PDF' as string, page: '1' }]
+          : []),
+        ...grounded.sources.filter((s) => s.title !== file.name),
+      ].slice(0, 3);
+      await streamAssistant(conversationId, grounded.answer, {
+        sources,
+        confidence: grounded.confidence,
+      });
       setStreaming(false);
       return;
     }
@@ -216,7 +239,7 @@ export function PlaygroundPage() {
       return;
     }
 
-    const res = matchResponse(text);
+    const res = answerFromKnowledge(text, filesRef.current);
     await streamAssistant(conversationId, res.answer, {
       sources: res.sources,
       confidence: res.confidence,
@@ -287,12 +310,12 @@ export function PlaygroundPage() {
                 <MessageSquarePlus className="h-7 w-7" />
               </div>
               <h2 className="mt-5 font-display text-2xl font-semibold tracking-tight text-black">
-                Start your first research conversation
+                Ask a question
               </h2>
               <p className="mt-2 max-w-md text-sm text-zinc-500">
-                Ask about protocols, SOPs, and publications. Every answer stays cited and tied to
-                your knowledge base. Use <span className="font-medium text-zinc-700">New chat</span> in
-                the sidebar to begin.
+                Answers come from documents in this workspace and list their sources. Use{' '}
+                <span className="font-medium text-zinc-700">New chat</span> in the sidebar to
+                begin.
               </p>
             </div>
           ) : (
@@ -311,7 +334,7 @@ export function PlaygroundPage() {
                         {
                           id: `switch-${Date.now()}`,
                           role: 'assistant',
-                          content: `Switched to ${project.name} workspace. The AI is now answering questions based on ${docs} document${docs === 1 ? '' : 's'} uploaded in this project.`,
+                          content: `Switched to ${project.name}. Answers will use the ${docs} document${docs === 1 ? '' : 's'} in this project.`,
                           createdAt: now,
                         },
                       ]);
@@ -365,10 +388,15 @@ export function PlaygroundPage() {
                     >
                       <div
                         className={cn(
-                          'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
+                          'max-w-[85%] rounded-2xl px-4 py-3 text-sm',
                           m.role === 'user'
                             ? 'bg-black text-white'
                             : 'border border-black/[0.08] bg-zinc-50 text-zinc-800',
+                          m.attachment &&
+                            (!m.content ||
+                              m.content === `Attached ${m.attachment}`)
+                            ? 'leading-none'
+                            : 'leading-relaxed',
                         )}
                       >
                         {m.role === 'assistant' ? (
@@ -380,14 +408,20 @@ export function PlaygroundPage() {
                         {m.attachment ? (
                           <div
                             className={cn(
-                              'mb-2.5 flex items-center gap-2 rounded-xl border px-2.5 py-2',
+                              'flex items-center gap-2 rounded-xl border px-2.5 py-2',
                               m.role === 'user'
                                 ? 'border-white/15 bg-white/10'
                                 : 'border-black/[0.06] bg-white',
+                              m.content &&
+                                !(
+                                  m.attachment &&
+                                  m.content === `Attached ${m.attachment}`
+                                ) &&
+                                'mb-2.5',
                             )}
                           >
-                            <FileText className="h-3.5 w-3.5" />
-                            <span className="truncate text-[12px] font-medium">
+                            <FileText className="h-3.5 w-3.5 shrink-0" />
+                            <span className="truncate text-[12px] font-medium leading-none">
                               {m.attachment}
                             </span>
                           </div>

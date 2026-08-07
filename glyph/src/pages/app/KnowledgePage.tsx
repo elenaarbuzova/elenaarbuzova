@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowDown,
@@ -19,18 +19,48 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Toggle } from '@/components/ui/Toggle';
 import { useApp } from '@/lib/store';
-import { PROJECT_COLORS, type KnowledgeFile } from '@/lib/data';
+import { PLANS, PROJECT_COLORS, type KnowledgeFile } from '@/lib/data';
+import { knowledgeFileFromUpload } from '@/lib/upload';
+import { createSampleProtocolFile } from '@/lib/sampleUpload';
 import { getWorkspace } from '@/lib/workspaces';
 import { cn } from '@/lib/utils';
 
 const typeMeta: Record<string, { label: string; className: string }> = {
-  pdf: { label: 'PDF', className: 'bg-red-50 text-red-600' },
-  protocol: { label: 'PDF', className: 'bg-red-50 text-red-600' },
-  paper: { label: 'PDF', className: 'bg-red-50 text-red-600' },
-  docx: { label: 'DOCX', className: 'bg-blue-50 text-blue-600' },
-  md: { label: 'MD', className: 'bg-emerald-50 text-emerald-600' },
-  csv: { label: 'CSV', className: 'bg-amber-50 text-amber-700' },
-  txt: { label: 'TXT', className: 'bg-zinc-100 text-zinc-600' },
+  pdf: {
+    label: 'PDF',
+    className:
+      'bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400',
+  },
+  protocol: {
+    label: 'PDF',
+    className:
+      'bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400',
+  },
+  paper: {
+    label: 'PDF',
+    className:
+      'bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400',
+  },
+  docx: {
+    label: 'DOCX',
+    className:
+      'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400',
+  },
+  md: {
+    label: 'MD',
+    className:
+      'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400',
+  },
+  csv: {
+    label: 'CSV',
+    className:
+      'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400',
+  },
+  txt: {
+    label: 'TXT',
+    className:
+      'bg-zinc-100 text-zinc-600 dark:bg-white/[0.08] dark:text-zinc-400',
+  },
 };
 
 type SortKey = 'name' | 'project' | 'status' | 'addedAt' | 'sizeBytes';
@@ -43,8 +73,12 @@ const STATUS_ORDER: Record<KnowledgeFile['status'], number> = {
 };
 
 function projectClass(project?: string) {
-  if (!project) return 'bg-zinc-100 text-zinc-600 ring-zinc-200';
-  return PROJECT_COLORS[project] ?? 'bg-zinc-100 text-zinc-600 ring-zinc-200';
+  if (!project)
+    return 'bg-zinc-100 text-zinc-600 ring-zinc-200 dark:bg-white/[0.06] dark:text-zinc-400 dark:ring-white/10';
+  return (
+    PROJECT_COLORS[project] ??
+    'bg-zinc-100 text-zinc-600 ring-zinc-200 dark:bg-white/[0.06] dark:text-zinc-400 dark:ring-white/10'
+  );
 }
 
 function SortHeader({
@@ -94,9 +128,9 @@ export function KnowledgePage() {
     addFiles,
     updateFile,
     removeFile,
-    canAddDocument,
     openPaywall,
     activeProjectId,
+    plan,
   } = useApp();
   const activeProject = useMemo(
     () => getWorkspace(activeProjectId),
@@ -105,6 +139,82 @@ export function KnowledgePage() {
   const [q, setQ] = useState('');
   const [folder, setFolder] = useState('All');
   const [dragging, setDragging] = useState(false);
+  const [uploadOk, setUploadOk] = useState<string | null>(null);
+  const uploadOkTimer = useRef<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const docLimit = PLANS[plan].limits.documents;
+
+  const showUploadSuccess = (label: string) => {
+    if (uploadOkTimer.current) window.clearTimeout(uploadOkTimer.current);
+    setUploadOk(label);
+    uploadOkTimer.current = window.setTimeout(() => {
+      setUploadOk(null);
+      uploadOkTimer.current = null;
+    }, 2800);
+  };
+
+  const ingestSample = () => {
+    if (files.length >= docLimit) {
+      openPaywall(
+        `Starter is limited to ${PLANS.starter.limits.documents} documents. Research removes the limit.`,
+      );
+      return;
+    }
+    const doc = createSampleProtocolFile({
+      project: activeProject.name,
+      source: 'upload',
+    });
+    addFiles([doc]);
+    showUploadSuccess(doc.name);
+    toast.success('File uploaded successfully');
+    window.setTimeout(() => {
+      updateFile(doc.id, { status: 'ready', activeInChatbot: true });
+    }, 900);
+  };
+
+  const ingestFiles = async (list: FileList | File[] | null) => {
+    if (!list?.length) return;
+    if (files.length >= docLimit) {
+      openPaywall(
+        `Starter is limited to ${PLANS.starter.limits.documents} documents. Research removes the limit.`,
+      );
+      return;
+    }
+
+    const incoming = Array.from(list);
+    const created = [];
+    for (const file of incoming) {
+      if (files.length + created.length >= docLimit) {
+        openPaywall(
+        `Document limit reached (${PLANS.starter.limits.documents} on Starter). Research raises the index limit.`,
+      );
+        break;
+      }
+      created.push(
+        await knowledgeFileFromUpload(file, {
+          project: activeProject.name,
+          source: 'upload',
+        }),
+      );
+    }
+    if (!created.length) return;
+    addFiles(created);
+    showUploadSuccess(
+      created.length === 1
+        ? created[0].name
+        : `${created.length} files uploaded`,
+    );
+    toast.success(
+      created.length === 1
+        ? 'File uploaded successfully'
+        : `${created.length} files uploaded successfully`,
+    );
+    created.forEach((f, i) => {
+      window.setTimeout(() => {
+        updateFile(f.id, { status: 'ready', activeInChatbot: true });
+      }, 900 + i * 300);
+    });
+  };
   const [sortKey, setSortKey] = useState<SortKey>('addedAt');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
 
@@ -147,34 +257,6 @@ export function KnowledgePage() {
     });
   }, [files, q, folder, sortKey, sortDir]);
 
-  const uploadDemo = () => {
-    if (!canAddDocument()) {
-      openPaywall(
-        'Starter is limited to 20 documents. Upgrade for unlimited knowledge.',
-      );
-      return;
-    }
-    const file: KnowledgeFile = {
-      id: `f-${Date.now()}`,
-      name: `Protocol_Upload_${files.length + 1}.pdf`,
-      type: 'protocol',
-      status: 'processing',
-      size: '1.2 MB',
-      sizeBytes: 1_200_000,
-      uploadedAt: 'Just now',
-      addedAt: Date.now(),
-      folder: 'Protocols',
-      project: activeProject.name,
-      tags: ['New'],
-      source: 'upload',
-      activeInChatbot: false,
-    };
-    addFiles([file]);
-    window.setTimeout(() => {
-      updateFile(file.id, { status: 'ready', activeInChatbot: true });
-    }, 2200);
-  };
-
   const onRemove = (f: KnowledgeFile) => {
     removeFile(f.id);
     toast.message(
@@ -188,8 +270,8 @@ export function KnowledgePage() {
     if (f.status === 'error') {
       openPaywall(
         f.statusDetail === 'Limit Exceeded'
-          ? 'Document limit exceeded. Upgrade to index more sources into your knowledge base.'
-          : 'This document failed to index. Upgrade for higher limits and priority processing.',
+          ? 'Document limit reached. Research raises the index limit.'
+          : 'This document failed to index. Try again, or switch to Research for priority processing.',
       );
     }
   };
@@ -201,42 +283,71 @@ export function KnowledgePage() {
             <h1 className="font-display text-3xl font-semibold tracking-tight">
               Knowledge
             </h1>
-            <p className="mt-2 text-sm text-zinc-400">
-              Protocols, SOPs, publications, and data — indexed with structure intact.
-            </p>
           </div>
           <Button
             variant="accent"
+            className="dark:bg-black dark:text-white dark:hover:bg-zinc-900"
             leftIcon={<Upload className="h-4 w-4" />}
-            onClick={uploadDemo}
+            onClick={ingestSample}
           >
             Upload
           </Button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept=".pdf,.docx,.doc,.txt,.md,.csv,application/pdf,text/plain,text/markdown,text/csv"
+            className="hidden"
+            onChange={(e) => {
+              void ingestFiles(e.target.files);
+              e.target.value = '';
+            }}
+          />
         </div>
 
         <button
           type="button"
-          onClick={uploadDemo}
+          onClick={ingestSample}
           onDragEnter={() => setDragging(true)}
           onDragLeave={() => setDragging(false)}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
             setDragging(false);
-            uploadDemo();
+            void ingestFiles(e.dataTransfer.files);
           }}
           className={cn(
             'flex w-full flex-col items-center justify-center rounded-2xl border border-dashed px-6 py-12 transition-all duration-300 ease-in-out',
-            dragging
-              ? 'border-accent bg-accent/[0.06]'
-              : 'border-black/10 bg-zinc-50 hover:border-accent/30',
+            uploadOk
+              ? 'border-emerald-500/40 bg-emerald-50 dark:border-emerald-500/35 dark:bg-emerald-500/10'
+              : dragging
+                ? 'border-accent bg-accent/[0.06]'
+                : 'border-black/10 bg-zinc-50 hover:border-accent/30 dark:border-white/10 dark:bg-white/[0.03]',
           )}
         >
-          <Upload className="h-6 w-6 text-accent" />
-          <p className="mt-3 text-sm font-medium">
-            Drop PDF, DOCX, TXT, Markdown, CSV, protocols
-          </p>
-          <p className="mt-1 text-xs text-zinc-500">Click or drop to simulate upload</p>
+          {uploadOk ? (
+            <>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white">
+                <CheckCircle2 className="h-5 w-5" />
+              </div>
+              <p className="mt-3 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                File uploaded successfully
+              </p>
+              <p className="mt-1 text-xs text-emerald-600/80 dark:text-emerald-400/70">
+                {uploadOk}
+              </p>
+            </>
+          ) : (
+            <>
+              <Upload className="h-6 w-6 text-accent" />
+              <p className="mt-3 text-sm font-medium">
+                Drop PDF, DOCX, TXT, Markdown, or CSV
+              </p>
+              <p className="mt-1 text-xs text-zinc-500">
+                Files are indexed here and available in Chat
+              </p>
+            </>
+          )}
         </button>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center">
@@ -274,7 +385,7 @@ export function KnowledgePage() {
             <FileText className="mx-auto h-8 w-8 text-zinc-600" />
             <p className="mt-4 text-sm text-zinc-400">No documents yet</p>
             <p className="mt-1 text-xs text-zinc-600">
-              Upload your first protocol to build institutional memory.
+              Upload a protocol or SOP to get started.
             </p>
           </div>
         ) : (
@@ -352,7 +463,7 @@ export function KnowledgePage() {
                           <div className="flex items-center gap-3">
                             <div
                               className={cn(
-                                'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[10px] font-bold tracking-wide transition-transform duration-300 group-hover:scale-105',
+                                'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[10px] font-bold leading-none tracking-wide transition-transform duration-300 group-hover:scale-105',
                                 meta.className,
                               )}
                             >
@@ -384,7 +495,7 @@ export function KnowledgePage() {
                                   {f.tags.map((t) => (
                                     <span
                                       key={t}
-                                      className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500"
+                                      className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500 dark:bg-white/[0.06] dark:text-zinc-400"
                                     >
                                       {t}
                                     </span>

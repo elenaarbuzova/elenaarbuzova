@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'wouter';
 import {
-  ArrowLeft,
   Camera,
   Cloud,
   HelpCircle,
@@ -92,7 +91,10 @@ export function UserMenu({ className }: { className?: string }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="ml-0.5 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-accent text-[12px] font-semibold text-white ring-2 ring-white transition-transform duration-200 hover:scale-105 dark:ring-white/20"
+        className={cn(
+          'ml-0.5 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full text-[12px] font-semibold text-white ring-2 ring-white transition-transform duration-200 hover:scale-105 dark:ring-white/20',
+          isDark ? 'bg-[#7c2d12] text-orange-200' : 'bg-[#FDBA74]',
+        )}
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label="Account menu"
@@ -122,7 +124,10 @@ export function UserMenu({ className }: { className?: string }) {
                   setOpen(false);
                   setEditOpen(true);
                 }}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white"
+                className={cn(
+                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white',
+                  isDark ? 'bg-[#7c2d12] text-orange-200' : 'bg-[#FDBA74]',
+                )}
               >
                 {initials}
               </button>
@@ -146,19 +151,6 @@ export function UserMenu({ className }: { className?: string }) {
                   {planLabel}
                 </p>
               </button>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className={cn(
-                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors',
-                  isDark
-                    ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                    : 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700',
-                )}
-                aria-label="Close menu"
-              >
-                <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
-              </button>
             </div>
 
             <div
@@ -173,11 +165,11 @@ export function UserMenu({ className }: { className?: string }) {
                 <MenuItem
                   dark={isDark}
                   icon={Sparkles}
-                  label="Try Research free"
+                  label="Research plan"
                   onClick={() => {
                     setOpen(false);
                     openPaywall(
-                      'Unlock Research for unlimited analyses and Protocol AI.',
+                      'Research raises document limits and adds analytics and embed.',
                     );
                   }}
                 />
@@ -254,13 +246,13 @@ export function UserMenu({ className }: { className?: string }) {
                     type="button"
                     onClick={() => {
                       setOpen(false);
-                      openPaywall('Upgrade for more summaries and unlimited knowledge.');
+                      openPaywall('Research raises document limits.');
                     }}
                     className={cn(
                       'rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors',
                       isDark
-                        ? 'border border-accent/60 text-white/80 shadow-[0_0_8px_rgba(255,77,46,0.28)] hover:bg-white/10'
-                        : 'border border-black/10 bg-white text-zinc-700 hover:border-black/20',
+                        ? 'border border-accent/45 bg-transparent text-white/80 hover:bg-white/[0.04]'
+                        : 'border border-accent/45 bg-transparent text-zinc-700 hover:bg-accent/[0.04]',
                     )}
                   >
                     Upgrade
@@ -298,7 +290,12 @@ export function UserMenu({ className }: { className?: string }) {
       >
         <div className="flex flex-col items-center">
           <div className="relative">
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-accent text-3xl font-semibold text-white">
+            <div
+              className={cn(
+                'flex h-24 w-24 items-center justify-center rounded-full text-3xl font-semibold text-white',
+                isDark ? 'bg-[#7c2d12] text-orange-200' : 'bg-[#FDBA74]',
+              )}
+            >
               {initials}
             </div>
             <button

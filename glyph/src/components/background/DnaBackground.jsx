@@ -141,20 +141,10 @@ function ScrollOrbitDriver({ scrollTarget, reasonsTarget, state }) {
       const vh = window.innerHeight;
       state.dissolveTarget = clamp01(y / (heroH * 1.15));
 
-      // Phase: stars gather into sphere near #reasons
-      let gatherRaw = 0;
-      const reasons =
-        reasonsTarget?.current ?? document.getElementById('reasons');
-      if (reasons) {
-        const rect = reasons.getBoundingClientRect();
-        const start = vh * 0.85;
-        const end = vh * 0.28;
-        gatherRaw = clamp01((start - rect.top) / (start - end));
-      } else {
-        gatherRaw = clamp01((y - heroH * 1.4) / (heroH * 0.9));
-      }
+      // Never gather into a sphere — keep free stars that explode/scatter on scroll
+      state.gatherTarget = 0;
 
-      // Phase: at #how, sphere dissolves back into a free star field
+      // At #how, push into a fully scattered free star field
       let release = 0;
       const how = document.getElementById('how');
       if (how) {
@@ -164,18 +154,12 @@ function ScrollOrbitDriver({ scrollTarget, reasonsTarget, state }) {
         release = clamp01((start - rect.top) / (start - end));
       }
 
-      state.gatherTarget = gatherRaw * (1 - release);
-
-      // No heart / network morph — free light stars after sphere release
+      // No heart / network morph — free light stars
       state.networkTarget = 0;
       state.networkMode = 'testimonials';
 
-      // Stay as stars (not helix) while gathered or while scattering free again
-      if (
-        gatherRaw > 0.05 ||
-        release > 0.02 ||
-        state.gatherTarget > 0.02
-      ) {
+      // Stay as exploding/scattered stars (not helix) once past hero or into #how
+      if (release > 0.02 || state.dissolveTarget > 0.55) {
         state.dissolveTarget = Math.max(state.dissolveTarget, 0.98);
       }
     };
