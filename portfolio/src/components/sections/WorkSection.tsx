@@ -3,13 +3,14 @@ import { RevealText } from '../ui/animations';
 import yeat from '@assets/generated_images/yeat.png';
 import voidArena from '@assets/generated_images/void-arena.png';
 import stillness from '@assets/generated_images/stillness.png';
+import labagent from '@assets/generated_images/labagent.png';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 type Project = {
   id: number;
   title: string;
-  subtitleKey?: 'yeatSubtitle' | 'atelierSubtitle' | 'stillnessSubtitle';
-  hoverKey?: 'stillnessHover' | 'atelierHover' | 'yeatHover';
+  subtitleKey?: 'yeatSubtitle' | 'atelierSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
+  hoverKey?: 'stillnessHover' | 'atelierHover' | 'yeatHover' | 'labagentHover';
   categoryKey?: 'webDesign' | 'uxResearch';
   tagKey?: 'uiUx';
   year: string;
@@ -49,6 +50,16 @@ const projects: Project[] = [
     image: voidArena,
     href: 'https://atelier-nordhavn.vercel.app/',
     hoverKey: 'atelierHover',
+  },
+  {
+    id: 4,
+    title: 'LABAGENT',
+    subtitleKey: 'labagentSubtitle',
+    tagKey: 'uiUx',
+    year: '2026',
+    image: labagent,
+    href: 'https://labagent.vercel.app/',
+    hoverKey: 'labagentHover',
   },
 ];
 

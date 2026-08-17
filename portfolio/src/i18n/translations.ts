@@ -29,12 +29,15 @@ export const translations = {
       yeatSubtitle: 'Artist Portfolio Website',
       atelierSubtitle: 'Architecture Studio',
       stillnessSubtitle: 'Mindful Experience',
+      labagentSubtitle: 'Research Assistant Product',
       yeatHover:
         'An immersive digital experience created for a modern music artist. The design focuses on bold visual storytelling, dynamic layouts and expressive interactions to capture the artist’s identity through a powerful and memorable web presence.',
       stillnessHover:
         'A calming digital environment built around simplicity and mindfulness. The design focuses on creating an emotional connection through minimal layouts, soft transitions and a peaceful visual language.',
       atelierHover:
         'A refined digital experience inspired by Scandinavian architecture and modern editorial design. The project focuses on creating a premium visual identity through minimalist layouts, elegant typography, immersive imagery and smooth interactions.',
+      labagentHover:
+        'A product experience for laboratories that need answers they can trust. The design turns documents, cited chat, an embeddable widget and a clear upgrade path into one focused flow – precise, calm and built to feel like a real tool, not a generic AI template.',
     },
     process: {
       title: 'The Process',
@@ -137,12 +140,15 @@ export const translations = {
       yeatSubtitle: 'Сайт-портфолио артиста',
       atelierSubtitle: 'Архитектурная студия',
       stillnessSubtitle: 'Осознанный опыт',
+      labagentSubtitle: 'Продукт: исследовательский ассистент',
       yeatHover:
         'Захватывающий цифровой опыт для современного музыкального артиста. Дизайн строится на смелом визуальном повествовании, динамичных макетах и выразительных взаимодействиях, чтобы передать идентичность артиста через мощное и запоминающееся присутствие в сети.',
       stillnessHover:
         'Спокойная цифровая среда, построенная вокруг простоты и осознанности. Дизайн создаёт эмоциональную связь через минимальные макеты, мягкие переходы и мирный визуальный язык.',
       atelierHover:
         'Изысканный цифровой опыт в духе скандинавской архитектуры и современной редакционной подачи. Проект создаёт премиальную визуальную идентичность через минималистичные макеты, элегантную типографику, выразительные изображения и плавные взаимодействия.',
+      labagentHover:
+        'Продуктовый опыт для лабораторий, которым нужны ответы, которым можно доверять. Дизайн объединяет документы, чат с цитатами, встраиваемый виджет и понятный путь к расширению в один цельный сценарий – точный, спокойный и созданный как настоящий инструмент, а не как шаблон для ИИ.',
     },
     process: {
       title: 'Процесс',
