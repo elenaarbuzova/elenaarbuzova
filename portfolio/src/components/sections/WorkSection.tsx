@@ -91,7 +91,8 @@ export function WorkSection() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover object-center bg-no-repeat"
+                      draggable={false}
                     />
                   </div>
                 </div>
