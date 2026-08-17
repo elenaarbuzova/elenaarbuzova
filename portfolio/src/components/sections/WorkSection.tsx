@@ -87,21 +87,22 @@ export function WorkSection() {
                   className="absolute inset-y-0 left-0 h-full"
                   style={{ width: '148%', transform: project.imageShift }}
                 >
-                  <div className="h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/media:scale-105">
+                  <div className="h-full w-full overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover object-center bg-no-repeat"
+                      className="h-full w-full object-cover object-center"
                       draggable={false}
                     />
                   </div>
                 </div>
               ) : (
-                <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/media:scale-105">
+                <div className="absolute inset-0 overflow-hidden bg-white">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-center"
+                    draggable={false}
                   />
                 </div>
               )}
