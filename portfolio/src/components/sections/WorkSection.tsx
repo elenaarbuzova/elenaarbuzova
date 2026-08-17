@@ -22,6 +22,16 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
+    title: 'LabAgent',
+    subtitleKey: 'labagentSubtitle',
+    tagKey: 'uiUx',
+    year: '2026',
+    image: labagent,
+    href: 'https://labagent.vercel.app/',
+    hoverKey: 'labagentHover',
+  },
+  {
+    id: 2,
     title: 'YEAT',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
@@ -32,7 +42,7 @@ const projects: Project[] = [
     hoverKey: 'yeatHover',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Stillness',
     subtitleKey: 'stillnessSubtitle',
     tagKey: 'uiUx',
@@ -42,7 +52,7 @@ const projects: Project[] = [
     hoverKey: 'stillnessHover',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Atelier Nordhavn',
     subtitleKey: 'atelierSubtitle',
     tagKey: 'uiUx',
@@ -50,16 +60,6 @@ const projects: Project[] = [
     image: voidArena,
     href: 'https://atelier-nordhavn.vercel.app/',
     hoverKey: 'atelierHover',
-  },
-  {
-    id: 4,
-    title: 'LabAgent',
-    subtitleKey: 'labagentSubtitle',
-    tagKey: 'uiUx',
-    year: '2026',
-    image: labagent,
-    href: 'https://labagent.vercel.app/',
-    hoverKey: 'labagentHover',
   },
 ];
 
