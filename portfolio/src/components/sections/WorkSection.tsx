@@ -53,7 +53,7 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    title: 'LABAGENT',
+    title: 'LabAgent',
     subtitleKey: 'labagentSubtitle',
     tagKey: 'uiUx',
     year: '2026',
