@@ -12,7 +12,7 @@ type Project = {
   subtitleKey?: 'yeatSubtitle' | 'atelierSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
   hoverKey?: 'stillnessHover' | 'atelierHover' | 'yeatHover' | 'labagentHover';
   categoryKey?: 'webDesign' | 'uxResearch';
-  tagKey?: 'uiUx';
+  tagKey?: 'uiUx' | 'productPrototype';
   year: string;
   image: string;
   href?: string;
@@ -24,7 +24,7 @@ const projects: Project[] = [
     id: 1,
     title: 'LabAgent',
     subtitleKey: 'labagentSubtitle',
-    tagKey: 'uiUx',
+    tagKey: 'productPrototype',
     year: '2026',
     image: labagent,
     href: 'https://labagent.vercel.app/',
