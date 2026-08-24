@@ -15,11 +15,12 @@ export const translations = {
       lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
     },
     about: {
-      line1: "I don't design websites.",
-      line2: 'I design digital experiences.',
-      point1: 'Every interface starts with a question.',
-      point2: 'Every interaction has a purpose.',
-      point3: 'Every pixel must justify its existence.',
+      lines: [
+        'From pixels to products.',
+        'I design, build, and experiment with AI to turn ideas into real digital experiences.',
+        'No endless perfection – just good design, smart tools, and things that actually work.',
+      ] as const,
+      highlight: 'AI',
     },
     work: {
       title: 'Selected Work',
@@ -127,11 +128,12 @@ export const translations = {
       lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ'] as const,
     },
     about: {
-      line1: 'Я не просто делаю сайты.',
-      line2: 'Я проектирую цифровые впечатления.',
-      point1: 'Каждый интерфейс начинается с вопроса.',
-      point2: 'У каждого взаимодействия есть цель.',
-      point3: 'Каждый пиксель должен оправдывать своё существование.',
+      lines: [
+        'От пикселей к продуктам.',
+        'Я проектирую, собираю и экспериментирую с ИИ, чтобы превращать идеи в настоящий цифровой опыт.',
+        'Никакого бесконечного перфекционизма – только хороший дизайн, умные инструменты и вещи, которые реально работают.',
+      ] as const,
+      highlight: 'ИИ',
     },
     work: {
       title: 'Избранные работы',
