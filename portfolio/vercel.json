@@ -3,5 +3,6 @@
   "framework": null,
   "installCommand": "cd .. && pnpm install",
   "buildCommand": "cd .. && pnpm --filter @workspace/portfolio build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
