@@ -70,12 +70,6 @@ export default function ProjectPage() {
                     {project.year}
                   </span>
                 </p>
-
-                {project.slug === 'labagent' && (
-                  <p className="text-sm md:text-base font-medium tracking-wide">
-                    {t.caseStudy.builtIn} Cursor
-                  </p>
-                )}
               </header>
 
               <section className="mb-16 md:mb-20 max-w-3xl text-left">

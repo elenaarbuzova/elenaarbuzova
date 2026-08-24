@@ -11,7 +11,7 @@ export const translations = {
     hero: {
       role: 'Web Designer & AI Developer',
       cta: 'Selected Work ↓',
-      lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
+      lines: ['DESIGN.', 'BUILD.', 'DELIVER.'] as const,
     },
     about: {
       lines: [
@@ -38,7 +38,6 @@ export const translations = {
       disciplines: 'Disciplines',
       otherWork: 'Other work',
       visitSite: 'Visit website',
-      builtIn: 'Built in',
       backToWork: 'Work',
       coverLabel: 'Cover',
     },
@@ -86,7 +85,7 @@ export const translations = {
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
       cta: 'Избранные работы ↓',
-      lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ'] as const,
+      lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ.'] as const,
     },
     about: {
       lines: [
@@ -113,7 +112,6 @@ export const translations = {
       disciplines: 'Дисциплины',
       otherWork: 'Другие работы',
       visitSite: 'Посетить сайт',
-      builtIn: 'Сделано в',
       backToWork: 'Работы',
       coverLabel: 'Обложка',
     },
