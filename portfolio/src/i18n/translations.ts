@@ -9,9 +9,10 @@ export const translations = {
       menu: 'Menu',
     },
     hero: {
-      role: 'Web Designer & AI Developer',
-      cta: 'Selected Work ↓',
-      lines: ['DESIGN.', 'BUILD.', 'DELIVER.'] as const,
+      greeting: "Hey, I'm",
+      name: 'Elena',
+      headline: 'Web Designer & AI Developer keen on products, web & AI experiences',
+      projectsLink: 'Selected Projects',
     },
     about: {
       lines: [
@@ -80,9 +81,10 @@ export const translations = {
       menu: 'Меню',
     },
     hero: {
-      role: 'Веб-дизайнер и разработчик ИИ',
-      cta: 'Избранные работы ↓',
-      lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ.'] as const,
+      greeting: 'Привет, я',
+      name: 'Елена',
+      headline: 'Веб-дизайнер и разработчик ИИ — продукты, сайты и AI-опыт',
+      projectsLink: 'Избранные работы',
     },
     about: {
       lines: [

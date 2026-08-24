@@ -1,79 +1,41 @@
 import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
-import heroPortrait from '@assets/generated_images/hero-portrait.png';
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function HeroSection() {
   const { t, lang } = useLanguage();
-  const lines = t.hero.lines;
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-10 min-h-[calc(100vh-6rem)]">
-        <motion.div
-          className="relative z-10 w-full max-w-3xl lg:max-w-[54%] shrink-0"
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE }}
-        >
-          <h1
-            key={lang}
-            className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6"
-          >
-            {lines.map((line) => (
-              <span key={`${lang}-${line}`} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
-            className="flex flex-row justify-between items-end w-full gap-6 mt-2"
-          >
-            <p className="text-lg md:text-xl font-medium tracking-wide uppercase">
-              {t.hero.role}
-            </p>
-            <a
-              href="#work"
-              className="shrink-0 text-sm font-semibold tracking-widest uppercase border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
-            >
-              {t.hero.cta}
-            </a>
-          </motion.div>
-        </motion.div>
-
-        <motion.aside
-          className="relative z-10 mx-auto lg:mx-0 w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[min(42vw,440px)]"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.25 }}
-        >
-          <div className="relative aspect-[3/4] overflow-hidden bg-muted">
-            <img
-              src={heroPortrait}
-              alt="Elena Arbuzova"
-              className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
-              draggable={false}
-            />
-          </div>
-
-          <div
-            className="absolute -z-10 inset-3 translate-x-3 translate-y-3 border border-foreground/15"
-            aria-hidden
-          />
-        </motion.aside>
-      </div>
-
+    <section className="relative flex min-h-svh flex-col items-center justify-center px-6 pt-24 pb-28 text-center">
       <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
-        className="absolute bottom-10 left-6 right-6 h-px bg-foreground/20 origin-left"
-      />
+        key={lang}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.85, ease: EASE }}
+        className="mx-auto w-full max-w-4xl"
+      >
+        <p className="mb-5 text-xl font-normal tracking-tight text-muted-foreground md:mb-7 md:text-2xl lg:text-[1.75rem]">
+          {t.hero.greeting}{' '}
+          <span className="text-foreground/90">{t.hero.name}</span>
+        </p>
+
+        <h1 className="text-[2rem] font-bold leading-[1.12] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-[4.25rem] lg:leading-[1.08]">
+          {t.hero.headline}
+        </h1>
+      </motion.div>
+
+      <motion.a
+        href="#work"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.35 }}
+        className="absolute bottom-10 md:bottom-12 inline-flex flex-col items-center gap-2 text-sm font-medium tracking-wide text-foreground/80 hover:text-foreground transition-colors"
+      >
+        {t.hero.projectsLink}
+        <ChevronDown className="size-4" strokeWidth={1.75} aria-hidden />
+      </motion.a>
     </section>
   );
 }
