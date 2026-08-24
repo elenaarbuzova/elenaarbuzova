@@ -41,12 +41,18 @@ export default function ProjectPage() {
         initial={false}
         animate={
           contentVisible
-            ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-            : { opacity: 0, y: 10, filter: 'blur(1px)' }
+            ? { opacity: 1, filter: 'blur(0px)' }
+            : { opacity: 0, filter: 'blur(1px)' }
         }
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <main className="pt-28 pb-24 md:pt-32 md:pb-32">
+          <motion.div
+            key={project.slug}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: EASE }}
+          >
           <div className="container mx-auto max-w-5xl px-6">
             <a
               href="/#work"
@@ -56,13 +62,7 @@ export default function ProjectPage() {
               {t.caseStudy.backToWork}
             </a>
 
-            {/* Left-aligned case hero (white canvas — not centered like dark Marc hero) */}
-            <motion.header
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="mb-16 md:mb-24 text-left"
-            >
+            <header className="mb-16 md:mb-24 text-left">
               <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-6">
                 {project.title}
               </h1>
@@ -88,14 +88,9 @@ export default function ProjectPage() {
               <p className="text-sm md:text-base font-medium tracking-wide">
                 {t.caseStudy.builtIn} Cursor
               </p>
-            </motion.header>
+            </header>
 
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.08 }}
-              className="mb-16 md:mb-20 max-w-3xl text-left"
-            >
+            <section className="mb-16 md:mb-20 max-w-3xl text-left">
               <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
                 {t.caseStudy.overview}
               </h2>
@@ -112,14 +107,9 @@ export default function ProjectPage() {
                 {t.caseStudy.visitSite}
                 <ArrowUpRight className="size-4" aria-hidden />
               </a>
-            </motion.section>
+            </section>
 
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.12 }}
-              className="mb-20 md:mb-28 text-left"
-            >
+            <section className="mb-20 md:mb-28 text-left">
               <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
                 {t.caseStudy.disciplines}
               </h2>
@@ -128,7 +118,7 @@ export default function ProjectPage() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-            </motion.section>
+            </section>
           </div>
 
           <div className="space-y-4 md:space-y-6 mb-24 md:mb-32">
@@ -208,6 +198,7 @@ export default function ProjectPage() {
               ))}
             </ul>
           </div>
+          </motion.div>
         </main>
 
         <Footer />
