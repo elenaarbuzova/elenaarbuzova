@@ -46,22 +46,22 @@ function ToolItem({
 
   const opacity = useTransform(progress, (p) => {
     const d = Math.abs(p * span - index);
-    return Math.max(0.2, 1 - d * 0.45);
+    return Math.max(0.16, 1 - d * 0.52);
   });
 
   const scale = useTransform(progress, (p) => {
     const d = Math.abs(p * span - index);
-    return Math.max(0.78, 1 - d * 0.1);
+    return Math.max(0.84, 1 - d * 0.07);
   });
 
   const filter = useTransform(progress, (p) => {
     const d = Math.abs(p * span - index);
-    return `blur(${Math.min(10, d * 5)}px)`;
+    return `blur(${Math.min(5, d * 2.5)}px)`;
   });
 
   return (
     <motion.li
-      className="origin-left py-1.5 text-5xl font-bold tracking-tighter text-foreground will-change-transform sm:py-2 sm:text-6xl md:text-7xl lg:text-8xl"
+      className="origin-left py-2 text-5xl font-bold tracking-tighter text-foreground will-change-transform sm:text-6xl md:py-2.5 md:text-7xl lg:text-8xl"
       style={{ opacity, scale, filter }}
     >
       {text}
@@ -93,7 +93,7 @@ export function Skiper44({
   const listY = useTransform(
     scrollYProgress,
     [0, 1],
-    [0, -Math.max(items.length - 1, 0) * 88],
+    [0, -Math.max(items.length - 1, 0) * 92],
   );
 
   if (reducedMotion) {
@@ -122,36 +122,42 @@ export function Skiper44({
       className={cn('relative bg-background', className)}
       style={{ height: `${Math.max(items.length, 1) * 90}vh` }}
     >
-      <div className="sticky top-0 flex h-svh w-full items-center">
-        <div className="container mx-auto grid w-full grid-cols-1 items-center gap-10 px-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 lg:gap-24">
-          <p className="text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
-            {label}
-          </p>
-
-          <div className="relative h-[22rem] overflow-hidden sm:h-[26rem] md:h-[30rem]">
-            <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-background via-background/80 to-transparent"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-background via-background/80 to-transparent"
-              aria-hidden
-            />
-
-            <div className="absolute left-0 right-0 top-1/2 w-full">
-              <motion.ul className="w-full" style={{ y: listY }}>
-                {items.map((item, index) => (
-                  <ToolItem
-                    key={item}
-                    text={item}
-                    index={index}
-                    count={items.length}
-                    progress={scrollYProgress}
-                  />
-                ))}
-              </motion.ul>
+      <div className="sticky top-0 h-svh w-full bg-background">
+        {/* Full-bleed soft mask — no mid-column overflow clip that cuts blur into a hard line */}
+        <div
+          className="absolute inset-0"
+          style={{
+            WebkitMaskImage:
+              'linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%)',
+            maskImage:
+              'linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%)',
+          }}
+        >
+          <div className="mx-auto flex h-full w-full max-w-[72rem] items-center px-6 md:px-8">
+            <div className="w-full pl-0 md:pl-[min(42%,22rem)]">
+              <div className="relative h-[22rem] sm:h-[26rem] md:h-[30rem]">
+                <div className="absolute left-0 right-0 top-1/2 w-full">
+                  <motion.ul className="w-full" style={{ y: listY }}>
+                    {items.map((item, index) => (
+                      <ToolItem
+                        key={item}
+                        text={item}
+                        index={index}
+                        count={items.length}
+                        progress={scrollYProgress}
+                      />
+                    ))}
+                  </motion.ul>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="pointer-events-none relative z-10 mx-auto flex h-full w-full max-w-[72rem] items-center px-6 md:px-8">
+          <p className="w-[min(100%,16rem)] text-2xl font-medium tracking-tight text-foreground md:w-[min(42%,20rem)] md:text-3xl lg:text-4xl">
+            {label}
+          </p>
         </div>
       </div>
     </div>
