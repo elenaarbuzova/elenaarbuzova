@@ -6,7 +6,7 @@ export function PhilosophySection() {
 
   return (
     <section className="min-h-[80vh] flex items-center justify-center py-40 container mx-auto px-6 relative">
-      <div className="absolute top-20 left-6 text-9xl text-foreground/10 font-serif leading-none select-none">
+      <div className="absolute top-20 left-6 text-9xl text-muted/30 font-serif leading-none select-none">
         "
       </div>
 

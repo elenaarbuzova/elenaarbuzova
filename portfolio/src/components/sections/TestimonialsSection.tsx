@@ -5,8 +5,8 @@ export function TestimonialsSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="testimonials" className="py-40 bg-background text-foreground relative overflow-hidden">
-      <div className="absolute top-20 right-20 text-[20rem] text-foreground/8 font-serif leading-none select-none pointer-events-none">
+    <section id="testimonials" className="py-40 bg-foreground text-background relative overflow-hidden">
+      <div className="absolute top-20 right-20 text-[20rem] text-background/5 font-serif leading-none select-none pointer-events-none">
         "
       </div>
 
@@ -18,7 +18,7 @@ export function TestimonialsSection() {
             </p>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-widest uppercase">Daniil Sviridov</span>
-              <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase mt-1">
+              <span className="text-xs text-background/50 font-medium tracking-widest uppercase mt-1">
                 {t.testimonials.t1Role}
               </span>
             </div>
@@ -32,7 +32,7 @@ export function TestimonialsSection() {
             </p>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-widest uppercase">Katharine Lanskaya</span>
-              <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase mt-1">
+              <span className="text-xs text-background/50 font-medium tracking-widest uppercase mt-1">
                 {t.testimonials.t2Role}
               </span>
             </div>

@@ -38,7 +38,7 @@ export function WorkSection() {
                   </div>
                 </div>
               ) : (
-                <div className="absolute inset-0 overflow-hidden bg-black">
+                <div className="absolute inset-0 overflow-hidden bg-white">
                   <img
                     src={project.cover}
                     alt={project.title}

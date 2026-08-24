@@ -23,7 +23,7 @@ export function WhySection() {
             <FadeIn
               key={reason.num}
               delay={i * 0.1}
-              className="group relative z-0 border border-border/40 p-12 lg:p-16 bg-transparent transition-all duration-500 ease-out hover:z-10 hover:bg-foreground hover:text-background hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[0_24px_60px_-20px_rgba(255,255,255,0.18)]"
+              className="group relative z-0 border border-border/40 p-12 lg:p-16 bg-transparent transition-all duration-500 ease-out hover:z-10 hover:bg-foreground hover:text-background hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)]"
             >
               <div className="text-sm font-mono tracking-widest text-muted-foreground mb-16 transition-colors duration-500 group-hover:text-background/55">
                 {reason.num} –

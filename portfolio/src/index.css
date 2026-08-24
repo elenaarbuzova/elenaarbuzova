@@ -68,61 +68,61 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Dark site theme: black canvas, white type */
+/* LIGHT MODE */
 :root {
-  color-scheme: dark;
-  --button-outline: rgba(255, 255, 255, 0.1);
-  --badge-outline: rgba(255, 255, 255, 0.05);
+  color-scheme: light;
+  --button-outline: rgba(0, 0, 0, 0.1);
+  --badge-outline: rgba(0, 0, 0, 0.05);
 
-  --opaque-button-border-intensity: 9;
+  --opaque-button-border-intensity: -8;
 
-  --elevate-1: rgba(255, 255, 255, 0.04);
-  --elevate-2: rgba(255, 255, 255, 0.09);
+  --elevate-1: rgba(0, 0, 0, 0.03);
+  --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
 
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 0 0% 100%;
+  --border: 0 0% 85%;
+  --input: 0 0% 85%;
+  --ring: 0 0% 0%;
 
-  --card: 0 0% 0%;
-  --card-foreground: 0 0% 100%;
-  --card-border: 0 0% 20%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --card-border: 0 0% 85%;
 
-  --sidebar: 0 0% 4%;
-  --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 0 0% 20%;
-  --sidebar-primary: 0 0% 100%;
-  --sidebar-primary-foreground: 0 0% 0%;
-  --sidebar-accent: 0 0% 12%;
-  --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-ring: 0 0% 100%;
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 0 0% 0%;
+  --sidebar-border: 0 0% 85%;
+  --sidebar-primary: 0 0% 0%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 94%;
+  --sidebar-accent-foreground: 0 0% 0%;
+  --sidebar-ring: 0 0% 0%;
 
-  --popover: 0 0% 0%;
-  --popover-foreground: 0 0% 100%;
-  --popover-border: 0 0% 20%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --popover-border: 0 0% 85%;
 
-  --primary: 0 0% 100%;
-  --primary-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 0 0% 12%;
-  --secondary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 0%;
 
-  --muted: 0 0% 12%;
-  --muted-foreground: 0 0% 62%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
 
-  --accent: 0 0% 12%;
-  --accent-foreground: 0 0% 100%;
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 0%;
 
-  --destructive: 0 62% 30%;
+  --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --chart-1: 0 0% 100%;
-  --chart-2: 0 0% 80%;
-  --chart-3: 0 0% 60%;
-  --chart-4: 0 0% 40%;
-  --chart-5: 0 0% 20%;
+  --chart-1: 0 0% 0%;
+  --chart-2: 0 0% 20%;
+  --chart-3: 0 0% 40%;
+  --chart-4: 0 0% 60%;
+  --chart-5: 0 0% 80%;
 
   --app-font-sans: 'Geist', 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
@@ -239,13 +239,10 @@
 
   html {
     scroll-behavior: smooth;
-    background: #000;
   }
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    background: #000;
-    color: #fff;
   }
 }
 

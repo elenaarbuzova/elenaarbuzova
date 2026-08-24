@@ -58,7 +58,7 @@ function Word({
   const start = count <= 1 ? 0 : (index / count) * 0.78;
   const end = Math.min(start + 0.18, 0.92);
 
-  const opacity = useTransform(progress, [start, end], [0.14, 1]);
+  const opacity = useTransform(progress, [start, end], [0, 1]);
   const x = useTransform(progress, [start, end], [72, 0]);
   const skewX = useTransform(progress, [start, end], [14, 0]);
   const filter = useTransform(progress, [start, end], ['blur(6px)', 'blur(0px)']);

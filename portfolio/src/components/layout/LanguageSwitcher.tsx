@@ -24,16 +24,16 @@ export function LanguageSwitcher() {
       <motion.div
         role="group"
         aria-label="Language"
-        className="relative h-full w-full overflow-hidden rounded-full border border-white bg-black cursor-pointer"
+        className="relative h-full w-full overflow-hidden rounded-full border border-black bg-white cursor-pointer"
         whileHover={{
           scale: 1.02,
-          boxShadow: '0 8px 22px -16px rgba(255,255,255,0.35)',
+          boxShadow: '0 8px 22px -16px rgba(0,0,0,0.28)',
         }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: 'spring', stiffness: 320, damping: 24 }}
       >
         <motion.div
-          className="absolute top-0 bottom-0 z-0 rounded-full bg-white will-change-transform"
+          className="absolute top-0 bottom-0 z-0 rounded-full bg-black will-change-transform"
           initial={false}
           animate={{
             left: isRu ? 'calc(50% - 1px)' : '0px',
@@ -71,10 +71,10 @@ function LangHalf({
   onPick: () => void;
 }) {
   const color = active
-    ? '#000000'
+    ? '#ffffff'
     : isSwitching
-      ? 'rgba(255,255,255,0.4)'
-      : 'rgba(255,255,255,0.92)';
+      ? 'rgba(0,0,0,0.35)'
+      : 'rgba(0,0,0,0.9)';
 
   return (
     <button
