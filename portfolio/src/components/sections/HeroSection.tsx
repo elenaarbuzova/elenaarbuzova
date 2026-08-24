@@ -96,7 +96,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 min-h-[2.7em]">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 min-h-[2.7em] -ml-[0.08em]">
             {lines.map((line, index) => {
               const isPast = index < lineIndex || (index === lineIndex && phase !== 'typing');
               const isCurrent = index === lineIndex && phase === 'typing';
