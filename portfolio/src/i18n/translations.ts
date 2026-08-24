@@ -10,9 +10,9 @@ export const translations = {
       contact: 'Contact',
     },
     hero: {
-      role: 'Web Designer & QA Engineer',
+      role: 'Web Designer & AI Developer',
       cta: 'Selected Work ↓',
-      lines: ['DESIGN.', 'TEST.', 'DELIVER'] as const,
+      lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
     },
     about: {
       line1: "I don't design websites.",
@@ -122,9 +122,9 @@ export const translations = {
       contact: 'Контакты',
     },
     hero: {
-      role: 'Веб-дизайнер и инженер по качеству',
+      role: 'Веб-дизайнер и разработчик ИИ',
       cta: 'Избранные работы ↓',
-      lines: ['ДИЗАЙН.', 'ТЕСТ.', 'РЕЛИЗ'] as const,
+      lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ'] as const,
     },
     about: {
       line1: 'Я не просто делаю сайты.',
