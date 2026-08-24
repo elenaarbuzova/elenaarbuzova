@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { CursorMark } from '@/components/ui/CursorMark';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
   getOtherProjects,
@@ -86,12 +85,9 @@ export default function ProjectPage() {
                 </span>
               </p>
 
-              <div className="inline-flex items-center gap-2.5 text-sm md:text-base font-medium tracking-wide">
-                <CursorMark className="size-4 shrink-0" />
-                <span>
-                  {t.caseStudy.builtIn} Cursor
-                </span>
-              </div>
+              <p className="text-sm md:text-base font-medium tracking-wide">
+                {t.caseStudy.builtIn} Cursor
+              </p>
             </motion.header>
 
             <motion.section

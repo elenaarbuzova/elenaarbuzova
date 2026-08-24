@@ -6,7 +6,6 @@ import Home from '@/pages/Home';
 import ProjectPage from '@/pages/ProjectPage';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { LanguageProvider } from '@/i18n/LanguageContext';
-import { AvatarCursor } from '@/components/ui/AvatarCursor';
 
 const queryClient = new QueryClient();
 
@@ -25,7 +24,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <LanguageProvider>
-          <AvatarCursor />
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
             <Router />
           </WouterRouter>

@@ -324,9 +324,3 @@
     inset: -1px;
   }
 }
-
-/* Custom circular avatar cursor (desktop / fine pointer only) */
-html.has-avatar-cursor,
-html.has-avatar-cursor * {
-  cursor: none !important;
-}

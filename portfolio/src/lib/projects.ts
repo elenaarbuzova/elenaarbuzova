@@ -38,7 +38,6 @@ export const projects: ProjectMeta[] = [
     year: '2026',
     liveUrl: 'https://yeat-ruddy.vercel.app/',
     cover: yeat,
-    coverShift: 'translateX(-23%)',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
     hoverKey: 'yeatHover',
