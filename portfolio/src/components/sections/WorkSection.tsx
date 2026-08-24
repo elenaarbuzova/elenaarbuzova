@@ -27,7 +27,8 @@ export function WorkSection() {
           const hoverText = t.work[project.hoverKey];
           const projectHref = `/work/${project.slug}`;
           const fit = project.coverFit ?? 'cover';
-          const mediaBg = fit === 'contain' ? 'bg-black' : 'bg-muted';
+          const mediaBg =
+            project.coverBg ?? (fit === 'contain' ? 'bg-black' : 'bg-muted');
 
           const media = (
             <>

@@ -137,7 +137,7 @@ export default function ProjectPage() {
                 project.coverAspect === 'video'
                   ? 'aspect-[16/9]'
                   : 'aspect-[16/9] md:aspect-[21/9]'
-              } ${project.coverFit === 'contain' ? 'bg-black' : 'bg-muted'}`}
+              } ${project.coverBg ?? (project.coverFit === 'contain' ? 'bg-black' : 'bg-muted')}`}
             >
               {project.coverShift ? (
                 <div

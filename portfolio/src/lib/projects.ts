@@ -1,5 +1,4 @@
 import voidArena from '@assets/generated_images/void-arena.png';
-import stillness from '@assets/generated_images/stillness.png';
 import labagent from '@assets/generated_images/labagent.png';
 
 export type ProjectSlug = 'labagent' | 'yeat' | 'stillness' | 'atelier-nordhavn';
@@ -15,6 +14,8 @@ export type ProjectMeta = {
   coverFit?: 'cover' | 'contain';
   /** Match source aspect when possible to avoid upscale blur */
   coverAspect?: 'video' | 'wide';
+  /** Tailwind bg class behind contain covers (defaults to black) */
+  coverBg?: string;
   subtitleKey: 'yeatSubtitle' | 'atelierSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
   hoverKey: 'stillnessHover' | 'atelierHover' | 'yeatHover' | 'labagentHover';
   categoryKey?: 'webDesign' | 'uxResearch';
@@ -54,7 +55,11 @@ export const projects: ProjectMeta[] = [
     title: 'Stillness',
     year: '2026',
     liveUrl: 'https://stillnesshq.vercel.app/',
-    cover: stillness,
+    // Served from /public as an untouched PNG (no Vite transform / no re-encode)
+    cover: '/stillness.png',
+    coverFit: 'contain',
+    coverAspect: 'video',
+    coverBg: 'bg-[#efeae2]',
     subtitleKey: 'stillnessSubtitle',
     tagKey: 'uiUx',
     hoverKey: 'stillnessHover',
