@@ -11,7 +11,7 @@ export const translations = {
     hero: {
       greeting: "Hey, I'm",
       name: 'Elena',
-      headline: 'Web Designer & AI Developer keen on products, web & AI experiences',
+      headline: 'Web Designer keen on\nproducts, web & AI experiences',
       projectsLink: 'Selected Projects',
     },
     about: {
@@ -83,7 +83,7 @@ export const translations = {
     hero: {
       greeting: 'Привет, я',
       name: 'Елена',
-      headline: 'Веб-дизайнер и разработчик ИИ — продукты, сайты и AI-опыт',
+      headline: 'Веб-дизайнер —\nпродукты, сайты и AI-опыт',
       projectsLink: 'Избранные работы',
     },
     about: {
