@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { SiteGrid } from '@/components/layout/SiteGrid';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
   getOtherProjects,
@@ -48,7 +47,7 @@ export default function ProjectPage() {
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <main className="pt-28 pb-24 md:pt-32 md:pb-32">
-          <SiteGrid>
+          <div className="container mx-auto px-6">
             <a
               href="/#work"
               className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-16"
@@ -57,6 +56,7 @@ export default function ProjectPage() {
               {t.caseStudy.backToWork}
             </a>
 
+            {/* Left-aligned case hero (white canvas — not centered like dark Marc hero) */}
             <motion.header
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -129,85 +129,85 @@ export default function ProjectPage() {
                 ))}
               </ul>
             </motion.section>
+          </div>
 
-            <div className="space-y-4 md:space-y-6 mb-24 md:mb-32">
-              <div
-                className={`relative w-full overflow-hidden ${
-                  project.coverAspect === 'video'
-                    ? 'aspect-[16/9]'
-                    : 'aspect-[16/9] md:aspect-[21/9]'
-                } ${project.coverFit === 'contain' ? 'bg-black' : 'bg-muted'}`}
-              >
-                {project.coverShift ? (
-                  <div
-                    className="absolute inset-y-0 left-0 h-full"
-                    style={{ width: '148%', transform: project.coverShift }}
-                  >
-                    <img
-                      src={project.cover}
-                      alt={`${project.title} ${t.caseStudy.coverLabel}`}
-                      width={1920}
-                      height={1080}
-                      decoding="async"
-                      className="h-full w-full object-cover object-center"
-                      draggable={false}
-                    />
-                  </div>
-                ) : (
+          <div className="space-y-4 md:space-y-6 mb-24 md:mb-32">
+            <div
+              className={`relative w-full overflow-hidden ${
+                project.coverAspect === 'video'
+                  ? 'aspect-[16/9]'
+                  : 'aspect-[16/9] md:aspect-[21/9]'
+              } ${project.coverFit === 'contain' ? 'bg-black' : 'bg-muted'}`}
+            >
+              {project.coverShift ? (
+                <div
+                  className="absolute inset-y-0 left-0 h-full"
+                  style={{ width: '148%', transform: project.coverShift }}
+                >
                   <img
                     src={project.cover}
                     alt={`${project.title} ${t.caseStudy.coverLabel}`}
                     width={1920}
                     height={1080}
                     decoding="async"
-                    className={`absolute inset-0 h-full w-full object-center ${
-                      project.coverFit === 'contain' ? 'object-contain' : 'object-cover'
-                    }`}
+                    className="h-full w-full object-cover object-center"
                     draggable={false}
                   />
-                )}
-              </div>
-
-              {Array.from({ length: project.gallerySlots }).map((_, index) => (
-                <div
-                  key={`${project.slug}-slot-${index}`}
-                  className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-muted flex items-center justify-center border border-border/40"
-                >
-                  <div className="text-center px-6">
-                    <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
-                      {String(index + 1).padStart(2, '0')}
-                    </p>
-                    <p className="text-sm md:text-base text-muted-foreground">
-                      {t.caseStudy.imageSoon}
-                    </p>
-                  </div>
                 </div>
-              ))}
+              ) : (
+                <img
+                  src={project.cover}
+                  alt={`${project.title} ${t.caseStudy.coverLabel}`}
+                  width={1920}
+                  height={1080}
+                  decoding="async"
+                  className={`absolute inset-0 h-full w-full object-center ${
+                    project.coverFit === 'contain' ? 'object-contain' : 'object-cover'
+                  }`}
+                  draggable={false}
+                />
+              )}
             </div>
 
-            <div className="text-left">
-              <h2 className="text-xs font-semibold tracking-widest uppercase mb-10 text-muted-foreground">
-                {t.caseStudy.otherWork}
-              </h2>
-              <ul className="divide-y divide-border/40 border-y border-border/40">
-                {others.map((other) => (
-                  <li key={other.slug}>
-                    <Link
-                      href={`/work/${other.slug}`}
-                      className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-6 hover:opacity-70 transition-opacity"
-                    >
-                      <span className="text-2xl md:text-3xl font-bold tracking-tight">
-                        {other.title}
-                      </span>
-                      <span className="text-sm text-muted-foreground tracking-wide">
-                        {t.work[other.subtitleKey]}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </SiteGrid>
+            {Array.from({ length: project.gallerySlots }).map((_, index) => (
+              <div
+                key={`${project.slug}-slot-${index}`}
+                className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-muted flex items-center justify-center border border-border/40"
+              >
+                <div className="text-center px-6">
+                  <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <p className="text-sm md:text-base text-muted-foreground">
+                    {t.caseStudy.imageSoon}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="container mx-auto px-6 text-left">
+            <h2 className="text-xs font-semibold tracking-widest uppercase mb-10 text-muted-foreground">
+              {t.caseStudy.otherWork}
+            </h2>
+            <ul className="divide-y divide-border/40 border-y border-border/40">
+              {others.map((other) => (
+                <li key={other.slug}>
+                  <Link
+                    href={`/work/${other.slug}`}
+                    className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-6 hover:opacity-70 transition-opacity"
+                  >
+                    <span className="text-2xl md:text-3xl font-bold tracking-tight">
+                      {other.title}
+                    </span>
+                    <span className="text-sm text-muted-foreground tracking-wide">
+                      {t.work[other.subtitleKey]}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </main>
 
         <Footer />
