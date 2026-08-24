@@ -6,16 +6,20 @@ import Home from '@/pages/Home';
 import ProjectPage from '@/pages/ProjectPage';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { LanguageProvider } from '@/i18n/LanguageContext';
+import { ScrollToTop } from '@/components/layout/ScrollToTop';
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/work/:slug" component={ProjectPage} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/work/:slug" component={ProjectPage} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 

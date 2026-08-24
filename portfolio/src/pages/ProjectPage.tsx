@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
@@ -18,10 +17,6 @@ export default function ProjectPage() {
   const params = useParams<{ slug: string }>();
   const { t, contentVisible } = useLanguage();
   const project = getProject(params.slug);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [params.slug]);
 
   if (!project) return <NotFound />;
 
