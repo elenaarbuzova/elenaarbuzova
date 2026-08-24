@@ -47,7 +47,7 @@ export default function ProjectPage() {
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <main className="pt-28 pb-24 md:pt-32 md:pb-32">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto max-w-5xl px-6">
             <a
               href="/#work"
               className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-16"
@@ -186,7 +186,7 @@ export default function ProjectPage() {
             ))}
           </div>
 
-          <div className="container mx-auto px-6 text-left">
+          <div className="container mx-auto max-w-5xl px-6 text-left">
             <h2 className="text-xs font-semibold tracking-widest uppercase mb-10 text-muted-foreground">
               {t.caseStudy.otherWork}
             </h2>

@@ -99,7 +99,7 @@ export function SkiperTextRevealH({
   if (reducedMotion) {
     return (
       <div className="flex min-h-[70vh] items-center">
-        <div className="container mx-auto px-6 py-24">
+        <div className="container mx-auto max-w-5xl px-6 py-24">
           <p className={cn('text-pretty', className)}>{plainText}</p>
         </div>
       </div>
@@ -111,7 +111,7 @@ export function SkiperTextRevealH({
   return (
     <div ref={containerRef} className="relative" style={{ height: scrollHeight }}>
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto max-w-5xl px-6">
           <p
             aria-label={plainText}
             className={cn(
