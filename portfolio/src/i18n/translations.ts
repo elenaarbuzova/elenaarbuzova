@@ -29,9 +29,6 @@ export const translations = {
       yeatSubtitle: 'Artist Portfolio Website',
       stillnessSubtitle: 'Mindful Experience',
       labagentSubtitle: 'Research Assistant Product',
-      yeatHover: 'Bold artist portfolio — cinematic layouts and expressive motion.',
-      stillnessHover: 'Minimal meditation site — calm typography and mindful UX.',
-      labagentHover: 'AI research assistant for labs — cited answers, documents, widget.',
     },
     caseStudy: {
       overview: 'Overview',
@@ -103,9 +100,6 @@ export const translations = {
       yeatSubtitle: 'Сайт-портфолио артиста',
       stillnessSubtitle: 'Осознанный опыт',
       labagentSubtitle: 'Продукт: исследовательский ассистент',
-      yeatHover: 'Смелое портфолио артиста — кинематографичные макеты и выразительная анимация.',
-      stillnessHover: 'Минималистичный сайт медитации — спокойная типографика и осознанный UX.',
-      labagentHover: 'ИИ-ассистент для лабораторий — ответы с цитатами, документы, виджет.',
     },
     caseStudy: {
       overview: 'Обзор',

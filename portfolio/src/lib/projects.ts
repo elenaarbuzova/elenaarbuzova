@@ -13,7 +13,6 @@ export type ProjectMeta = {
   coverAspect?: 'video' | 'wide';
   coverBg?: string;
   subtitleKey: 'yeatSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
-  hoverKey: 'stillnessHover' | 'yeatHover' | 'labagentHover';
   categoryKey?: 'webDesign' | 'uxResearch';
   tagKey?: 'uiUx' | 'productPrototype';
 };
@@ -27,7 +26,6 @@ export const projects: ProjectMeta[] = [
     cover: labagent,
     subtitleKey: 'labagentSubtitle',
     tagKey: 'productPrototype',
-    hoverKey: 'labagentHover',
   },
   {
     slug: 'yeat',
@@ -39,7 +37,6 @@ export const projects: ProjectMeta[] = [
     coverAspect: 'video',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
-    hoverKey: 'yeatHover',
   },
   {
     slug: 'stillness',
@@ -52,7 +49,6 @@ export const projects: ProjectMeta[] = [
     coverBg: 'bg-[#efeae2]',
     subtitleKey: 'stillnessSubtitle',
     tagKey: 'uiUx',
-    hoverKey: 'stillnessHover',
   },
 ];
 
