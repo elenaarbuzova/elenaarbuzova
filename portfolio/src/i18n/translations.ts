@@ -6,6 +6,7 @@ export const translations = {
       about: 'About',
       work: 'Work',
       contact: 'Contact',
+      menu: 'Menu',
     },
     hero: {
       role: 'Web Designer & AI Developer',
@@ -26,17 +27,11 @@ export const translations = {
       uiUx: 'UI / UX',
       productPrototype: 'Product prototype',
       yeatSubtitle: 'Artist Portfolio Website',
-      atelierSubtitle: 'Architecture Studio',
       stillnessSubtitle: 'Mindful Experience',
       labagentSubtitle: 'Research Assistant Product',
-      yeatHover:
-        'An immersive digital experience created for a modern music artist. The design focuses on bold visual storytelling, dynamic layouts and expressive interactions to capture the artist’s identity through a powerful and memorable web presence.',
-      stillnessHover:
-        'A calming digital environment built around simplicity and mindfulness. The design focuses on creating an emotional connection through minimal layouts, soft transitions and a peaceful visual language.',
-      atelierHover:
-        'A refined digital experience inspired by Scandinavian architecture and modern editorial design. The project focuses on creating a premium visual identity through minimalist layouts, elegant typography, immersive imagery and smooth interactions.',
-      labagentHover:
-        'A product experience for laboratories that need answers they can trust. The design turns documents, cited chat, an embeddable widget and a clear upgrade path into one focused flow – precise, calm and built to feel like a real tool, not a generic AI template.',
+      yeatHover: 'Bold artist portfolio — cinematic layouts and expressive motion.',
+      stillnessHover: 'Minimal meditation site — calm typography and mindful UX.',
+      labagentHover: 'AI research assistant for labs — cited answers, documents, widget.',
     },
     caseStudy: {
       overview: 'Overview',
@@ -45,33 +40,26 @@ export const translations = {
       visitSite: 'Visit website',
       builtIn: 'Built in',
       backToWork: 'Work',
-      imageSoon: 'Image coming soon',
       coverLabel: 'Cover',
     },
     cases: {
       labagent: {
         headline: 'Answers labs can trust',
         overview:
-          'A product experience for laboratories that need answers they can trust. The design turns documents, cited chat, an embeddable widget and a clear upgrade path into one focused flow – precise, calm and built to feel like a real tool, not a generic AI template.',
+          'LabAgent is a product experience built around a simple promise: laboratories need answers they can verify. I shaped the full flow — knowledge upload, cited chat, embeddable widget, analytics and upgrade path — into one calm, focused interface. The goal was not another AI demo, but a tool that feels precise, credible and ready for real workflows. Every screen prioritises clarity over novelty.',
         disciplines: ['Product Design', 'UI / UX', 'Prototyping', 'AI Product'] as const,
       },
       yeat: {
         headline: 'Identity for a modern artist',
         overview:
-          'An immersive digital experience created for a modern music artist. The design focuses on bold visual storytelling, dynamic layouts and expressive interactions to capture the artist’s identity through a powerful and memorable web presence.',
+          'YEAT is an immersive web presence for a contemporary music artist. I approached it as visual storytelling first: bold type, dynamic composition and interactions that match the energy of the music without overwhelming it. The site is built to feel memorable in a single visit — strong first impression, clear navigation, and a layout that scales from hero moments to catalogue depth.',
         disciplines: ['Web Design', 'UI / UX', 'Visual Design'] as const,
       },
       stillness: {
         headline: 'Calm in a noisy feed',
         overview:
-          'A calming digital environment built around simplicity and mindfulness. The design focuses on creating an emotional connection through minimal layouts, soft transitions and a peaceful visual language.',
+          'Stillness is a digital space for mindfulness — designed to slow the user down rather than compete for attention. I focused on editorial restraint: generous whitespace, soft transitions and typography that reads like a quiet invitation. The experience is intentionally minimal so the emotional tone — peace, focus, presence — comes through in every scroll.',
         disciplines: ['UI / UX', 'Experience Design', 'Visual Design'] as const,
-      },
-      'atelier-nordhavn': {
-        headline: 'Architecture, distilled',
-        overview:
-          'A refined digital experience inspired by Scandinavian architecture and modern editorial design. The project focuses on creating a premium visual identity through minimalist layouts, elegant typography, immersive imagery and smooth interactions.',
-        disciplines: ['UI / UX', 'Web Design', 'Editorial Design'] as const,
       },
     },
     contact: {
@@ -93,6 +81,7 @@ export const translations = {
       about: 'Обо мне',
       work: 'Работы',
       contact: 'Контакты',
+      menu: 'Меню',
     },
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
@@ -113,17 +102,11 @@ export const translations = {
       uiUx: 'UI/UX',
       productPrototype: 'Прототип продукта',
       yeatSubtitle: 'Сайт-портфолио артиста',
-      atelierSubtitle: 'Архитектурная студия',
       stillnessSubtitle: 'Осознанный опыт',
       labagentSubtitle: 'Продукт: исследовательский ассистент',
-      yeatHover:
-        'Захватывающий цифровой опыт для современного музыкального артиста. Дизайн строится на смелом визуальном повествовании, динамичных макетах и выразительных взаимодействиях, чтобы передать идентичность артиста через мощное и запоминающееся присутствие в сети.',
-      stillnessHover:
-        'Спокойная цифровая среда, построенная вокруг простоты и осознанности. Дизайн создаёт эмоциональную связь через минимальные макеты, мягкие переходы и мирный визуальный язык.',
-      atelierHover:
-        'Изысканный цифровой опыт в духе скандинавской архитектуры и современной редакционной подачи. Проект создаёт премиальную визуальную идентичность через минималистичные макеты, элегантную типографику, выразительные изображения и плавные взаимодействия.',
-      labagentHover:
-        'Продуктовый опыт для лабораторий, которым нужны ответы, которым можно доверять. Дизайн объединяет документы, чат с цитатами, встраиваемый виджет и понятный путь к расширению в один цельный сценарий – точный, спокойный и созданный как настоящий инструмент, а не как шаблон для ИИ.',
+      yeatHover: 'Смелое портфолио артиста — кинематографичные макеты и выразительная анимация.',
+      stillnessHover: 'Минималистичный сайт медитации — спокойная типографика и осознанный UX.',
+      labagentHover: 'ИИ-ассистент для лабораторий — ответы с цитатами, документы, виджет.',
     },
     caseStudy: {
       overview: 'Обзор',
@@ -132,33 +115,26 @@ export const translations = {
       visitSite: 'Посетить сайт',
       builtIn: 'Сделано в',
       backToWork: 'Работы',
-      imageSoon: 'Фото скоро',
       coverLabel: 'Обложка',
     },
     cases: {
       labagent: {
         headline: 'Ответы, которым лаборатории могут доверять',
         overview:
-          'Продуктовый опыт для лабораторий, которым нужны ответы, которым можно доверять. Дизайн объединяет документы, чат с цитатами, встраиваемый виджет и понятный путь к расширению в один цельный сценарий – точный, спокойный и созданный как настоящий инструмент, а не как шаблон для ИИ.',
+          'LabAgent — продуктовый опыт вокруг простого обещания: лабораториям нужны ответы, которые можно проверить. Я собрала весь сценарий — загрузку документов, чат с цитатами, встраиваемый виджет, аналитику и путь к расширению — в один спокойный, сфокусированный интерфейс. Задача была не в очередной AI-демо, а в инструменте, который ощущается точным, надёжным и готовым к реальной работе. На каждом экране — ясность важнее эффектности.',
         disciplines: ['Продуктовый дизайн', 'UI / UX', 'Прототипирование', 'ИИ-продукт'] as const,
       },
       yeat: {
         headline: 'Идентичность современного артиста',
         overview:
-          'Захватывающий цифровой опыт для современного музыкального артиста. Дизайн строится на смелом визуальном повествовании, динамичных макетах и выразительных взаимодействиях, чтобы передать идентичность артиста через мощное и запоминающееся присутствие в сети.',
+          'YEAT — иммерсивное веб-присутствие для современного музыкального артиста. Я подошла к проекту как к визуальному повествованию: смелая типографика, динамичная композиция и взаимодействия, которые передают энергию музыки, не перегружая её. Сайт должен запоминаться с первого визита — сильное первое впечатление, понятная навигация и макет, который масштабируется от hero-моментов к глубине каталога.',
         disciplines: ['Веб-дизайн', 'UI / UX', 'Визуальный дизайн'] as const,
       },
       stillness: {
         headline: 'Спокойствие в шумной ленте',
         overview:
-          'Спокойная цифровая среда, построенная вокруг простоты и осознанности. Дизайн создаёт эмоциональную связь через минимальные макеты, мягкие переходы и мирный визуальный язык.',
+          'Stillness — цифровое пространство для осознанности, созданное замедлить пользователя, а не бороться за внимание. Я сделала акцент на редакционной сдержанности: воздух, мягкие переходы и типографика, которая читается как тихое приглашение. Опыт намеренно минималистичен — чтобы эмоциональный тон (покой, фокус, присутствие) чувствовался в каждом скролле.',
         disciplines: ['UI / UX', 'Опыт взаимодействия', 'Визуальный дизайн'] as const,
-      },
-      'atelier-nordhavn': {
-        headline: 'Архитектура в чистом виде',
-        overview:
-          'Изысканный цифровой опыт в духе скандинавской архитектуры и современной редакционной подачи. Проект создаёт премиальную визуальную идентичность через минималистичные макеты, элегантную типографику, выразительные изображения и плавные взаимодействия.',
-        disciplines: ['UI / UX', 'Веб-дизайн', 'Редакционный дизайн'] as const,
       },
     },
     contact: {

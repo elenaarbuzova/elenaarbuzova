@@ -120,7 +120,7 @@ export function Skiper44({
     <div
       ref={containerRef}
       className={cn('relative bg-background', className)}
-      style={{ height: `${Math.max(items.length, 1) * 90}vh` }}
+      style={{ height: `${Math.max(items.length, 1) * 52}vh` }}
     >
       <div className="sticky top-0 h-svh w-full bg-background">
         {/* Full-bleed soft mask — no mid-column overflow clip that cuts blur into a hard line */}

@@ -1,12 +1,21 @@
 import { motion, useScroll } from 'framer-motion';
 import { useState, useEffect, type MouseEvent } from 'react';
 import { Link, useLocation } from 'wouter';
+import { Menu } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 export function Navbar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { t } = useLanguage();
   const [location] = useLocation();
   const onHome = location === '/';
@@ -18,6 +27,7 @@ export function Navbar() {
   }, [scrollY]);
 
   const scrollToSection = (hash: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    setMenuOpen(false);
     if (!onHome) return;
     const id = hash.replace('#', '');
     const el = document.getElementById(id);
@@ -28,6 +38,12 @@ export function Navbar() {
   };
 
   const sectionHref = (hash: string) => (onHome ? hash : `/${hash}`);
+
+  const navLinks = [
+    { hash: '#about', label: t.nav.about },
+    { hash: '#work', label: t.nav.work },
+    { hash: '#contact', label: t.nav.contact },
+  ] as const;
 
   return (
     <motion.header
@@ -41,31 +57,52 @@ export function Navbar() {
           Elena Arbuzova
         </Link>
 
-        <div className="flex items-center gap-6 md:gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <nav className="hidden md:flex gap-8 text-xs font-medium tracking-widest uppercase">
-            <a
-              href={sectionHref('#about')}
-              onClick={scrollToSection('#about')}
-              className="hover:opacity-50 transition-opacity"
-            >
-              {t.nav.about}
-            </a>
-            <a
-              href={sectionHref('#work')}
-              onClick={scrollToSection('#work')}
-              className="hover:opacity-50 transition-opacity"
-            >
-              {t.nav.work}
-            </a>
-            <a
-              href={sectionHref('#contact')}
-              onClick={scrollToSection('#contact')}
-              className="hover:opacity-50 transition-opacity"
-            >
-              {t.nav.contact}
-            </a>
+            {navLinks.map(({ hash, label }) => (
+              <a
+                key={hash}
+                href={sectionHref(hash)}
+                onClick={scrollToSection(hash)}
+                className="hover:opacity-50 transition-opacity"
+              >
+                {label}
+              </a>
+            ))}
           </nav>
+
           <LanguageSwitcher />
+
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                className="md:hidden inline-flex items-center justify-center size-9 -mr-1 text-foreground hover:opacity-50 transition-opacity"
+                aria-label={t.nav.menu}
+              >
+                <Menu className="size-5" strokeWidth={1.75} />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[min(100vw,20rem)] border-border/40">
+              <SheetHeader>
+                <SheetTitle className="text-left text-xs font-semibold tracking-widest uppercase text-muted-foreground">
+                  {t.nav.menu}
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="mt-10 flex flex-col gap-8">
+                {navLinks.map(({ hash, label }) => (
+                  <a
+                    key={hash}
+                    href={sectionHref(hash)}
+                    onClick={scrollToSection(hash)}
+                    className="text-2xl font-bold tracking-tight hover:opacity-50 transition-opacity"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </motion.header>
