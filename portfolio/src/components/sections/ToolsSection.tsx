@@ -5,7 +5,7 @@ export function ToolsSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="tools" className="border-t border-border/20">
+    <section id="tools" aria-label={t.tools.label} className="relative z-0">
       <Skiper44 label={t.tools.label} items={[...TOOLS]} />
     </section>
   );

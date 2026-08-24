@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   motion,
-  useMotionTemplate,
   useScroll,
   useTransform,
   type MotionValue,
@@ -9,7 +8,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-const TOOLS = [
+export const TOOLS = [
   'Cursor',
   'Figma',
   'Codex',
@@ -46,28 +45,23 @@ function ToolItem({
   const span = Math.max(count - 1, 1);
 
   const opacity = useTransform(progress, (p) => {
-    const active = p * span;
-    const d = Math.abs(active - index);
-    return Math.max(0.12, 1 - d * 0.55);
+    const d = Math.abs(p * span - index);
+    return Math.max(0.2, 1 - d * 0.45);
   });
 
   const scale = useTransform(progress, (p) => {
-    const active = p * span;
-    const d = Math.abs(active - index);
-    return Math.max(0.72, 1 - d * 0.14);
+    const d = Math.abs(p * span - index);
+    return Math.max(0.78, 1 - d * 0.1);
   });
 
-  const blur = useTransform(progress, (p) => {
-    const active = p * span;
-    const d = Math.abs(active - index);
-    return Math.min(14, d * 7);
+  const filter = useTransform(progress, (p) => {
+    const d = Math.abs(p * span - index);
+    return `blur(${Math.min(10, d * 5)}px)`;
   });
-
-  const filter = useMotionTemplate`blur(${blur}px)`;
 
   return (
     <motion.li
-      className="origin-left py-2 text-5xl font-bold tracking-tighter will-change-transform sm:text-6xl md:text-7xl lg:text-8xl"
+      className="origin-left py-1.5 text-5xl font-bold tracking-tighter text-foreground will-change-transform sm:py-2 sm:text-6xl md:text-7xl lg:text-8xl"
       style={{ opacity, scale, filter }}
     >
       {text}
@@ -76,8 +70,8 @@ function ToolItem({
 }
 
 /**
- * Skiper 44 — Vercel scroll with blur (recreated locally).
- * Sticky label + tool list that sharpens / blurs as you scroll.
+ * Skiper 44 — Vercel scroll with blur (local recreation).
+ * Sticky “I work with” + tool list that sharpens as you scroll.
  */
 export function Skiper44({
   label,
@@ -99,7 +93,7 @@ export function Skiper44({
   const listY = useTransform(
     scrollYProgress,
     [0, 1],
-    ['18%', `${-18 - Math.max(items.length - 1, 0) * 12}%`],
+    [0, -Math.max(items.length - 1, 0) * 88],
   );
 
   if (reducedMotion) {
@@ -122,46 +116,44 @@ export function Skiper44({
     );
   }
 
-  const scrollHeight = `calc(${Math.max(items.length, 1) * 85}vh)`;
-
   return (
     <div
       ref={containerRef}
-      className={cn('relative', className)}
-      style={{ height: scrollHeight }}
+      className={cn('relative bg-background', className)}
+      style={{ height: `${Math.max(items.length, 1) * 90}vh` }}
     >
-      <div className="sticky top-0 flex h-svh items-center overflow-hidden">
-        <div className="container mx-auto grid w-full grid-cols-1 items-center gap-8 px-6 md:grid-cols-2 md:gap-12 lg:gap-20">
-          <p className="max-w-md text-2xl font-medium tracking-tight md:text-3xl lg:text-4xl">
+      <div className="sticky top-0 flex h-svh w-full items-center">
+        <div className="container mx-auto grid w-full grid-cols-1 items-center gap-10 px-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-16 lg:gap-24">
+          <p className="text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
             {label}
           </p>
 
-          <div className="relative flex h-[min(52vh,28rem)] items-center overflow-hidden md:h-[min(60vh,34rem)]">
+          <div className="relative h-[22rem] overflow-hidden sm:h-[26rem] md:h-[30rem]">
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-background to-transparent md:h-24"
+              className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-background via-background/80 to-transparent"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-background to-transparent md:h-24"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-background via-background/80 to-transparent"
               aria-hidden
             />
 
-            <motion.ul className="relative w-full" style={{ y: listY }}>
-              {items.map((item, index) => (
-                <ToolItem
-                  key={item}
-                  text={item}
-                  index={index}
-                  count={items.length}
-                  progress={scrollYProgress}
-                />
-              ))}
-            </motion.ul>
+            <div className="absolute left-0 right-0 top-1/2 w-full">
+              <motion.ul className="w-full" style={{ y: listY }}>
+                {items.map((item, index) => (
+                  <ToolItem
+                    key={item}
+                    text={item}
+                    index={index}
+                    count={items.length}
+                    progress={scrollYProgress}
+                  />
+                ))}
+              </motion.ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-export { TOOLS };
