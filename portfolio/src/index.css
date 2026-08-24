@@ -320,3 +320,8 @@
     inset: -1px;
   }
 }
+
+#about ::selection {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
