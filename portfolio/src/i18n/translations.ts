@@ -80,6 +80,9 @@ export const translations = {
       copy: 'Copy',
       copied: 'Copied',
     },
+    tools: {
+      label: 'I work with',
+    },
     footer: {
       backToTop: 'Back to top',
       rights: 'All rights reserved',
@@ -163,6 +166,9 @@ export const translations = {
       line2: 'что-то лучше:)',
       copy: 'Копировать',
       copied: 'Скопировано',
+    },
+    tools: {
+      label: 'Я работаю с',
     },
     footer: {
       backToTop: 'Наверх',
