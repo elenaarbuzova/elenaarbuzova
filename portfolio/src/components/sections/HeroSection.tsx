@@ -1,47 +1,79 @@
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import heroPortrait from '@assets/generated_images/hero-portrait.png';
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-/** Matches uustinov.design hero scale: 34/40 mobile, 56/62 desktop, weight 400. */
-const heroLine =
-  'font-normal text-[34px] leading-[40px] tracking-[0.1px] md:text-[56px] md:leading-[62px] md:tracking-[-0.5px]';
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function HeroSection() {
   const { t, lang } = useLanguage();
+  const lines = t.hero.lines;
 
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center px-6 pb-24 pt-20">
-      <motion.div
-        key={lang}
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: EASE }}
-        className="flex w-full max-w-[630px] flex-col items-center text-center"
-      >
-        <div className={`${heroLine} flex flex-wrap items-center justify-center gap-x-[0.35em] text-[rgba(20,20,26,0.32)]`}>
-          <span>{t.hero.greeting}</span>
-          <span>{t.hero.name}</span>
-        </div>
-
-        <h1
-          className={`${heroLine} mt-0 whitespace-pre-line text-[rgb(20,20,26)]`}
+    <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
+      <div className="container mx-auto px-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-10 min-h-[calc(100vh-6rem)]">
+        <motion.div
+          className="relative z-10 w-full max-w-3xl lg:max-w-[54%] shrink-0"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE }}
         >
-          {t.hero.headline}
-        </h1>
-      </motion.div>
+          <h1
+            key={lang}
+            className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6"
+          >
+            {lines.map((line) => (
+              <span key={`${lang}-${line}`} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
 
-      <motion.a
-        href="#work"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
-        className="absolute bottom-10 md:bottom-14 inline-flex flex-col items-center gap-1.5 text-base font-normal text-foreground/70 hover:text-foreground transition-colors"
-      >
-        {t.hero.projectsLink}
-        <ChevronDown className="size-4 opacity-70" strokeWidth={1.5} aria-hidden />
-      </motion.a>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+            className="flex flex-row justify-between items-end w-full gap-6 mt-2"
+          >
+            <p className="text-lg md:text-xl font-medium tracking-wide uppercase">
+              {t.hero.role}
+            </p>
+            <a
+              href="#work"
+              className="shrink-0 text-sm font-semibold tracking-widest uppercase border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
+            >
+              {t.hero.cta}
+            </a>
+          </motion.div>
+        </motion.div>
+
+        <motion.aside
+          className="relative z-10 mx-auto lg:mx-0 w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[min(42vw,440px)]"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: EASE, delay: 0.25 }}
+        >
+          <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+            <img
+              src={heroPortrait}
+              alt="Elena Arbuzova"
+              className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
+              draggable={false}
+            />
+          </div>
+
+          <div
+            className="absolute -z-10 inset-3 translate-x-3 translate-y-3 border border-foreground/15"
+            aria-hidden
+          />
+        </motion.aside>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
+        className="absolute bottom-10 left-6 right-6 h-px bg-foreground/20 origin-left"
+      />
     </section>
   );
 }
