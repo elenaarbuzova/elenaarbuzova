@@ -4,11 +4,6 @@ import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { AboutSection } from '@/components/sections/AboutSection';
 import { WorkSection } from '@/components/sections/WorkSection';
-import { ProcessSection } from '@/components/sections/ProcessSection';
-import { SkillsSection } from '@/components/sections/SkillsSection';
-import { PhilosophySection } from '@/components/sections/PhilosophySection';
-import { WhySection } from '@/components/sections/WhySection';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -32,11 +27,6 @@ export default function Home() {
           <HeroSection />
           <AboutSection />
           <WorkSection />
-          <ProcessSection />
-          <SkillsSection />
-          <PhilosophySection />
-          <WhySection />
-          <TestimonialsSection />
           <ContactSection />
         </main>
 

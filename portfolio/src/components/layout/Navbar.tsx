@@ -39,12 +39,6 @@ export function Navbar() {
             <a href={sectionHref('#work')} className="hover:opacity-50 transition-opacity">
               {t.nav.work}
             </a>
-            <a href={sectionHref('#process')} className="hover:opacity-50 transition-opacity">
-              {t.nav.process}
-            </a>
-            <a href={sectionHref('#testimonials')} className="hover:opacity-50 transition-opacity">
-              {t.nav.testimonials}
-            </a>
             <a href={sectionHref('#contact')} className="hover:opacity-50 transition-opacity">
               {t.nav.contact}
             </a>
