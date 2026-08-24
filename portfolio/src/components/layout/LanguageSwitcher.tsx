@@ -16,7 +16,7 @@ export function LanguageSwitcher() {
   return (
     <motion.div
       className="language-switcher relative isolate select-none shrink-0"
-      style={{ width: 124, height: 34 }}
+      style={{ width: 88, height: 26 }}
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: EASE, delay: 0.25 }}
@@ -84,7 +84,7 @@ function LangHalf({
       aria-pressed={active}
     >
       <motion.span
-        className="text-[12px] font-semibold tracking-[0.08em] leading-none"
+        className="text-[10px] font-semibold tracking-[0.08em] leading-none"
         style={{ fontFamily: "'Geist', 'Inter', system-ui, sans-serif" }}
         animate={{ color }}
         transition={{ duration: 0.65, ease: EASE }}
