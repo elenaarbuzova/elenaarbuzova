@@ -5,7 +5,7 @@ export function AboutSection() {
   const { t, lang } = useLanguage();
 
   return (
-    <section id="about" className="bg-foreground text-background">
+    <section id="about" className="bg-background text-foreground">
       <SkiperTextRevealH key={lang}>
         {t.about.lines.join(' ')}
       </SkiperTextRevealH>

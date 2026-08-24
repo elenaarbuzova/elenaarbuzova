@@ -38,7 +38,7 @@ export function WorkSection() {
                   </div>
                 </div>
               ) : (
-                <div className="absolute inset-0 overflow-hidden bg-white">
+                <div className="absolute inset-0 overflow-hidden bg-black">
                   <img
                     src={project.cover}
                     alt={project.title}
@@ -53,8 +53,8 @@ export function WorkSection() {
                   className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 ease-out group-hover/media:bg-black/85"
                   aria-hidden
                 />
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-8 md:p-14">
-                  <p className="max-w-3xl text-center text-base md:text-2xl lg:text-3xl leading-relaxed md:leading-snug font-medium text-white opacity-0 translate-y-3 transition-all duration-500 ease-out group-hover/media:opacity-100 group-hover/media:translate-y-0">
+                <div className="pointer-events-none absolute inset-0 flex items-end justify-start p-6 md:p-10 lg:p-12">
+                  <p className="max-w-2xl text-left text-base md:text-xl lg:text-2xl leading-relaxed md:leading-snug font-medium text-white opacity-0 translate-y-3 transition-all duration-500 ease-out group-hover/media:opacity-100 group-hover/media:translate-y-0">
                     {hoverText}
                   </p>
                 </div>
