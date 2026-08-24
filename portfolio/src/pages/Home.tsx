@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { PageEnter } from '@/components/layout/PageTransition';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { AboutSection } from '@/components/sections/AboutSection';
 import { WorkSection } from '@/components/sections/WorkSection';
@@ -15,25 +16,27 @@ export default function Home() {
     <div className="bg-background text-foreground min-h-screen font-sans selection:bg-foreground selection:text-background">
       <Navbar />
 
-      <motion.div
-        initial={false}
-        animate={
-          contentVisible
-            ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 10 }
-        }
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <WorkSection />
-          <ToolsSection />
-          <ContactSection />
-        </main>
+      <PageEnter animateKey="home">
+        <motion.div
+          initial={false}
+          animate={
+            contentVisible
+              ? { opacity: 1 }
+              : { opacity: 0 }
+          }
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <WorkSection />
+            <ToolsSection />
+            <ContactSection />
+          </main>
 
-        <Footer />
-      </motion.div>
+          <Footer />
+        </motion.div>
+      </PageEnter>
     </div>
   );
 }

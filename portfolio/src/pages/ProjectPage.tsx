@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { PageEnter } from '@/components/layout/PageTransition';
 import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
@@ -11,8 +12,6 @@ import {
   type ProjectSlug,
 } from '@/lib/projects';
 import NotFound from '@/pages/not-found';
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function ProjectPage() {
   const params = useParams<{ slug: string }>();
@@ -33,23 +32,14 @@ export default function ProjectPage() {
     <div className="bg-background text-foreground min-h-screen font-sans selection:bg-foreground selection:text-background">
       <Navbar />
 
-      <motion.div
-        initial={false}
-        animate={
-          contentVisible
-            ? { opacity: 1, filter: 'blur(0px)' }
-            : { opacity: 0, filter: 'blur(1px)' }
-        }
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <main className="pt-28 pb-24 md:pt-32 md:pb-32">
-          <motion.div
-            key={project.slug}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          >
-          <div className="container mx-auto max-w-5xl px-6">
+      <PageEnter animateKey={project.slug}>
+        <motion.div
+          initial={false}
+          animate={{ opacity: contentVisible ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <main className="pt-28 pb-24 md:pt-32 md:pb-32">
+            <div className="container mx-auto max-w-5xl px-6">
             <a
               href="/#work"
               className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-16"
@@ -195,11 +185,11 @@ export default function ProjectPage() {
               ))}
             </ul>
           </div>
-          </motion.div>
         </main>
 
-        <Footer />
-      </motion.div>
+          <Footer />
+        </motion.div>
+      </PageEnter>
     </div>
   );
 }
