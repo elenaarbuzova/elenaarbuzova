@@ -51,41 +51,45 @@ export default function ProjectPage() {
           <div className="container mx-auto max-w-5xl px-6">
             <a
               href="/#work"
-              className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-14"
+              className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-16"
             >
               <span className="w-8 h-px bg-current" aria-hidden />
               {t.caseStudy.backToWork}
             </a>
 
+            {/* Left-aligned case hero (white canvas — not centered like dark Marc hero) */}
             <motion.header
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: EASE }}
-              className="mb-16 md:mb-24"
+              className="mb-16 md:mb-24 text-left"
             >
-              <p className="text-sm md:text-base font-medium tracking-wide text-muted-foreground mb-5">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-6">
                 {project.title}
-              </p>
-
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[1.05] max-w-4xl mb-8">
-                {caseCopy.headline}
               </h1>
 
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-sm md:text-base">
-                <span className="font-medium tracking-wide">{disciplineLabel}</span>
-                <span className="hidden sm:inline text-muted-foreground" aria-hidden>
+              <p className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-muted-foreground max-w-3xl mb-8">
+                {caseCopy.headline}
+              </p>
+
+              <p className="text-sm md:text-base font-medium tracking-wide text-foreground/80 mb-8">
+                {disciplineLabel}
+                <span className="mx-3 text-muted-foreground" aria-hidden>
                   ·
                 </span>
-                <span className="inline-flex items-center gap-2 font-medium tracking-wide">
-                  <span className="text-muted-foreground">{t.caseStudy.builtIn}</span>
-                  <CursorMark className="size-4 shrink-0" />
-                  <span>Cursor</span>
-                </span>
-                <span className="hidden sm:inline text-muted-foreground" aria-hidden>
+                <span className="text-muted-foreground">{t.work[project.subtitleKey]}</span>
+                <span className="mx-3 text-muted-foreground" aria-hidden>
                   ·
                 </span>
-                <span className="text-muted-foreground tracking-widest uppercase text-xs font-semibold">
+                <span className="tracking-widest uppercase text-xs font-semibold text-muted-foreground">
                   {project.year}
+                </span>
+              </p>
+
+              <div className="inline-flex items-center gap-2.5 text-sm md:text-base font-medium tracking-wide">
+                <CursorMark className="size-4 shrink-0" />
+                <span>
+                  {t.caseStudy.builtIn} Cursor
                 </span>
               </div>
             </motion.header>
@@ -94,7 +98,7 @@ export default function ProjectPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.08 }}
-              className="mb-16 md:mb-20 max-w-3xl"
+              className="mb-16 md:mb-20 max-w-3xl text-left"
             >
               <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
                 {t.caseStudy.overview}
@@ -118,7 +122,7 @@ export default function ProjectPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.12 }}
-              className="mb-20 md:mb-28"
+              className="mb-20 md:mb-28 text-left"
             >
               <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
                 {t.caseStudy.disciplines}
@@ -172,7 +176,7 @@ export default function ProjectPage() {
             ))}
           </div>
 
-          <div className="container mx-auto max-w-5xl px-6">
+          <div className="container mx-auto max-w-5xl px-6 text-left">
             <h2 className="text-xs font-semibold tracking-widest uppercase mb-10 text-muted-foreground">
               {t.caseStudy.otherWork}
             </h2>
