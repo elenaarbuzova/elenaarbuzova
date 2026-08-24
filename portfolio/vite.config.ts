@@ -48,6 +48,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, 'dist'),
     emptyOutDir: true,
+    assetsInlineLimit: 0,
   },
   server: {
     port,

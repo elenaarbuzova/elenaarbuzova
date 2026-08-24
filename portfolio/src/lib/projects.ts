@@ -1,4 +1,3 @@
-import yeat from '@assets/generated_images/yeat.png';
 import voidArena from '@assets/generated_images/void-arena.png';
 import stillness from '@assets/generated_images/stillness.png';
 import labagent from '@assets/generated_images/labagent.png';
@@ -12,6 +11,10 @@ export type ProjectMeta = {
   liveUrl: string;
   cover: string;
   coverShift?: string;
+  /** Prefer contain for framed graphics so they are not crop-zoomed */
+  coverFit?: 'cover' | 'contain';
+  /** Match source aspect when possible to avoid upscale blur */
+  coverAspect?: 'video' | 'wide';
   subtitleKey: 'yeatSubtitle' | 'atelierSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
   hoverKey: 'stillnessHover' | 'atelierHover' | 'yeatHover' | 'labagentHover';
   categoryKey?: 'webDesign' | 'uxResearch';
@@ -37,7 +40,10 @@ export const projects: ProjectMeta[] = [
     title: 'YEAT',
     year: '2026',
     liveUrl: 'https://yeat-ruddy.vercel.app/',
-    cover: yeat,
+    // Served from /public as an untouched PNG (no Vite transform / no re-encode)
+    cover: '/yeat.png',
+    coverFit: 'contain',
+    coverAspect: 'video',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
     hoverKey: 'yeatHover',

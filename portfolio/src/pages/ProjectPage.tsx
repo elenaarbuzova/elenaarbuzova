@@ -132,7 +132,13 @@ export default function ProjectPage() {
           </div>
 
           <div className="space-y-4 md:space-y-6 mb-24 md:mb-32">
-            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-muted overflow-hidden">
+            <div
+              className={`relative w-full overflow-hidden ${
+                project.coverAspect === 'video'
+                  ? 'aspect-[16/9]'
+                  : 'aspect-[16/9] md:aspect-[21/9]'
+              } ${project.coverFit === 'contain' ? 'bg-black' : 'bg-muted'}`}
+            >
               {project.coverShift ? (
                 <div
                   className="absolute inset-y-0 left-0 h-full"
@@ -141,6 +147,9 @@ export default function ProjectPage() {
                   <img
                     src={project.cover}
                     alt={`${project.title} ${t.caseStudy.coverLabel}`}
+                    width={1920}
+                    height={1080}
+                    decoding="async"
                     className="h-full w-full object-cover object-center"
                     draggable={false}
                   />
@@ -149,7 +158,12 @@ export default function ProjectPage() {
                 <img
                   src={project.cover}
                   alt={`${project.title} ${t.caseStudy.coverLabel}`}
-                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  width={1920}
+                  height={1080}
+                  decoding="async"
+                  className={`absolute inset-0 h-full w-full object-center ${
+                    project.coverFit === 'contain' ? 'object-contain' : 'object-cover'
+                  }`}
                   draggable={false}
                 />
               )}

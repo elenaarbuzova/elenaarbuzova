@@ -4,6 +4,12 @@ import { RevealText } from '../ui/animations';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { projects } from '@/lib/projects';
 
+function coverAspectClass(aspect: 'video' | 'wide' | undefined) {
+  return aspect === 'video'
+    ? 'aspect-[16/9]'
+    : 'aspect-[16/9] md:aspect-[21/9]';
+}
+
 export function WorkSection() {
   const { t } = useLanguage();
 
@@ -20,6 +26,8 @@ export function WorkSection() {
         {projects.map((project) => {
           const hoverText = t.work[project.hoverKey];
           const projectHref = `/work/${project.slug}`;
+          const fit = project.coverFit ?? 'cover';
+          const mediaBg = fit === 'contain' ? 'bg-black' : 'bg-muted';
 
           const media = (
             <>
@@ -32,17 +40,23 @@ export function WorkSection() {
                     <img
                       src={project.cover}
                       alt={project.title}
+                      width={1920}
+                      height={1080}
+                      decoding="async"
                       className="h-full w-full object-cover object-center"
                       draggable={false}
                     />
                   </div>
                 </div>
               ) : (
-                <div className="absolute inset-0 overflow-hidden bg-white">
+                <div className={`absolute inset-0 overflow-hidden ${mediaBg}`}>
                   <img
                     src={project.cover}
                     alt={project.title}
-                    className="h-full w-full object-cover object-center"
+                    width={1920}
+                    height={1080}
+                    decoding="async"
+                    className={`h-full w-full object-center ${fit === 'contain' ? 'object-contain' : 'object-cover'}`}
                     draggable={false}
                   />
                 </div>
@@ -73,7 +87,7 @@ export function WorkSection() {
             >
               <Link
                 href={projectHref}
-                className="group/media block relative overflow-hidden bg-muted aspect-[16/9] md:aspect-[21/9] mb-8 cursor-pointer"
+                className={`group/media block relative overflow-hidden ${mediaBg} ${coverAspectClass(project.coverAspect)} mb-8 cursor-pointer`}
               >
                 {media}
               </Link>
