@@ -20,7 +20,6 @@ export const translations = {
         'I design, build, and experiment with AI to turn ideas into real digital experiences.',
         'No endless perfection – just good design, smart tools, and things that actually work.',
       ] as const,
-      highlight: 'AI',
     },
     work: {
       title: 'Selected Work',
@@ -133,7 +132,6 @@ export const translations = {
         'Я проектирую, собираю и экспериментирую с ИИ, чтобы превращать идеи в настоящий цифровой опыт.',
         'Никакого бесконечного перфекционизма – только хороший дизайн, умные инструменты и вещи, которые реально работают.',
       ] as const,
-      highlight: 'ИИ',
     },
     work: {
       title: 'Избранные работы',
