@@ -1,21 +1,30 @@
 import { useLayoutEffect } from 'react';
 import { useLocation } from 'wouter';
 
-/** Jump to top instantly — ignores html { scroll-behavior: smooth }. */
+/** Jump to top with no animation — never inherits CSS smooth scrolling. */
 export function scrollToTopInstant() {
   const html = document.documentElement;
-  const previous = html.style.scrollBehavior;
-  html.style.scrollBehavior = 'auto';
-  window.scrollTo(0, 0);
-  html.style.scrollBehavior = previous;
+  const body = document.body;
+
+  html.style.setProperty('scroll-behavior', 'auto', 'important');
+  body.style.setProperty('scroll-behavior', 'auto', 'important');
+
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  html.scrollTop = 0;
+  body.scrollTop = 0;
+
+  // Keep auto until after paint so a smooth CSS rule cannot animate this jump.
+  requestAnimationFrame(() => {
+    html.style.removeProperty('scroll-behavior');
+    body.style.removeProperty('scroll-behavior');
+  });
 }
 
-/** Instant top on route change (project links), without the smooth bottom→top scroll. */
+/** Instant top on route change (e.g. opening a project from Work). */
 export function ScrollToTop() {
   const [location] = useLocation();
 
   useLayoutEffect(() => {
-    // Keep smooth in-page anchors (e.g. /#work); only force jump on path changes.
     if (window.location.hash) return;
     scrollToTopInstant();
   }, [location]);

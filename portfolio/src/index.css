@@ -238,7 +238,8 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Instant by default — smooth only via explicit JS (nav anchors, footer). */
+    scroll-behavior: auto;
   }
 
   body {

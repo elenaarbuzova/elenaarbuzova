@@ -1,5 +1,5 @@
 import { motion, useScroll } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
@@ -17,6 +17,16 @@ export function Navbar() {
     });
   }, [scrollY]);
 
+  const scrollToSection = (hash: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!onHome) return;
+    const id = hash.replace('#', '');
+    const el = document.getElementById(id);
+    if (!el) return;
+    event.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', hash);
+  };
+
   const sectionHref = (hash: string) => (onHome ? hash : `/${hash}`);
 
   return (
@@ -33,13 +43,25 @@ export function Navbar() {
 
         <div className="flex items-center gap-6 md:gap-8">
           <nav className="hidden md:flex gap-8 text-xs font-medium tracking-widest uppercase">
-            <a href={sectionHref('#about')} className="hover:opacity-50 transition-opacity">
+            <a
+              href={sectionHref('#about')}
+              onClick={scrollToSection('#about')}
+              className="hover:opacity-50 transition-opacity"
+            >
               {t.nav.about}
             </a>
-            <a href={sectionHref('#work')} className="hover:opacity-50 transition-opacity">
+            <a
+              href={sectionHref('#work')}
+              onClick={scrollToSection('#work')}
+              className="hover:opacity-50 transition-opacity"
+            >
               {t.nav.work}
             </a>
-            <a href={sectionHref('#contact')} className="hover:opacity-50 transition-opacity">
+            <a
+              href={sectionHref('#contact')}
+              onClick={scrollToSection('#contact')}
+              className="hover:opacity-50 transition-opacity"
+            >
               {t.nav.contact}
             </a>
           </nav>

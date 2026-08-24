@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { RevealText } from '../ui/animations';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
 import { projects } from '@/lib/projects';
 
 function coverAspectClass(aspect: 'video' | 'wide' | undefined) {
@@ -88,6 +89,7 @@ export function WorkSection() {
             >
               <Link
                 href={projectHref}
+                onClick={scrollToTopInstant}
                 className={`group/media block relative overflow-hidden ${mediaBg} ${coverAspectClass(project.coverAspect)} mb-8 cursor-pointer`}
               >
                 {media}
@@ -95,7 +97,7 @@ export function WorkSection() {
 
               <div className="flex flex-row items-start justify-between gap-4">
                 <div>
-                  <Link href={projectHref} className="inline-block">
+                  <Link href={projectHref} onClick={scrollToTopInstant} className="inline-block">
                     <h3 className="text-3xl md:text-5xl font-bold tracking-tight hover:opacity-70 transition-opacity">
                       {project.title}
                     </h3>

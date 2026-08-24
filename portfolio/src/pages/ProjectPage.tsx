@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
   getOtherProjects,
@@ -180,6 +181,7 @@ export default function ProjectPage() {
                 <li key={other.slug}>
                   <Link
                     href={`/work/${other.slug}`}
+                    onClick={scrollToTopInstant}
                     className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-6 hover:opacity-70 transition-opacity"
                   >
                     <span className="text-2xl md:text-3xl font-bold tracking-tight">
