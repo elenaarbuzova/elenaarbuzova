@@ -1,4 +1,5 @@
 import { useLanguage } from '@/i18n/LanguageContext';
+import { SiteGrid } from '@/components/layout/SiteGrid';
 
 export function Footer() {
   const { t } = useLanguage();
@@ -9,7 +10,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border/20 py-8">
-      <div className="container mx-auto px-6 flex justify-between items-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
+      <SiteGrid className="flex justify-between items-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
         <span>Elena Arbuzova</span>
 
         <button
@@ -25,7 +26,7 @@ export function Footer() {
         <span>
           © {new Date().getFullYear()} · {t.footer.rights}
         </span>
-      </div>
+      </SiteGrid>
     </footer>
   );
 }

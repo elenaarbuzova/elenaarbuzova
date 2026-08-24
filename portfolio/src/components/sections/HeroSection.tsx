@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { SiteGrid } from '@/components/layout/SiteGrid';
 import heroPortrait from '@assets/generated_images/hero-portrait.png';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -89,14 +90,14 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-10 min-h-[calc(100vh-6rem)]">
+      <SiteGrid className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-10 min-h-[calc(100vh-6rem)]">
         <motion.div
           className="relative z-10 w-full max-w-3xl lg:max-w-[54%] shrink-0"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 min-h-[2.7em] -ml-[0.08em]">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 min-h-[2.7em]">
             {lines.map((line, index) => {
               const isPast = index < lineIndex || (index === lineIndex && phase !== 'typing');
               const isCurrent = index === lineIndex && phase === 'typing';
@@ -184,14 +185,16 @@ export function HeroSection() {
             aria-hidden
           />
         </motion.aside>
-      </div>
+      </SiteGrid>
 
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.7 }}
-        className="absolute bottom-10 left-6 right-6 h-[1px] bg-foreground/20 origin-left"
-      />
+      <SiteGrid className="absolute bottom-10 left-0 right-0 pointer-events-none">
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 1.2, ease: EASE, delay: 0.7 }}
+          className="h-px w-full bg-foreground/20 origin-left"
+        />
+      </SiteGrid>
     </section>
   );
 }

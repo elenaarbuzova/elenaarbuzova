@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { SiteGrid } from '@/components/layout/SiteGrid';
 
 export function Navbar() {
   const { scrollY } = useScroll();
@@ -26,7 +27,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] as const, delay: 0.15 }}
     >
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-6">
+      <SiteGrid className="h-20 flex items-center justify-between gap-6">
         <Link href="/" className="text-sm font-semibold tracking-wide uppercase shrink-0">
           Elena Arbuzova
         </Link>
@@ -45,7 +46,7 @@ export function Navbar() {
           </nav>
           <LanguageSwitcher />
         </div>
-      </div>
+      </SiteGrid>
     </motion.header>
   );
 }
