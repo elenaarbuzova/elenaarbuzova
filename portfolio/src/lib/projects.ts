@@ -1,5 +1,3 @@
-import labagent from '@assets/generated_images/labagent.png';
-
 export type ProjectSlug = 'labagent' | 'yeat' | 'stillness';
 
 export type ProjectMeta = {
@@ -23,7 +21,7 @@ export const projects: ProjectMeta[] = [
     title: 'LabAgent',
     year: '2026',
     liveUrl: 'https://labagent.vercel.app/',
-    cover: labagent,
+    cover: '/LabAgent.PNG',
     subtitleKey: 'labagentSubtitle',
     tagKey: 'productPrototype',
   },
