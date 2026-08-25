@@ -26,7 +26,17 @@ export const projects: ProjectMeta[] = [
     cover: '/LabAgent.PNG',
     subtitleKey: 'labagentSubtitle',
     tagKey: 'productPrototype',
-    galleryImages: [],
+    galleryImages: [
+      '/work/labagent/labagent.jpg',
+      '/work/labagent/labagent1.jpg',
+      '/work/labagent/labagent2.jpg',
+      '/work/labagent/labagent3.jpg',
+      '/work/labagent/labagent4.jpg',
+      '/work/labagent/labagent5.jpg',
+      '/work/labagent/labagent6.jpg',
+      '/work/labagent/labagent7.jpg',
+      '/work/labagent/labagent8.jpg',
+    ],
   },
   {
     slug: 'yeat',
