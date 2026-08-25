@@ -82,7 +82,7 @@ export const translations = {
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
       cta: 'Избранные работы ↓',
-      lines: ['ДИЗАЙН.', 'РАЗРАБОТКА.', 'РЕЛИЗ'] as const,
+      lines: ['ДИЗАЙН.', 'СТРОЮ.', 'РЕЛИЗ'] as const,
     },
     about: {
       lines: [
