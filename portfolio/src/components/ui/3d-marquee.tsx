@@ -45,7 +45,7 @@ export const ThreeDMarquee = ({
                   {subarray.map((image, imageIndex) => (
                     <div className="relative z-10" key={imageIndex + image}>
                       <GridLineHorizontal className="-top-4" offset="20px" />
-                      <div className="relative z-20 flex h-[158px] w-[300px] items-center justify-center overflow-hidden rounded-lg bg-white ring ring-gray-950/5 hover:shadow-2xl sm:h-[172px]">
+                      <div className="relative z-20 aspect-[1920/916] w-[300px] overflow-hidden rounded-md ring ring-gray-950/5">
                         <motion.img
                           whileHover={{
                             y: -10,
@@ -58,7 +58,7 @@ export const ThreeDMarquee = ({
                           alt={`Image ${imageIndex + 1}`}
                           loading="lazy"
                           decoding="async"
-                          className="max-h-full max-w-full object-contain"
+                          className="size-full object-cover"
                         />
                       </div>
                     </div>
