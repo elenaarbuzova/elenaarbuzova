@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -86,6 +86,14 @@ export function HeroSection() {
 
   const showCursor = phase !== 'done';
 
+  const scrollToWork = (event: MouseEvent<HTMLAnchorElement>) => {
+    const el = document.getElementById('work');
+    if (!el) return;
+    event.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', '#work');
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
       <div className="container mx-auto flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center px-6 text-center">
@@ -137,6 +145,7 @@ export function HeroSection() {
             </p>
             <a
               href="#work"
+              onClick={scrollToWork}
               className="text-sm font-semibold uppercase tracking-widest border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
             >
               {t.hero.cta}
