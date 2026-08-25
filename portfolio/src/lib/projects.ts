@@ -48,7 +48,17 @@ export const projects: ProjectMeta[] = [
     coverAspect: 'video',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
-    galleryImages: [],
+    galleryImages: [
+      '/work/yeat/yeat.jpg',
+      '/work/yeat/yeat1.jpg',
+      '/work/yeat/yeat2.jpg',
+      '/work/yeat/yeat3.jpg',
+      '/work/yeat/yeat4.jpg',
+      '/work/yeat/yeat5.jpg',
+      '/work/yeat/yeat6.jpg',
+      '/work/yeat/yeat7.jpg',
+      '/work/yeat/yeat8.jpg',
+    ],
   },
   {
     slug: 'stillness',
