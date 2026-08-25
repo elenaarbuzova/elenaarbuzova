@@ -1,7 +1,7 @@
 import { ThreeDMarquee } from '@/components/ui/3d-marquee';
 import type { ProjectMeta } from '@/lib/projects';
 
-const MIN_IMAGES = 16;
+const MIN_IMAGES = 28;
 
 function resolveGalleryImages(project: ProjectMeta): string[] {
   const custom = project.galleryImages?.filter(Boolean) ?? [];
@@ -9,7 +9,7 @@ function resolveGalleryImages(project: ProjectMeta): string[] {
     return Array.from({ length: MIN_IMAGES }, () => project.cover);
   }
 
-  const padded = [...custom];
+  const padded: string[] = [];
   while (padded.length < MIN_IMAGES) {
     padded.push(custom[padded.length % custom.length]);
   }

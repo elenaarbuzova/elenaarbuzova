@@ -28,7 +28,7 @@ export const ThreeDMarquee = ({
               style={{
                 transform: 'rotateX(55deg) rotateY(0deg) rotateZ(-45deg)',
               }}
-              className="grid w-max grid-cols-4 gap-8 [transform-style:preserve-3d]"
+              className="grid w-max grid-cols-4 gap-5 sm:gap-6 [transform-style:preserve-3d]"
             >
               {chunks.map((subarray, colIndex) => (
                 <motion.div
@@ -39,13 +39,13 @@ export const ThreeDMarquee = ({
                     repeatType: 'reverse',
                   }}
                   key={colIndex + 'marquee'}
-                  className="flex flex-col items-start gap-8"
+                  className="flex flex-col items-start gap-5 sm:gap-6"
                 >
                   <GridLineVertical className="-left-4" offset="80px" />
                   {subarray.map((image, imageIndex) => (
                     <div className="relative z-10" key={imageIndex + image}>
                       <GridLineHorizontal className="-top-4" offset="20px" />
-                      <div className="relative z-20 flex h-[158px] w-[300px] items-center justify-center overflow-hidden rounded-lg bg-white ring ring-gray-950/5 hover:shadow-2xl sm:h-[172px]">
+                      <div className="relative z-20 aspect-[40/19] w-[268px] overflow-hidden rounded-md bg-white p-0.5 ring ring-gray-950/5 hover:shadow-2xl sm:w-[284px]">
                         <motion.img
                           whileHover={{
                             y: -10,
@@ -58,7 +58,7 @@ export const ThreeDMarquee = ({
                           alt={`Image ${imageIndex + 1}`}
                           loading="lazy"
                           decoding="async"
-                          className="max-h-full max-w-full object-contain"
+                          className="size-full object-contain"
                         />
                       </div>
                     </div>
