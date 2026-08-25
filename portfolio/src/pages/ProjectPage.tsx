@@ -11,6 +11,7 @@ import {
   getProject,
   type ProjectSlug,
 } from '@/lib/projects';
+import { ProjectGalleryMarquee } from '@/components/projects/ProjectGalleryMarquee';
 import NotFound from '@/pages/not-found';
 
 export default function ProjectPage() {
@@ -140,6 +141,10 @@ export default function ProjectPage() {
                   />
                 )}
               </div>
+            </div>
+
+            <div className="container mx-auto max-w-7xl px-6 mb-24 md:mb-32">
+              <ProjectGalleryMarquee project={project} />
             </div>
 
             <div className="container mx-auto max-w-5xl px-6 text-left">

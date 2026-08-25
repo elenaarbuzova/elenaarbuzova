@@ -13,6 +13,8 @@ export type ProjectMeta = {
   subtitleKey: 'yeatSubtitle' | 'stillnessSubtitle' | 'labagentSubtitle';
   categoryKey?: 'webDesign' | 'uxResearch';
   tagKey?: 'uiUx' | 'productPrototype';
+  /** Project screenshots for the 3D gallery — add paths under /public */
+  galleryImages?: string[];
 };
 
 export const projects: ProjectMeta[] = [
@@ -24,6 +26,7 @@ export const projects: ProjectMeta[] = [
     cover: '/LabAgent.PNG',
     subtitleKey: 'labagentSubtitle',
     tagKey: 'productPrototype',
+    galleryImages: [],
   },
   {
     slug: 'yeat',
@@ -35,6 +38,7 @@ export const projects: ProjectMeta[] = [
     coverAspect: 'video',
     subtitleKey: 'yeatSubtitle',
     categoryKey: 'webDesign',
+    galleryImages: [],
   },
   {
     slug: 'stillness',
@@ -47,6 +51,7 @@ export const projects: ProjectMeta[] = [
     coverBg: 'bg-[#efeae2]',
     subtitleKey: 'stillnessSubtitle',
     tagKey: 'uiUx',
+    galleryImages: [],
   },
 ];
 
