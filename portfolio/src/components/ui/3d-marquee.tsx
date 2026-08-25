@@ -22,7 +22,7 @@ export const ThreeDMarquee = ({
       )}
     >
       <div className="flex size-full items-center justify-center [perspective:1400px]">
-        <div className="relative size-[1720px] shrink-0 scale-[0.42] sm:scale-[0.62] md:scale-[0.78] lg:scale-100">
+        <div className="relative size-[1720px] shrink-0 scale-[0.5] sm:scale-[0.72] md:scale-[0.88] lg:scale-[1.1]">
           <div className="absolute inset-0 flex items-center justify-center [transform-style:preserve-3d]">
             <div
               style={{
