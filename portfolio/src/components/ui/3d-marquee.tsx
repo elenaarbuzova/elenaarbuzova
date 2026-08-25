@@ -45,22 +45,22 @@ export const ThreeDMarquee = ({
                   {subarray.map((image, imageIndex) => (
                     <div className="relative z-10" key={imageIndex + image}>
                       <GridLineHorizontal className="-top-4" offset="20px" />
-                      <motion.img
-                        whileHover={{
-                          y: -10,
-                        }}
-                        transition={{
-                          duration: 0.3,
-                          ease: 'easeInOut',
-                        }}
-                        src={image}
-                        alt={`Image ${imageIndex + 1}`}
-                        loading="lazy"
-                        decoding="async"
-                        className="relative z-20 aspect-[970/700] w-[300px] max-w-none rounded-lg object-cover ring ring-gray-950/5 hover:shadow-2xl"
-                        width={970}
-                        height={700}
-                      />
+                      <div className="relative z-20 flex h-[158px] w-[300px] items-center justify-center overflow-hidden rounded-lg bg-white ring ring-gray-950/5 hover:shadow-2xl sm:h-[172px]">
+                        <motion.img
+                          whileHover={{
+                            y: -10,
+                          }}
+                          transition={{
+                            duration: 0.3,
+                            ease: 'easeInOut',
+                          }}
+                          src={image}
+                          alt={`Image ${imageIndex + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
                     </div>
                   ))}
                 </motion.div>
