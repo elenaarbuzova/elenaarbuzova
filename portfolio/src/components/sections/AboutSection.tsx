@@ -5,8 +5,8 @@ export function AboutSection() {
 
   return (
     <section id="about" className="bg-foreground text-background/75">
-      <div className="container mx-auto px-6 py-24 md:py-32">
-        <p className="max-w-3xl text-pretty text-[clamp(1.7rem,4.1vw,3.35rem)] font-medium tracking-tight leading-[1.45] lg:max-w-[54%]">
+      <div className="container mx-auto max-w-5xl px-6 py-24 md:py-32">
+        <p className="text-pretty text-[clamp(1.7rem,4.1vw,3.35rem)] font-medium tracking-tight leading-[1.45]">
           {t.about.lines.join(' ')}
         </p>
       </div>
