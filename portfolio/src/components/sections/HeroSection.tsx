@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
-import heroPortrait from '@assets/generated_images/hero-portrait.png';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -89,14 +88,14 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-10 min-h-[calc(100vh-6rem)]">
+      <div className="container mx-auto flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center px-6 text-center">
         <motion.div
-          className="relative z-10 w-full max-w-3xl lg:max-w-[54%] shrink-0"
+          className="relative z-10 w-full max-w-5xl"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h1 className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 min-h-[2.7em] -ml-[0.08em]">
+          <h1 className="mb-6 min-h-[2.7em] text-6xl font-bold leading-[0.9] tracking-tighter sm:text-7xl md:text-8xl xl:text-9xl">
             {lines.map((line, index) => {
               const isPast = index < lineIndex || (index === lineIndex && phase !== 'typing');
               const isCurrent = index === lineIndex && phase === 'typing';
@@ -131,59 +130,19 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-            className="flex flex-row justify-between items-end w-full gap-6 mt-2"
+            className="mx-auto flex w-full max-w-xl flex-col items-center gap-5"
           >
-            <p className="text-lg md:text-xl font-medium tracking-wide uppercase">
+            <p className="text-lg font-medium uppercase tracking-wide md:text-xl">
               {t.hero.role}
             </p>
             <a
               href="#work"
-              className="shrink-0 text-sm font-semibold tracking-widest uppercase border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
+              className="text-sm font-semibold uppercase tracking-widest border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
             >
               {t.hero.cta}
             </a>
           </motion.div>
         </motion.div>
-
-        <motion.aside
-          className="relative z-10 mx-auto lg:mx-0 w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[min(42vw,440px)]"
-          initial={{ opacity: 0, x: 56 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.15, ease: EASE, delay: 0.35 }}
-          aria-hidden={false}
-        >
-          <motion.div
-            className="relative aspect-[3/4] overflow-hidden bg-muted"
-            initial={{ clipPath: 'inset(18% 18% 18% 18%)' }}
-            animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-            transition={{ duration: 1.45, ease: EASE, delay: 0.45 }}
-          >
-            <motion.img
-              src={heroPortrait}
-              alt="Elena Arbuzova"
-              className="absolute inset-0 h-full w-full object-cover object-[center_18%] will-change-transform"
-              initial={{ scale: 1.22, filter: 'brightness(0.7) contrast(1.05)' }}
-              animate={{ scale: 1, filter: 'brightness(1) contrast(1)' }}
-              transition={{ duration: 1.7, ease: EASE, delay: 0.5 }}
-              draggable={false}
-            />
-
-            <motion.div
-              className="pointer-events-none absolute inset-0 bg-background"
-              initial={{ opacity: 0.55 }}
-              animate={{ opacity: 0 }}
-              transition={{ duration: 1.1, ease: EASE, delay: 0.55 }}
-            />
-          </motion.div>
-
-          <motion.div
-            className="absolute -z-10 inset-3 translate-x-3 translate-y-3 border border-foreground/15"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 1.05 }}
-            aria-hidden
-          />
-        </motion.aside>
       </div>
 
       <motion.div
