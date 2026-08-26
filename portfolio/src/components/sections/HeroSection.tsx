@@ -35,7 +35,7 @@ export function HeroSection() {
             Left: I'm + WEB / DESIGNER (right-aligned to the photo)
             Right: Elena Arbuzova … A + AI / DEVELOPER (left-aligned to the photo)
           */}
-          <div className="relative aspect-[3/4] w-[5.75rem] min-[390px]:w-[6.5rem] min-[430px]:w-28 sm:w-36 md:w-48 lg:w-56">
+          <div className="relative aspect-[3/4] w-[7.25rem] min-[390px]:w-32 min-[430px]:w-36 sm:w-44 md:w-56 lg:w-72">
             <img
               src="/elena-portrait.png"
               alt="Elena Arbuzova"
