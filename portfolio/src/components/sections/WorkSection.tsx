@@ -15,15 +15,15 @@ export function WorkSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="work" className="py-40 container mx-auto px-6">
+    <section id="work" className="container mx-auto px-5 py-16 sm:px-6 sm:py-24 md:py-40">
       <RevealText>
-        <h2 className="text-sm font-semibold tracking-widest uppercase mb-24 flex items-center gap-4">
-          <span className="w-8 h-[1px] bg-foreground"></span>
+        <h2 className="mb-10 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-24 sm:gap-4 sm:text-sm sm:tracking-widest">
+          <span className="h-px w-6 bg-foreground sm:w-8"></span>
           {t.work.title}
         </h2>
       </RevealText>
 
-      <div className="space-y-32">
+      <div className="space-y-14 sm:space-y-24 md:space-y-32">
         {projects.map((project) => {
           const projectHref = `/work/${project.slug}`;
           const fit = project.coverFit ?? 'cover';
@@ -35,14 +35,14 @@ export function WorkSection() {
               key={project.slug}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
               className="group"
             >
               <Link
                 href={projectHref}
                 onClick={scrollToTopInstant}
-                className={`block relative overflow-hidden ${mediaBg} ${coverAspectClass(project.coverAspect)} mb-8 cursor-pointer transition-opacity hover:opacity-90`}
+                className={`relative mb-5 block cursor-pointer overflow-hidden transition-opacity hover:opacity-90 sm:mb-8 ${mediaBg} ${coverAspectClass(project.coverAspect)}`}
               >
                 {project.coverShift ? (
                   <div
@@ -74,26 +74,28 @@ export function WorkSection() {
                 )}
               </Link>
 
-              <div className="flex flex-row items-start justify-between gap-4">
-                <div>
-                  <Link href={projectHref} onClick={scrollToTopInstant} className="inline-block">
-                    <h3 className="text-3xl md:text-5xl font-bold tracking-tight hover:opacity-70 transition-opacity">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                <div className="min-w-0">
+                  <Link
+                    href={projectHref}
+                    onClick={scrollToTopInstant}
+                    className="inline-flex min-h-11 items-center"
+                  >
+                    <h3 className="text-[1.75rem] font-bold tracking-tight transition-opacity hover:opacity-70 sm:text-3xl md:text-5xl">
                       {project.title}
                     </h3>
                   </Link>
-                  <p className="mt-2 text-sm md:text-base font-medium tracking-wide text-muted-foreground">
+                  <p className="mt-1 text-sm font-medium tracking-wide text-muted-foreground md:text-base">
                     {t.work[project.subtitleKey]}
                   </p>
                 </div>
-                <div className="flex flex-col items-end gap-3 shrink-0 pt-1">
-                  <div className="flex items-center gap-8 text-sm uppercase tracking-widest font-medium text-muted-foreground">
-                    {project.tagKey ? (
-                      <span>{t.work[project.tagKey]}</span>
-                    ) : (
-                      project.categoryKey && <span>{t.work[project.categoryKey]}</span>
-                    )}
-                    <span>{project.year}</span>
-                  </div>
+                <div className="flex items-center gap-5 pt-0.5 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:gap-8 sm:pt-1 sm:text-sm sm:tracking-widest">
+                  {project.tagKey ? (
+                    <span>{t.work[project.tagKey]}</span>
+                  ) : (
+                    project.categoryKey && <span>{t.work[project.categoryKey]}</span>
+                  )}
+                  <span>{project.year}</span>
                 </div>
               </div>
             </motion.div>

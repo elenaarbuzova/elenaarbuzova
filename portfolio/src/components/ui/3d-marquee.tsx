@@ -17,12 +17,12 @@ export const ThreeDMarquee = ({
   return (
     <div
       className={cn(
-        'mx-auto block h-[600px] overflow-hidden rounded-2xl max-sm:h-100',
+        'mx-auto block h-[240px] overflow-hidden rounded-xl sm:h-[420px] sm:rounded-2xl md:h-[600px]',
         className,
       )}
     >
       <div className="flex size-full items-center justify-center [perspective:1400px]">
-        <div className="relative size-[1720px] shrink-0 scale-[0.56] sm:scale-[0.8] md:scale-[0.96] lg:scale-[1.2]">
+        <div className="relative size-[1720px] shrink-0 scale-[0.34] sm:scale-[0.72] md:scale-[0.96] lg:scale-[1.2]">
           <div className="absolute inset-0 flex items-center justify-center [transform-style:preserve-3d]">
             <div
               style={{

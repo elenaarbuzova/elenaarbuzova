@@ -27,9 +27,9 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-40 md:py-60 container mx-auto px-6 text-center">
+    <section id="contact" className="container mx-auto px-5 py-20 text-center sm:px-6 sm:py-32 md:py-60">
       <RevealText>
-        <h2 className="text-6xl md:text-9xl font-bold tracking-tighter leading-[0.9] mb-12">
+        <h2 className="mb-8 text-[2.35rem] font-bold leading-[0.95] tracking-tighter sm:mb-12 sm:text-6xl md:text-8xl lg:text-9xl">
           {t.contact.line1}
           <br />
           <span className="text-muted-foreground">{t.contact.line2}</span>
@@ -37,11 +37,11 @@ export function ContactSection() {
       </RevealText>
 
       <FadeIn delay={0.4}>
-        <div className="inline-flex flex-col items-center mb-24">
+        <div className="mb-12 inline-flex flex-col items-center sm:mb-24">
           <button
             type="button"
             onClick={handleCopy}
-            className="mb-3 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
+            className="mb-2 inline-flex min-h-11 items-center gap-1.5 px-2 text-[11px] font-semibold tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground"
             aria-label={t.contact.copy}
           >
             {copied ? (
@@ -60,16 +60,30 @@ export function ContactSection() {
           <button
             type="button"
             onClick={handleCopy}
-            className="text-xl md:text-2xl font-medium tracking-wide border-b border-foreground pb-2 hover:text-muted-foreground hover:border-muted-foreground transition-colors inline-block cursor-pointer"
+            className="inline-block max-w-full cursor-pointer break-all border-b border-foreground px-1 pb-2 text-base font-medium tracking-wide transition-colors hover:border-muted-foreground hover:text-muted-foreground sm:text-xl md:text-2xl"
             aria-label={t.contact.copy}
           >
             {EMAIL}
           </button>
         </div>
 
-        <div className="flex justify-center gap-12 text-sm font-semibold tracking-widest uppercase">
-          <a href="https://www.linkedin.com/in/elena-arbuzova-25925a401/" target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity">LinkedIn</a>
-          <a href="https://t.me/elenaarb" target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity">Telegram</a>
+        <div className="flex justify-center gap-6 text-sm font-semibold tracking-widest uppercase sm:gap-12">
+          <a
+            href="https://www.linkedin.com/in/elena-arbuzova-25925a401/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center px-2 transition-opacity hover:opacity-50"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://t.me/elenaarb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center px-2 transition-opacity hover:opacity-50"
+          >
+            Telegram
+          </a>
         </div>
       </FadeIn>
     </section>

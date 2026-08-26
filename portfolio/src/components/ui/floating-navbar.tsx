@@ -59,7 +59,7 @@ export function FloatingNav({
         }}
         transition={{ duration: 0.2 }}
         className={cn(
-          'pointer-events-none fixed inset-x-0 top-3 z-[5000] mx-auto flex max-w-fit items-center justify-center sm:top-6',
+          'pointer-events-none fixed inset-x-0 top-[max(0.75rem,env(safe-area-inset-top))] z-[5000] mx-auto flex max-w-fit items-center justify-center sm:top-6',
           className,
         )}
       >
@@ -71,7 +71,7 @@ export function FloatingNav({
                 href={navItem.link}
                 onClick={onNavClick(navItem.link)}
                 className={cn(
-                  'relative flex items-center justify-center gap-1 rounded-full px-2.5 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-4',
+                  'relative flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:min-h-0 sm:min-w-0 sm:px-4',
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>

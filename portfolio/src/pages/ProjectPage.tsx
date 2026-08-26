@@ -30,7 +30,7 @@ export default function ProjectPage() {
       : t.work[project.subtitleKey];
 
   return (
-    <div className="bg-background text-foreground min-h-screen font-sans selection:bg-foreground selection:text-background">
+    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-foreground selection:text-background">
       <Navbar />
 
       <PageEnter animateKey={project.slug}>
@@ -39,45 +39,45 @@ export default function ProjectPage() {
           animate={{ opacity: contentVisible ? 1 : 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <main className="pt-24 pb-24 md:pt-28 md:pb-32">
-            <div className="container mx-auto max-w-5xl px-6">
+          <main className="pt-20 pb-16 md:pt-28 md:pb-32">
+            <div className="container mx-auto max-w-5xl px-5 sm:px-6">
               <a
                 href="/#work"
-                className="inline-flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors mb-16"
+                className="mb-8 inline-flex min-h-11 items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground sm:mb-16"
               >
-                <span className="w-8 h-px bg-current" aria-hidden />
+                <span className="h-px w-8 bg-current" aria-hidden />
                 {t.caseStudy.backToWork}
               </a>
 
-              <header className="mb-16 md:mb-24 text-left">
-                <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-6">
+              <header className="mb-12 text-left md:mb-24">
+                <h1 className="mb-4 text-4xl font-bold leading-[0.95] tracking-tighter sm:mb-6 sm:text-6xl md:text-8xl">
                   {project.title}
                 </h1>
 
-                <p className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-muted-foreground max-w-3xl mb-8">
+                <p className="mb-6 max-w-3xl text-lg font-medium tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl md:text-3xl">
                   {caseCopy.headline}
                 </p>
 
-                <p className="text-sm md:text-base font-medium tracking-wide text-foreground/80 mb-8">
+                <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium tracking-wide text-foreground/80 sm:mb-8 md:text-base">
                   {disciplineLabel}
-                  <span className="mx-3 text-muted-foreground" aria-hidden>
+                  <span className="text-muted-foreground" aria-hidden>
                     ·
                   </span>
                   <span className="text-muted-foreground">{t.work[project.subtitleKey]}</span>
-                  <span className="mx-3 text-muted-foreground" aria-hidden>
+                  <span className="text-muted-foreground" aria-hidden>
                     ·
                   </span>
-                  <span className="tracking-widest uppercase text-xs font-semibold text-muted-foreground">
+                  <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
                     {project.year}
                   </span>
                 </p>
               </header>
 
-              <section className="mb-16 md:mb-20 max-w-3xl text-left">
-                <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
+              <section className="mb-12 max-w-3xl text-left md:mb-20">
+                <h2 className="mb-4 text-xs font-semibold tracking-widest uppercase text-muted-foreground sm:mb-6">
                   {t.caseStudy.overview}
                 </h2>
-                <p className="text-lg md:text-2xl font-light leading-relaxed tracking-wide text-foreground/85 mb-10">
+                <p className="mb-8 text-base font-light leading-relaxed tracking-wide text-foreground/85 sm:mb-10 sm:text-lg md:text-2xl">
                   {caseCopy.overview}
                 </p>
 
@@ -85,18 +85,18 @@ export default function ProjectPage() {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm font-semibold tracking-widest uppercase hover:bg-foreground hover:text-background transition-colors"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 border border-foreground px-6 py-3 text-sm font-semibold tracking-widest uppercase transition-colors hover:bg-foreground hover:text-background sm:w-auto"
                 >
                   {t.caseStudy.visitSite}
                   <ArrowUpRight className="size-4" aria-hidden />
                 </a>
               </section>
 
-              <section className="mb-20 md:mb-28 text-left">
-                <h2 className="text-xs font-semibold tracking-widest uppercase mb-6 text-muted-foreground">
+              <section className="mb-14 text-left md:mb-28">
+                <h2 className="mb-4 text-xs font-semibold tracking-widest uppercase text-muted-foreground sm:mb-6">
                   {t.caseStudy.disciplines}
                 </h2>
-                <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm md:text-base font-medium tracking-wide">
+                <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium tracking-wide md:text-base">
                   {caseCopy.disciplines.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -104,7 +104,7 @@ export default function ProjectPage() {
               </section>
             </div>
 
-            <div className="mb-24 md:mb-32">
+            <div className="mb-12 md:mb-32">
               <div
                 className={`relative w-full overflow-hidden ${
                   project.coverAspect === 'video'
@@ -143,12 +143,12 @@ export default function ProjectPage() {
               </div>
             </div>
 
-            <div className="container mx-auto max-w-7xl px-6 mb-24 md:mb-32">
+            <div className="container mx-auto mb-12 max-w-7xl px-5 sm:px-6 md:mb-32">
               <ProjectGalleryMarquee project={project} />
             </div>
 
-            <div className="container mx-auto max-w-5xl px-6 text-left">
-              <h2 className="text-xs font-semibold tracking-widest uppercase mb-10 text-muted-foreground">
+            <div className="container mx-auto max-w-5xl px-5 text-left sm:px-6">
+              <h2 className="mb-6 text-xs font-semibold tracking-widest uppercase text-muted-foreground sm:mb-10">
                 {t.caseStudy.otherWork}
               </h2>
               <ul className="divide-y divide-border/40 border-y border-border/40">
@@ -157,12 +157,12 @@ export default function ProjectPage() {
                     <Link
                       href={`/work/${other.slug}`}
                       onClick={scrollToTopInstant}
-                      className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-6 hover:opacity-70 transition-opacity"
+                      className="group flex min-h-16 flex-col justify-center gap-1 py-5 transition-opacity hover:opacity-70 sm:min-h-0 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:py-6"
                     >
-                      <span className="text-2xl md:text-3xl font-bold tracking-tight">
+                      <span className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">
                         {other.title}
                       </span>
-                      <span className="text-sm text-muted-foreground tracking-wide">
+                      <span className="text-sm tracking-wide text-muted-foreground">
                         {t.work[other.subtitleKey]}
                       </span>
                     </Link>
