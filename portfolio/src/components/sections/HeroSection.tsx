@@ -56,13 +56,10 @@ export function HeroSection() {
             </div>
 
             <p
-              className={`absolute top-0 left-full z-30 ml-1.5 flex items-baseline justify-between sm:ml-3 md:ml-4 ${labelClass}`}
+              className={`absolute top-0 left-full z-30 ml-1.5 inline-flex items-baseline gap-4 sm:ml-3 sm:gap-5 md:ml-4 md:gap-6 ${labelClass}`}
             >
-              <span className="invisible font-black uppercase leading-[0.88] tracking-[-0.07em] text-[clamp(1.45rem,6.4vw,4.75rem)]" aria-hidden>
-                {t.hero.rightLines[1]}
-              </span>
-              <span className="absolute left-0 top-0">{t.hero.greetingRight}</span>
-              <span className="absolute right-0 top-0">{t.hero.greetingInitial}</span>
+              <span>{t.hero.greetingRight}</span>
+              <span>{t.hero.greetingInitial}</span>
             </p>
 
             <h1
