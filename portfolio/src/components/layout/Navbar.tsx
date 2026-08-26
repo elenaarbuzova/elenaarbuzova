@@ -1,7 +1,6 @@
 import { IconBriefcase, IconHome, IconMessage, IconUser } from '@tabler/icons-react';
 import { useLocation } from 'wouter';
 import { FloatingNav } from '@/components/ui/floating-navbar';
-import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 export function Navbar() {
@@ -34,5 +33,5 @@ export function Navbar() {
     },
   ];
 
-  return <FloatingNav navItems={navItems} action={<LanguageSwitcher />} />;
+  return <FloatingNav navItems={navItems} />;
 }
