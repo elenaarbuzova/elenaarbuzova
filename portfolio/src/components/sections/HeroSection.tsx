@@ -83,9 +83,13 @@ export function HeroSection() {
           <a
             href="#work"
             onClick={scrollToWork}
-            className="border-b border-foreground pb-1 text-[11px] font-medium uppercase tracking-[0.28em] text-foreground transition-opacity hover:opacity-50"
+            className="group relative pb-1 text-[11px] font-medium uppercase tracking-[0.28em] text-foreground"
           >
             {t.hero.cta}
+            <span
+              aria-hidden
+              className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+            />
           </a>
         </motion.div>
       </div>
