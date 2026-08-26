@@ -1,90 +1,11 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function HeroSection() {
-  const { t, lang } = useLanguage();
-  const lines = t.hero.lines;
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deliverSuffix, setDeliverSuffix] = useState('');
-  const [phase, setPhase] = useState<'typing' | 'pauseDot' | 'eraseDot' | 'typeSmile' | 'done'>('typing');
-
-  useEffect(() => {
-    setLineIndex(0);
-    setCharIndex(0);
-    setDeliverSuffix('');
-    setPhase('typing');
-  }, [lang]);
-
-  useEffect(() => {
-    if (phase === 'done') return;
-
-    if (phase === 'typing') {
-      if (lineIndex >= lines.length) {
-        setPhase('pauseDot');
-        return;
-      }
-
-      const current = lines[lineIndex];
-
-      if (charIndex < current.length) {
-        const timeout = window.setTimeout(() => {
-          setCharIndex((prev) => prev + 1);
-        }, 90);
-        return () => window.clearTimeout(timeout);
-      }
-
-      if (lineIndex === lines.length - 1) {
-        const timeout = window.setTimeout(() => {
-          setDeliverSuffix('.');
-          setPhase('pauseDot');
-        }, 90);
-        return () => window.clearTimeout(timeout);
-      }
-
-      const pause = window.setTimeout(() => {
-        setLineIndex((prev) => prev + 1);
-        setCharIndex(0);
-      }, 320);
-
-      return () => window.clearTimeout(pause);
-    }
-
-    if (phase === 'pauseDot') {
-      const timeout = window.setTimeout(() => {
-        setPhase('eraseDot');
-      }, 450);
-      return () => window.clearTimeout(timeout);
-    }
-
-    if (phase === 'eraseDot') {
-      const timeout = window.setTimeout(() => {
-        setDeliverSuffix('');
-        setPhase('typeSmile');
-      }, 180);
-      return () => window.clearTimeout(timeout);
-    }
-
-    if (phase === 'typeSmile') {
-      if (deliverSuffix.length < 2) {
-        const next = ':)'.slice(0, deliverSuffix.length + 1);
-        const timeout = window.setTimeout(() => {
-          setDeliverSuffix(next);
-        }, 120);
-        return () => window.clearTimeout(timeout);
-      }
-
-      const timeout = window.setTimeout(() => {
-        setPhase('done');
-      }, 200);
-      return () => window.clearTimeout(timeout);
-    }
-  }, [phase, lineIndex, charIndex, deliverSuffix, lines]);
-
-  const showCursor = phase !== 'done';
+  const { t } = useLanguage();
 
   const scrollToWork = (event: MouseEvent<HTMLAnchorElement>) => {
     const el = document.getElementById('work');
@@ -95,71 +16,66 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-16 pb-16 md:pt-20 md:pb-20">
-      <div className="container mx-auto flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-6 text-center">
+    <section className="relative flex min-h-screen flex-col overflow-hidden">
+      <div className="flex flex-1 items-center justify-center px-6 pb-24 pt-28 md:pb-28 md:pt-32">
         <motion.div
-          className="relative z-10 w-full max-w-5xl"
-          initial={{ opacity: 0, y: 28 }}
+          className="relative w-full max-w-6xl"
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <h1 className="mb-6 min-h-[2.7em] text-6xl font-bold leading-[0.9] tracking-tighter sm:text-7xl md:text-8xl xl:text-9xl">
-            {lines.map((line, index) => {
-              const isPast = index < lineIndex || (index === lineIndex && phase !== 'typing');
-              const isCurrent = index === lineIndex && phase === 'typing';
-              const isLast = index === lines.length - 1;
-              const isFuture = index > lineIndex && phase === 'typing';
+          <div className="flex items-center justify-center gap-3 sm:gap-5 md:gap-8 lg:gap-10">
+            <h1 className="shrink-0 text-[clamp(3.25rem,14vw,11.5rem)] font-black uppercase leading-none tracking-[-0.06em] text-foreground [font-family:Inter,sans-serif]">
+              {t.hero.left}
+            </h1>
 
-              let visible = '';
-              if (isPast || phase !== 'typing') {
-                visible = isLast ? `${line}${deliverSuffix}` : line;
-              } else if (isCurrent) {
-                visible = line.slice(0, charIndex);
-              }
+            <div className="relative z-10 shrink-0 self-center">
+              <p className="absolute -top-7 left-1/2 w-max -translate-x-1/2 text-[10px] font-medium uppercase tracking-[0.22em] text-foreground [font-family:Inter,sans-serif] sm:-top-8 sm:text-xs md:-top-9">
+                Elena Arbuzova
+              </p>
+              <div className="overflow-hidden bg-muted aspect-[3/4] w-[4.5rem] sm:w-24 md:w-28 lg:w-32">
+                <img
+                  src="/elena-portrait.png"
+                  alt="Elena Arbuzova"
+                  className="h-full w-full object-cover object-[center_20%] grayscale"
+                  width={256}
+                  height={341}
+                />
+              </div>
+            </div>
 
-              const showLineCursor =
-                showCursor &&
-                !isFuture &&
-                ((isCurrent && charIndex <= line.length) ||
-                  (isLast && phase !== 'typing' && phase !== 'done'));
-
-              return (
-                <span key={`${lang}-${line}`} className="block">
-                  {visible || '\u00A0'}
-                  {showLineCursor && (
-                    <span className="inline-block w-[0.08em] h-[0.85em] bg-foreground ml-1 align-[-0.05em] animate-pulse" />
-                  )}
-                </span>
-              );
-            })}
-          </h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-            className="mx-auto flex w-full max-w-xl flex-col items-center gap-5"
-          >
-            <p className="text-lg font-medium uppercase tracking-wide md:text-xl">
-              {t.hero.role}
-            </p>
-            <a
-              href="#work"
-              onClick={scrollToWork}
-              className="text-sm font-semibold uppercase tracking-widest border-b border-foreground pb-1 hover:opacity-50 transition-opacity"
-            >
-              {t.hero.cta}
-            </a>
-          </motion.div>
+            <h1 className="shrink-0 text-[clamp(2rem,8.5vw,7.5rem)] font-black uppercase leading-none tracking-[-0.06em] text-foreground [font-family:Inter,sans-serif]">
+              {t.hero.right}
+            </h1>
+          </div>
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.7 }}
-        className="absolute bottom-10 left-6 right-6 h-[1px] bg-foreground/20 origin-left"
-      />
+      <div className="absolute inset-x-6 bottom-8 md:inset-x-10 md:bottom-10">
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 1.1, ease: EASE, delay: 0.35 }}
+          className="mb-4 h-px origin-left bg-foreground/20"
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
+          className="flex items-center justify-between"
+        >
+          <a
+            href="#work"
+            onClick={scrollToWork}
+            className="text-[11px] font-medium uppercase tracking-[0.28em] text-foreground hover:opacity-50 transition-opacity"
+          >
+            {t.hero.cta}
+          </a>
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
+            {t.hero.role}
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 }

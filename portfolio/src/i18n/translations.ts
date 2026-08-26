@@ -11,7 +11,9 @@ export const translations = {
     },
     hero: {
       role: 'Web Designer & AI Developer',
-      cta: 'Selected Work ↓',
+      cta: 'Scroll',
+      left: 'WEB',
+      right: 'DESIGNER',
       lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
     },
     about: {
@@ -83,7 +85,9 @@ export const translations = {
     },
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
-      cta: 'Избранные работы ↓',
+      cta: 'Scroll',
+      left: 'WEB',
+      right: 'DESIGNER',
       lines: ['ДИЗАЙН.', 'КОД.', 'РЕЛИЗ'] as const,
     },
     about: {
