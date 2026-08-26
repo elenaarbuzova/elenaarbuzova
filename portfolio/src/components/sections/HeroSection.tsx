@@ -66,7 +66,7 @@ export function HeroSection() {
             </div>
 
             {/* CENTER photo */}
-            <div className="relative z-10 aspect-[3/4] w-[4.75rem] min-[390px]:w-[5.25rem] min-[430px]:w-[5.85rem] sm:w-[7.5rem] md:w-40 lg:w-48">
+            <div className="relative z-10 aspect-[3/4] w-[5.5rem] min-[390px]:w-[6.25rem] min-[430px]:w-[7rem] sm:w-36 md:w-48 lg:w-56">
               <img
                 src="/elena-portrait.png"
                 alt="Elena Arbuzova"
