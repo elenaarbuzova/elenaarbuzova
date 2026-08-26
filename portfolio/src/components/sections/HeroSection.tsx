@@ -4,8 +4,11 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const titleClass =
-  'select-none font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,6.8vw,4.75rem)]';
+const leftTitleClass =
+  'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(2.7rem,12vw,9.5rem)]';
+
+const rightTitleClass =
+  'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
 
 const labelClass =
   'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
@@ -30,19 +33,15 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          {/*
-            Centered lockup grid: left titles | photo | right titles.
-            Invisible in-flow copy sets column width so the whole group centers.
-          */}
           <div
             className="grid items-stretch gap-x-1.5 min-[390px]:gap-x-2 sm:gap-x-4 md:gap-x-5"
             style={{ gridTemplateColumns: 'max-content auto max-content' }}
           >
-            {/* LEFT */}
+            {/* LEFT: I'm + WEB */}
             <div className="relative">
               <div className="invisible flex flex-col items-end" aria-hidden>
                 <span className={labelClass}>{t.hero.greetingLeft}</span>
-                <div className={`mt-[0.55rem] text-right ${titleClass}`}>
+                <div className={`mt-[0.55rem] text-right ${leftTitleClass}`}>
                   {t.hero.leftLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -55,7 +54,7 @@ export function HeroSection() {
               </p>
               <h1
                 aria-hidden
-                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${titleClass}`}
+                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${leftTitleClass}`}
               >
                 {t.hero.leftLines.map((line) => (
                   <span key={line} className="block">
@@ -76,14 +75,14 @@ export function HeroSection() {
               />
             </div>
 
-            {/* RIGHT */}
+            {/* RIGHT: Elena Arbuzova A + DESIGNER */}
             <div className="relative">
               <div className="invisible flex flex-col items-start" aria-hidden>
                 <span className={`inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
                   <span>{t.hero.greetingRight}</span>
                   <span>{t.hero.greetingInitial}</span>
                 </span>
-                <div className={`mt-[0.55rem] text-left ${titleClass}`}>
+                <div className={`mt-[0.55rem] text-left ${rightTitleClass}`}>
                   {t.hero.rightLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -98,7 +97,7 @@ export function HeroSection() {
                 <span>{t.hero.greetingInitial}</span>
               </p>
               <h1
-                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
+                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${rightTitleClass}`}
               >
                 <span className="sr-only">
                   {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}

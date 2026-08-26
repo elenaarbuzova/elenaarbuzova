@@ -18,8 +18,8 @@ export const translations = {
       greetingInitial: 'A',
       left: 'WEB',
       right: 'DESIGNER',
-      leftLines: ['WEB', 'DESIGNER'] as const,
-      rightLines: ['AI', 'DEVELOPER'] as const,
+      leftLines: ['WEB'] as const,
+      rightLines: ['DESIGNER'] as const,
       lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
     },
     about: {
@@ -98,8 +98,8 @@ export const translations = {
       greetingInitial: 'A',
       left: 'WEB',
       right: 'DESIGNER',
-      leftLines: ['WEB', 'DESIGNER'] as const,
-      rightLines: ['AI', 'DEVELOPER'] as const,
+      leftLines: ['WEB'] as const,
+      rightLines: ['DESIGNER'] as const,
       lines: ['ДИЗАЙН.', 'КОД.', 'РЕЛИЗ'] as const,
     },
     about: {
