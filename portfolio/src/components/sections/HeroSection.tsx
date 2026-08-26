@@ -5,7 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const titleClass =
-  'select-none whitespace-nowrap font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
+  'select-none whitespace-nowrap font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.45rem,6.4vw,4.75rem)]';
 
 const labelClass =
   'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
@@ -32,10 +32,10 @@ export function HeroSection() {
         >
           {/*
             Photo is the page center.
-            I'm sits on the right of WEB, flush to the photo.
-            DESIGNER steps down, Elena sits on the photo's top-right.
+            Left: I'm + WEB / DESIGNER (right-aligned to the photo)
+            Right: Elena Arbuzova … A + AI / DEVELOPER (left-aligned to the photo)
           */}
-          <div className="relative aspect-[3/4] w-[6.25rem] min-[390px]:w-28 min-[430px]:w-32 sm:w-40 md:w-56 lg:w-64">
+          <div className="relative aspect-[3/4] w-[5.75rem] min-[390px]:w-[6.5rem] min-[430px]:w-28 sm:w-36 md:w-48 lg:w-56">
             <img
               src="/elena-portrait.png"
               alt="Elena Arbuzova"
@@ -44,27 +44,35 @@ export function HeroSection() {
               height={533}
             />
 
-            <p className={`absolute top-0 right-full z-30 mr-1.5 sm:mr-3 md:mr-4 ${labelClass}`}>
-              {t.hero.greetingLeft}
-            </p>
+            <div className="absolute top-0 right-full z-30 mr-1.5 flex flex-col items-end sm:mr-3 md:mr-4">
+              <p className={labelClass}>{t.hero.greetingLeft}</p>
+              <h1 aria-hidden className={`mt-2 text-right ${titleClass}`}>
+                {t.hero.leftLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+            </div>
 
-            <h1
-              aria-hidden
-              className={`absolute top-[0.95rem] right-full z-[1] mr-1.5 text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] sm:mr-3 md:top-[1.25rem] md:mr-4 ${titleClass}`}
-            >
-              {t.hero.left}
-            </h1>
-
-            <p className={`absolute top-0 left-full z-30 ml-1.5 sm:ml-3 md:ml-4 ${labelClass}`}>
-              {t.hero.greetingRight}
-            </p>
-
-            <h1 className={`absolute top-1/2 left-full z-[1] ml-1.5 text-left sm:ml-3 md:ml-4 ${titleClass}`}>
-              <span className="sr-only">
-                {t.hero.left} {t.hero.right}
-              </span>
-              <span aria-hidden>{t.hero.right}</span>
-            </h1>
+            <div className="absolute top-0 left-full z-30 ml-1.5 flex flex-col items-start sm:ml-3 md:ml-4">
+              <p className={`flex w-full items-baseline justify-between gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
+                <span>{t.hero.greetingRight}</span>
+                <span>{t.hero.greetingInitial}</span>
+              </p>
+              <h1 className={`mt-2 text-left ${titleClass}`}>
+                <span className="sr-only">
+                  {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
+                </span>
+                <span aria-hidden>
+                  {t.hero.rightLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </h1>
+            </div>
           </div>
         </motion.div>
       </div>
