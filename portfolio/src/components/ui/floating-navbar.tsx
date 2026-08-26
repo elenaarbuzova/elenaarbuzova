@@ -59,19 +59,19 @@ export function FloatingNav({
         }}
         transition={{ duration: 0.2 }}
         className={cn(
-          'pointer-events-none fixed inset-x-0 top-6 z-[5000] mx-auto flex max-w-fit items-center justify-center',
+          'pointer-events-none fixed inset-x-0 top-3 z-[5000] mx-auto flex max-w-fit items-center justify-center sm:top-6',
           className,
         )}
       >
-        <div className="pointer-events-auto flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white/85 px-2 py-1.5 shadow-lg shadow-black/10 backdrop-blur-md">
-          <div className="flex items-center gap-1">
+        <div className="pointer-events-auto flex items-center justify-center gap-1 rounded-full border border-black/10 bg-white/85 px-1.5 py-1 shadow-lg shadow-black/10 backdrop-blur-md sm:gap-2 sm:px-2 sm:py-1.5">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             {navItems.map((navItem, idx) => (
               <a
                 key={`link-${idx}`}
                 href={navItem.link}
                 onClick={onNavClick(navItem.link)}
                 className={cn(
-                  'relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900',
+                  'relative flex items-center justify-center gap-1 rounded-full px-2.5 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-4',
                 )}
               >
                 <span className="block sm:hidden">{navItem.icon}</span>
@@ -83,7 +83,7 @@ export function FloatingNav({
           {action ? (
             <>
               <div className="h-5 w-px bg-neutral-200" />
-              <div className="pr-1">{action}</div>
+              <div className="pr-0.5 sm:pr-1">{action}</div>
             </>
           ) : null}
         </div>

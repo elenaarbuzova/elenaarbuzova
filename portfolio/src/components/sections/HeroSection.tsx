@@ -16,21 +16,15 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative flex min-h-screen flex-col overflow-hidden">
-      <div className="flex flex-1 items-center justify-center overflow-x-hidden px-4 pb-28 pt-28 sm:px-8 md:pb-32 md:pt-32">
+    <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
+      <div className="flex flex-1 items-center justify-center px-3 pb-[7.5rem] pt-24 min-[400px]:px-5 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
         <motion.div
           className="flex w-full max-w-6xl justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          {/*
-            Photo box is the single anchor.
-            I'm / Elena → top edge
-            WEB → bottom edge on 50% (fills top half)
-            DESIGNER → top edge on 50% (fills bottom half)
-          */}
-          <div className="relative aspect-[3/4] w-[5.75rem] sm:w-[7.5rem] md:w-40 lg:w-48">
+          <div className="relative aspect-[3/4] w-[4.75rem] min-[390px]:w-[5.25rem] min-[430px]:w-[5.85rem] sm:w-[7.5rem] md:w-40 lg:w-48">
             <img
               src="/elena-portrait.png"
               alt="Elena Arbuzova"
@@ -39,22 +33,22 @@ export function HeroSection() {
               height={533}
             />
 
-            <p className="absolute top-0 right-full z-30 mr-3 whitespace-nowrap text-[10px] font-medium uppercase leading-none tracking-[0.22em] text-foreground [font-family:Inter,sans-serif] sm:mr-4 sm:text-[11px] md:mr-5 md:text-xs">
+            <p className="absolute top-0 right-full z-30 mr-1.5 whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] min-[390px]:mr-2 min-[390px]:text-[9px] sm:mr-4 sm:text-[11px] sm:tracking-[0.22em] md:mr-5 md:text-xs">
               {t.hero.greetingLeft}
             </p>
 
-            <p className="absolute top-0 left-full z-30 ml-3 whitespace-nowrap text-[10px] font-medium uppercase leading-none tracking-[0.22em] text-foreground [font-family:Inter,sans-serif] sm:ml-4 sm:text-[11px] md:ml-5 md:text-xs">
+            <p className="absolute top-0 left-full z-30 ml-1.5 whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:ml-2 min-[390px]:text-[9px] sm:ml-4 sm:text-[11px] sm:tracking-[0.22em] md:ml-5 md:text-xs">
               {t.hero.greetingRight}
             </p>
 
             <h1
               aria-hidden
-              className="absolute right-full bottom-1/2 z-[1] mr-3 select-none whitespace-nowrap text-right text-[3.5rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] sm:mr-4 sm:text-[4.6rem] md:mr-5 md:text-[6.2rem] lg:text-[7.4rem]"
+              className="absolute right-full bottom-1/2 z-[1] mr-1.5 select-none whitespace-nowrap text-right text-[2.7rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] min-[390px]:mr-2 min-[390px]:text-[3.05rem] min-[430px]:text-[3.45rem] sm:mr-4 sm:text-[4.6rem] md:mr-5 md:text-[6.2rem] lg:text-[7.4rem]"
             >
               {t.hero.left}
             </h1>
 
-            <h1 className="absolute left-full top-1/2 z-[1] ml-3 select-none whitespace-nowrap text-left text-[2.15rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] sm:ml-4 sm:text-[3rem] md:ml-5 md:text-[4.15rem] lg:text-[5rem]">
+            <h1 className="absolute left-full top-1/2 z-[1] ml-1.5 select-none whitespace-nowrap text-left text-[1.55rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] min-[390px]:ml-2 min-[390px]:text-[1.75rem] min-[430px]:text-[2.05rem] sm:ml-4 sm:text-[3rem] md:ml-5 md:text-[4.15rem] lg:text-[5rem]">
               <span className="sr-only">
                 {t.hero.left} {t.hero.right}
               </span>
@@ -64,31 +58,31 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-6 bottom-8 md:inset-x-10 md:bottom-10">
+      <div className="absolute inset-x-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] sm:inset-x-6 sm:bottom-8 md:inset-x-10 md:bottom-10">
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 1.1, ease: EASE, delay: 0.35 }}
-          className="mb-4 h-px origin-left bg-foreground/20"
+          className="mb-3 h-px origin-left bg-foreground/20 sm:mb-4"
         />
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
-          className="flex items-center justify-between"
+          className="flex items-end justify-between gap-3"
         >
-          <p className="max-w-[50%] truncate text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
+          <p className="min-w-0 flex-1 text-[9px] font-medium uppercase leading-snug tracking-[0.12em] text-foreground/55 min-[390px]:text-[10px] sm:max-w-[50%] sm:flex-none sm:truncate sm:text-[11px] sm:tracking-[0.18em]">
             {t.hero.role}
           </p>
           <a
             href="#work"
             onClick={scrollToWork}
-            className="group relative pb-1 text-[11px] font-medium uppercase tracking-[0.28em] text-foreground"
+            className="group relative shrink-0 pb-1 text-[9px] font-medium uppercase tracking-[0.18em] text-foreground min-[390px]:text-[10px] sm:text-[11px] sm:tracking-[0.28em]"
           >
             {t.hero.cta}
             <span
               aria-hidden
-              className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+              className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-active:scale-x-100"
             />
           </a>
         </motion.div>
