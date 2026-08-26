@@ -5,7 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const titleClass =
-  'select-none whitespace-nowrap font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.45rem,6.4vw,4.75rem)]';
+  'select-none whitespace-nowrap font-black uppercase tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.45rem,6.4vw,4.75rem)]';
 
 const labelClass =
   'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
@@ -49,7 +49,7 @@ export function HeroSection() {
 
             <div className={`absolute top-0 right-full z-30 flex flex-col items-end ${photoGap}`}>
               <p className={labelClass}>{t.hero.greetingLeft}</p>
-              <h1 aria-hidden className={`mt-2 text-right ${titleClass}`}>
+              <h1 aria-hidden className={`mt-2 text-right leading-[0.88] ${titleClass}`}>
                 {t.hero.leftLines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -66,7 +66,7 @@ export function HeroSection() {
             </p>
 
             <h1
-              className={`absolute bottom-0 left-full z-30 translate-y-[0.14em] text-left !leading-[0.76] ${photoGapRight} ${titleClass}`}
+              className={`absolute bottom-0 left-full z-30 text-left leading-[0.73] ${photoGapRight} ${titleClass}`}
             >
               <span className="sr-only">
                 {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
