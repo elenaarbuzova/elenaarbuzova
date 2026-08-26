@@ -55,24 +55,30 @@ export function HeroSection() {
               </h1>
             </div>
 
-            <div className="absolute top-0 left-full z-30 ml-1.5 flex flex-col items-start sm:ml-3 md:ml-4">
-              <p className={`flex w-full items-baseline justify-between gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
-                <span>{t.hero.greetingRight}</span>
-                <span>{t.hero.greetingInitial}</span>
-              </p>
-              <h1 className={`mt-2 text-left ${titleClass}`}>
-                <span className="sr-only">
-                  {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
-                </span>
-                <span aria-hidden>
-                  {t.hero.rightLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </span>
-              </h1>
-            </div>
+            <p
+              className={`absolute top-0 left-full z-30 ml-1.5 flex items-baseline justify-between sm:ml-3 md:ml-4 ${labelClass}`}
+            >
+              <span className="invisible font-black uppercase leading-[0.88] tracking-[-0.07em] text-[clamp(1.45rem,6.4vw,4.75rem)]" aria-hidden>
+                {t.hero.rightLines[1]}
+              </span>
+              <span className="absolute left-0 top-0">{t.hero.greetingRight}</span>
+              <span className="absolute right-0 top-0">{t.hero.greetingInitial}</span>
+            </p>
+
+            <h1
+              className={`absolute bottom-0 left-full z-[1] ml-1.5 text-left sm:ml-3 md:ml-4 ${titleClass}`}
+            >
+              <span className="sr-only">
+                {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
+              </span>
+              <span aria-hidden>
+                {t.hero.rightLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </span>
+            </h1>
           </div>
         </motion.div>
       </div>
