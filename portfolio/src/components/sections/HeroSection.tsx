@@ -30,35 +30,30 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
+          {/*
+            Screenshot lockup:
+            I'm + WEB  |  photo  |  Elena Arbuzova + DESIGNER
+            Same type size, DESIGNER stepped down, whole group centered.
+          */}
           <div
             className="grid items-stretch gap-x-1.5 min-[390px]:gap-x-2 sm:gap-x-4 md:gap-x-5"
             style={{ gridTemplateColumns: 'max-content auto max-content' }}
           >
-            {/* LEFT: I'm + WEB */}
+            {/* LEFT */}
             <div className="relative">
-              <div className="invisible flex flex-col items-end" aria-hidden>
+              <div className="invisible flex flex-col items-start" aria-hidden>
                 <span className={labelClass}>{t.hero.greetingLeft}</span>
-                <div className={`mt-[0.55rem] text-right ${titleClass}`}>
-                  {t.hero.leftLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </div>
+                <div className={`mt-2 ${titleClass}`}>{t.hero.left}</div>
               </div>
-              <p className={`absolute top-0 right-0 z-30 ${labelClass}`}>
-                {t.hero.greetingLeft}
-              </p>
-              <h1
-                aria-hidden
-                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${titleClass}`}
-              >
-                {t.hero.leftLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
+              <div className="absolute top-0 right-0 z-30 flex flex-col items-start">
+                <p className={labelClass}>{t.hero.greetingLeft}</p>
+                <h1
+                  aria-hidden
+                  className={`mt-2 whitespace-nowrap ${titleClass}`}
+                >
+                  {t.hero.left}
+                </h1>
+              </div>
             </div>
 
             {/* CENTER photo */}
@@ -72,40 +67,22 @@ export function HeroSection() {
               />
             </div>
 
-            {/* RIGHT: Elena Arbuzova A + DESIGNER */}
+            {/* RIGHT */}
             <div className="relative">
               <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={`inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
-                  <span>{t.hero.greetingRight}</span>
-                  <span>{t.hero.greetingInitial}</span>
-                </span>
-                <div className={`mt-[0.55rem] text-left ${titleClass}`}>
-                  {t.hero.rightLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </div>
+                <span className={labelClass}>{t.hero.greetingRight}</span>
+                <div className={`mt-2 ${titleClass}`}>{t.hero.right}</div>
               </div>
-              <p
-                className={`absolute top-0 left-0 z-30 inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}
-              >
-                <span>{t.hero.greetingRight}</span>
-                <span>{t.hero.greetingInitial}</span>
+              <p className={`absolute top-0 left-0 z-30 ${labelClass}`}>
+                {t.hero.greetingRight}
               </p>
               <h1
-                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
+                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap ${titleClass}`}
               >
                 <span className="sr-only">
-                  {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
+                  {t.hero.left} {t.hero.right}
                 </span>
-                <span aria-hidden>
-                  {t.hero.rightLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </span>
+                <span aria-hidden>{t.hero.right}</span>
               </h1>
             </div>
           </div>
