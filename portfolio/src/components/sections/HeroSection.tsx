@@ -79,7 +79,7 @@ export function HeroSection() {
             {/* RIGHT */}
             <div className="relative">
               <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={`flex w-full justify-between gap-10 sm:gap-14 md:gap-16 ${labelClass}`}>
+                <span className={`inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
                   <span>{t.hero.greetingRight}</span>
                   <span>{t.hero.greetingInitial}</span>
                 </span>
@@ -92,7 +92,7 @@ export function HeroSection() {
                 </div>
               </div>
               <p
-                className={`absolute top-0 left-0 right-0 z-30 flex justify-between gap-10 sm:gap-14 md:gap-16 ${labelClass}`}
+                className={`absolute top-0 left-0 z-30 inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}
               >
                 <span>{t.hero.greetingRight}</span>
                 <span>{t.hero.greetingInitial}</span>
