@@ -79,7 +79,10 @@ export function HeroSection() {
             {/* RIGHT */}
             <div className="relative">
               <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={labelClass}>{t.hero.greetingRight}</span>
+                <span className={`flex w-full justify-between gap-10 sm:gap-14 md:gap-16 ${labelClass}`}>
+                  <span>{t.hero.greetingRight}</span>
+                  <span>{t.hero.greetingInitial}</span>
+                </span>
                 <div className={`mt-[0.55rem] text-left ${titleClass}`}>
                   {t.hero.rightLines.map((line) => (
                     <span key={line} className="block">
@@ -88,8 +91,11 @@ export function HeroSection() {
                   ))}
                 </div>
               </div>
-              <p className={`absolute top-0 left-0 z-30 ${labelClass}`}>
-                {t.hero.greetingRight}
+              <p
+                className={`absolute top-0 left-0 right-0 z-30 flex justify-between gap-10 sm:gap-14 md:gap-16 ${labelClass}`}
+              >
+                <span>{t.hero.greetingRight}</span>
+                <span>{t.hero.greetingInitial}</span>
               </p>
               <h1
                 className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
