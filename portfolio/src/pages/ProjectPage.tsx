@@ -39,7 +39,7 @@ export default function ProjectPage() {
           animate={{ opacity: contentVisible ? 1 : 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <main className="pt-28 pb-24 md:pt-32 md:pb-32">
+          <main className="pt-24 pb-24 md:pt-28 md:pb-32">
             <div className="container mx-auto max-w-5xl px-6">
               <a
                 href="/#work"

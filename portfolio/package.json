@@ -72,5 +72,9 @@
     "vite": "catalog:",
     "wouter": "^3.3.5",
     "zod": "catalog:"
+  },
+  "dependencies": {
+    "@tabler/icons-react": "^3.46.0",
+    "motion": "^13.1.1"
   }
 }

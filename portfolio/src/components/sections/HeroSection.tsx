@@ -95,8 +95,8 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
-      <div className="container mx-auto flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center px-6 text-center">
+    <section className="relative min-h-screen overflow-hidden pt-16 pb-16 md:pt-20 md:pb-20">
+      <div className="container mx-auto flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-6 text-center">
         <motion.div
           className="relative z-10 w-full max-w-5xl"
           initial={{ opacity: 0, y: 28 }}

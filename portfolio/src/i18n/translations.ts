@@ -3,6 +3,7 @@ export type Lang = 'en' | 'ru';
 export const translations = {
   en: {
     nav: {
+      home: 'Home',
       about: 'About',
       work: 'Work',
       contact: 'Contact',
@@ -74,6 +75,7 @@ export const translations = {
   },
   ru: {
     nav: {
+      home: 'Главная',
       about: 'Обо мне',
       work: 'Работы',
       contact: 'Контакты',
