@@ -71,7 +71,15 @@ export const projects: ProjectMeta[] = [
     coverBg: 'bg-[#efeae2]',
     subtitleKey: 'stillnessSubtitle',
     tagKey: 'uiUx',
-    galleryImages: [],
+    galleryImages: [
+      '/work/stillness/stillness.jpg',
+      '/work/stillness/stillness1.jpg',
+      '/work/stillness/stillness2.jpg',
+      '/work/stillness/stillness3.jpg',
+      '/work/stillness/stillness4.jpg',
+      '/work/stillness/stillness5.jpg',
+      '/work/stillness/stillness6.jpg',
+    ],
   },
 ];
 
