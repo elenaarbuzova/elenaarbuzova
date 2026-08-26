@@ -4,12 +4,6 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const titleClass =
-  'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
-
-const labelClass =
-  'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
-
 export function HeroSection() {
   const { t } = useLanguage();
 
@@ -23,91 +17,65 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
-      <div className="flex flex-1 items-center justify-center px-3 pb-[7.5rem] pt-24 min-[400px]:px-5 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
+      <div className="flex flex-1 items-center justify-center px-4 pb-[7.5rem] pt-24 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
         <motion.div
-          className="flex w-full justify-center"
+          className="relative mx-auto flex w-full max-w-5xl flex-col items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <div
-            className="grid items-stretch gap-x-1.5 min-[390px]:gap-x-2 sm:gap-x-4 md:gap-x-5"
-            style={{ gridTemplateColumns: 'max-content auto max-content' }}
-          >
-            {/* LEFT: I'm + WEB */}
-            <div className="relative">
-              <div className="invisible flex flex-col items-end" aria-hidden>
-                <span className={labelClass}>{t.hero.greetingLeft}</span>
-                <div className={`mt-[0.55rem] text-right ${titleClass}`}>
-                  {t.hero.leftLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <p className={`absolute top-0 right-0 z-30 ${labelClass}`}>
-                {t.hero.greetingLeft}
-              </p>
-              <h1
-                aria-hidden
-                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${titleClass}`}
-              >
-                {t.hero.leftLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
-            </div>
-
-            {/* CENTER photo */}
-            <div className="relative z-10 aspect-[3/4] w-[5.5rem] min-[390px]:w-[6.25rem] min-[430px]:w-[7rem] sm:w-36 md:w-48 lg:w-56">
+          {/*
+            Architecture lockup on a single vertical axis:
+            photo (top) → micro caption → overlapping WEB / DESIGNER
+          */}
+          <div className="relative flex w-full flex-col items-center">
+            {/* Portrait — top of stack, centered on axis */}
+            <div className="relative z-20 aspect-[3/4] w-[5.75rem] sm:w-28 md:w-36 lg:w-40">
               <img
                 src="/elena-portrait.png"
                 alt="Elena Arbuzova"
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center"
                 width={400}
                 height={533}
               />
             </div>
 
-            {/* RIGHT: Elena Arbuzova A + DESIGNER */}
-            <div className="relative">
-              <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={`inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}>
-                  <span>{t.hero.greetingRight}</span>
-                  <span>{t.hero.greetingInitial}</span>
-                </span>
-                <div className={`mt-[0.55rem] text-left ${titleClass}`}>
-                  {t.hero.rightLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <p
-                className={`absolute top-0 left-0 z-30 inline-flex items-baseline gap-6 sm:gap-8 md:gap-10 ${labelClass}`}
-              >
-                <span>{t.hero.greetingRight}</span>
-                <span>{t.hero.greetingInitial}</span>
+            {/* Micro line — sits on photo bottom edge, 3 parts on the axis */}
+            <div className="relative z-30 -mt-1 grid w-[min(100%,36rem)] grid-cols-[1fr_auto_1fr] items-center gap-x-2 sm:w-[min(100%,42rem)] sm:gap-x-3 md:w-[min(100%,48rem)]">
+              <p className="justify-self-end text-right text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
+                {t.hero.greetingLeft}
               </p>
-              <h1
-                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
-              >
-                <span className="sr-only">
-                  {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
-                </span>
-                <span aria-hidden>
-                  {t.hero.rightLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </span>
-              </h1>
+              <p className="justify-self-center text-center text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
+                {t.hero.greetingRight}
+              </p>
+              <p className="justify-self-start text-left text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
+                {t.hero.greetingInitial}
+              </p>
             </div>
+
+            {/* Overlapping WEB / DESIGNER — same size, negative leading, DESIGNER shifted right */}
+            <h1 className="relative z-10 -mt-7 w-full select-none text-center [font-family:Inter,sans-serif] sm:-mt-9 md:-mt-11 lg:-mt-12">
+              <span className="sr-only">
+                {t.hero.left} {t.hero.right}
+              </span>
+              <span
+                aria-hidden
+                className="block font-black uppercase tracking-[-0.07em] text-foreground text-[clamp(3.25rem,16vw,9.5rem)] leading-[0.7] -translate-x-[12%] sm:-translate-x-[14%] md:-translate-x-[16%]"
+              >
+                {t.hero.left}
+              </span>
+              <span
+                aria-hidden
+                className="block font-black uppercase tracking-[-0.07em] text-foreground text-[clamp(3.25rem,16vw,9.5rem)] leading-[0.7] -mt-[0.42em] translate-x-[10%] sm:translate-x-[12%] md:translate-x-[14%]"
+              >
+                {t.hero.right}
+              </span>
+            </h1>
+
+            {/* Small role accent — ties the lockup together */}
+            <p className="relative z-10 mt-3 text-[9px] font-medium uppercase tracking-[0.22em] text-foreground/55 [font-family:Inter,sans-serif] sm:mt-4 sm:text-[10px] md:tracking-[0.28em]">
+              {t.hero.role}
+            </p>
           </div>
         </motion.div>
       </div>
