@@ -12,6 +12,7 @@ export const translations = {
     hero: {
       role: 'Web Designer & AI Developer',
       cta: 'Scroll',
+      greeting: "Hi I'm Elena Arbuzova",
       left: 'WEB',
       right: 'DESIGNER',
       lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
@@ -86,6 +87,7 @@ export const translations = {
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
       cta: 'Scroll',
+      greeting: "Hi I'm Elena Arbuzova",
       left: 'WEB',
       right: 'DESIGNER',
       lines: ['ДИЗАЙН.', 'КОД.', 'РЕЛИЗ'] as const,
