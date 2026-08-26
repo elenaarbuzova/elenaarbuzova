@@ -11,7 +11,7 @@ export const translations = {
     },
     hero: {
       role: 'Web Designer & AI Developer',
-      cta: 'Selected Work тЖУ',
+      cta: 'Selected Work ↓',
       greeting: "Hi I'm Elena Arbuzova",
       greetingLeft: "I'm",
       greetingRight: 'Elena Arbuzova',
@@ -25,7 +25,7 @@ export const translations = {
       lines: [
         'From pixels to products.',
         'I design, build, and experiment with AI to turn ideas into real digital experiences.',
-        'No endless perfection тАУ just good design, smart tools, and things that actually work.',
+        'No endless perfection – just good design, smart tools, and things that actually work.',
       ] as const,
     },
     work: {
@@ -50,19 +50,19 @@ export const translations = {
       labagent: {
         headline: 'Answers labs can trust',
         overview:
-          'LabAgent is a product experience built around a simple promise: laboratories need answers they can verify. I shaped the full flow тАФ knowledge upload, cited chat, embeddable widget, analytics and upgrade path тАФ into one calm, focused interface. The goal was not another AI demo, but a tool that feels precise, credible and ready for real workflows. Every screen prioritises clarity over novelty.',
+          'LabAgent is a product experience built around a simple promise: laboratories need answers they can verify. I shaped the full flow — knowledge upload, cited chat, embeddable widget, analytics and upgrade path — into one calm, focused interface. The goal was not another AI demo, but a tool that feels precise, credible and ready for real workflows. Every screen prioritises clarity over novelty.',
         disciplines: ['Product Design', 'UI / UX', 'Prototyping', 'AI Product'] as const,
       },
       yeat: {
         headline: 'Identity for a modern artist',
         overview:
-          'YEAT is an immersive web presence for a contemporary music artist. I approached it as visual storytelling first: bold type, dynamic composition and interactions that match the energy of the music without overwhelming it. The site is built to feel memorable in a single visit тАФ strong first impression, clear navigation, and a layout that scales from hero moments to catalogue depth.',
+          'YEAT is an immersive web presence for a contemporary music artist. I approached it as visual storytelling first: bold type, dynamic composition and interactions that match the energy of the music without overwhelming it. The site is built to feel memorable in a single visit — strong first impression, clear navigation, and a layout that scales from hero moments to catalogue depth.',
         disciplines: ['Web Design', 'UI / UX', 'Visual Design'] as const,
       },
       stillness: {
         headline: 'Calm in a noisy feed',
         overview:
-          'Stillness is a digital space for mindfulness тАФ designed to slow the user down rather than compete for attention. I focused on editorial restraint: generous whitespace, soft transitions and typography that reads like a quiet invitation. The experience is intentionally minimal so the emotional tone тАФ peace, focus, presence тАФ comes through in every scroll.',
+          'Stillness is a digital space for mindfulness — designed to slow the user down rather than compete for attention. I focused on editorial restraint: generous whitespace, soft transitions and typography that reads like a quiet invitation. The experience is intentionally minimal so the emotional tone — peace, focus, presence — comes through in every scroll.',
         disciplines: ['UI / UX', 'Experience Design', 'Visual Design'] as const,
       },
     },
@@ -82,15 +82,15 @@ export const translations = {
   },
   ru: {
     nav: {
-      home: '╨У╨╗╨░╨▓╨╜╨░╤П',
-      about: '╨Ю╨▒╨╛ ╨╝╨╜╨╡',
-      work: '╨а╨░╨▒╨╛╤В╤Л',
-      contact: '╨Ъ╨╛╨╜╤В╨░╨║╤В╤Л',
-      menu: '╨Ь╨╡╨╜╤О',
+      home: 'Главная',
+      about: 'Обо мне',
+      work: 'Работы',
+      contact: 'Контакты',
+      menu: 'Меню',
     },
     hero: {
-      role: '╨Т╨╡╨▒-╨┤╨╕╨╖╨░╨╣╨╜╨╡╤А ╨╕ ╤А╨░╨╖╤А╨░╨▒╨╛╤В╤З╨╕╨║ ╨Ш╨Ш',
-      cta: '╨Ш╨╖╨▒╤А╨░╨╜╨╜╤Л╨╡ ╤А╨░╨▒╨╛╤В╤Л тЖУ',
+      role: 'Веб-дизайнер и разработчик ИИ',
+      cta: 'Избранные работы ↓',
       greeting: "Hi I'm Elena Arbuzova",
       greetingLeft: "I'm",
       greetingRight: 'Elena Arbuzova',
@@ -98,65 +98,65 @@ export const translations = {
       right: 'DESIGNER',
       leftLines: ['WEB'] as const,
       rightLines: ['DESIGNER'] as const,
-      lines: ['╨Ф╨Ш╨Ч╨Р╨Щ╨Э.', '╨Ъ╨Ю╨Ф.', '╨а╨Х╨Ы╨Ш╨Ч'] as const,
+      lines: ['ДИЗАЙН.', 'КОД.', 'РЕЛИЗ'] as const,
     },
     about: {
       lines: [
-        '╨Ю╤В ╨┐╨╕╨║╤Б╨╡╨╗╨╡╨╣ ╨║ ╨┐╤А╨╛╨┤╤Г╨║╤В╨░╨╝.',
-        '╨п ╨┐╤А╨╛╨╡╨║╤В╨╕╤А╤Г╤О, ╤Б╨╛╨▒╨╕╤А╨░╤О ╨╕ ╤Н╨║╤Б╨┐╨╡╤А╨╕╨╝╨╡╨╜╤В╨╕╤А╤Г╤О ╤Б ╨Ш╨Ш, ╤З╤В╨╛╨▒╤Л ╨┐╤А╨╡╨▓╤А╨░╤Й╨░╤В╤М ╨╕╨┤╨╡╨╕ ╨▓ ╨╜╨░╤Б╤В╨╛╤П╤Й╨╕╨╣ ╤Ж╨╕╤Д╤А╨╛╨▓╨╛╨╣ ╨╛╨┐╤Л╤В.',
-        '╨Э╨╕╨║╨░╨║╨╛╨│╨╛ ╨▒╨╡╤Б╨║╨╛╨╜╨╡╤З╨╜╨╛╨│╨╛ ╨┐╨╡╤А╤Д╨╡╨║╤Ж╨╕╨╛╨╜╨╕╨╖╨╝╨░ тАУ ╤В╨╛╨╗╤М╨║╨╛ ╤Е╨╛╤А╨╛╤И╨╕╨╣ ╨┤╨╕╨╖╨░╨╣╨╜, ╤Г╨╝╨╜╤Л╨╡ ╨╕╨╜╤Б╤В╤А╤Г╨╝╨╡╨╜╤В╤Л ╨╕ ╨▓╨╡╤Й╨╕, ╨║╨╛╤В╨╛╤А╤Л╨╡ ╤А╨╡╨░╨╗╤М╨╜╨╛ ╤А╨░╨▒╨╛╤В╨░╤О╤В.',
+        'От пикселей к продуктам.',
+        'Я проектирую, собираю и экспериментирую с ИИ, чтобы превращать идеи в настоящий цифровой опыт.',
+        'Никакого бесконечного перфекционизма – только хороший дизайн, умные инструменты и вещи, которые реально работают.',
       ] as const,
     },
     work: {
-      title: '╨Ш╨╖╨▒╤А╨░╨╜╨╜╤Л╨╡ ╤А╨░╨▒╨╛╤В╤Л',
-      webDesign: '╨Т╨╡╨▒-╨┤╨╕╨╖╨░╨╣╨╜',
-      uxResearch: '╨Ш╤Б╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╨╡ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤М╤Б╨║╨╛╨│╨╛ ╨╛╨┐╤Л╤В╨░',
+      title: 'Избранные работы',
+      webDesign: 'Веб-дизайн',
+      uxResearch: 'Исследование пользовательского опыта',
       uiUx: 'UI/UX',
-      productPrototype: '╨Я╤А╨╛╤В╨╛╤В╨╕╨┐ ╨┐╤А╨╛╨┤╤Г╨║╤В╨░',
-      yeatSubtitle: '╨б╨░╨╣╤В-╨┐╨╛╤А╤В╤Д╨╛╨╗╨╕╨╛ ╨░╤А╤В╨╕╤Б╤В╨░',
-      stillnessSubtitle: '╨Ю╤Б╨╛╨╖╨╜╨░╨╜╨╜╤Л╨╣ ╨╛╨┐╤Л╤В',
-      labagentSubtitle: '╨Я╤А╨╛╨┤╤Г╨║╤В: ╨╕╤Б╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╤Б╨║╨╕╨╣ ╨░╤Б╤Б╨╕╤Б╤В╨╡╨╜╤В',
+      productPrototype: 'Прототип продукта',
+      yeatSubtitle: 'Сайт-портфолио артиста',
+      stillnessSubtitle: 'Осознанный опыт',
+      labagentSubtitle: 'Продукт: исследовательский ассистент',
     },
     caseStudy: {
-      overview: '╨Ю╨▒╨╖╨╛╤А',
-      disciplines: '╨Ф╨╕╤Б╤Ж╨╕╨┐╨╗╨╕╨╜╤Л',
-      otherWork: '╨Ф╤А╤Г╨│╨╕╨╡ ╤А╨░╨▒╨╛╤В╤Л',
-      visitSite: '╨Я╨╛╤Б╨╡╤В╨╕╤В╤М ╤Б╨░╨╣╤В',
-      backToWork: '╨а╨░╨▒╨╛╤В╤Л',
-      coverLabel: '╨Ю╨▒╨╗╨╛╨╢╨║╨░',
+      overview: 'Обзор',
+      disciplines: 'Дисциплины',
+      otherWork: 'Другие работы',
+      visitSite: 'Посетить сайт',
+      backToWork: 'Работы',
+      coverLabel: 'Обложка',
     },
     cases: {
       labagent: {
-        headline: '╨Ю╤В╨▓╨╡╤В╤Л, ╨║╨╛╤В╨╛╤А╤Л╨╝ ╨╗╨░╨▒╨╛╤А╨░╤В╨╛╤А╨╕╨╕ ╨╝╨╛╨│╤Г╤В ╨┤╨╛╨▓╨╡╤А╤П╤В╤М',
+        headline: 'Ответы, которым лаборатории могут доверять',
         overview:
-          'LabAgent тАФ ╨┐╤А╨╛╨┤╤Г╨║╤В╨╛╨▓╤Л╨╣ ╨╛╨┐╤Л╤В ╨▓╨╛╨║╤А╤Г╨│ ╨┐╤А╨╛╤Б╤В╨╛╨│╨╛ ╨╛╨▒╨╡╤Й╨░╨╜╨╕╤П: ╨╗╨░╨▒╨╛╤А╨░╤В╨╛╤А╨╕╤П╨╝ ╨╜╤Г╨╢╨╜╤Л ╨╛╤В╨▓╨╡╤В╤Л, ╨║╨╛╤В╨╛╤А╤Л╨╡ ╨╝╨╛╨╢╨╜╨╛ ╨┐╤А╨╛╨▓╨╡╤А╨╕╤В╤М. ╨п ╤Б╨╛╨▒╤А╨░╨╗╨░ ╨▓╨╡╤Б╤М ╤Б╤Ж╨╡╨╜╨░╤А╨╕╨╣ тАФ ╨╖╨░╨│╤А╤Г╨╖╨║╤Г ╨┤╨╛╨║╤Г╨╝╨╡╨╜╤В╨╛╨▓, ╤З╨░╤В ╤Б ╤Ж╨╕╤В╨░╤В╨░╨╝╨╕, ╨▓╤Б╤В╤А╨░╨╕╨▓╨░╨╡╨╝╤Л╨╣ ╨▓╨╕╨┤╨╢╨╡╤В, ╨░╨╜╨░╨╗╨╕╤В╨╕╨║╤Г ╨╕ ╨┐╤Г╤В╤М ╨║ ╤А╨░╤Б╤И╨╕╤А╨╡╨╜╨╕╤О тАФ ╨▓ ╨╛╨┤╨╕╨╜ ╤Б╨┐╨╛╨║╨╛╨╣╨╜╤Л╨╣, ╤Б╤Д╨╛╨║╤Г╤Б╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╣ ╨╕╨╜╤В╨╡╤А╤Д╨╡╨╣╤Б. ╨Ч╨░╨┤╨░╤З╨░ ╨▒╤Л╨╗╨░ ╨╜╨╡ ╨▓ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ AI-╨┤╨╡╨╝╨╛, ╨░ ╨▓ ╨╕╨╜╤Б╤В╤А╤Г╨╝╨╡╨╜╤В╨╡, ╨║╨╛╤В╨╛╤А╤Л╨╣ ╨╛╤Й╤Г╤Й╨░╨╡╤В╤Б╤П ╤В╨╛╤З╨╜╤Л╨╝, ╨╜╨░╨┤╤С╨╢╨╜╤Л╨╝ ╨╕ ╨│╨╛╤В╨╛╨▓╤Л╨╝ ╨║ ╤А╨╡╨░╨╗╤М╨╜╨╛╨╣ ╤А╨░╨▒╨╛╤В╨╡. ╨Э╨░ ╨║╨░╨╢╨┤╨╛╨╝ ╤Н╨║╤А╨░╨╜╨╡ тАФ ╤П╤Б╨╜╨╛╤Б╤В╤М ╨▓╨░╨╢╨╜╨╡╨╡ ╤Н╤Д╤Д╨╡╨║╤В╨╜╨╛╤Б╤В╨╕.',
-        disciplines: ['╨Я╤А╨╛╨┤╤Г╨║╤В╨╛╨▓╤Л╨╣ ╨┤╨╕╨╖╨░╨╣╨╜', 'UI / UX', '╨Я╤А╨╛╤В╨╛╤В╨╕╨┐╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡', '╨Ш╨Ш-╨┐╤А╨╛╨┤╤Г╨║╤В'] as const,
+          'LabAgent — продуктовый опыт вокруг простого обещания: лабораториям нужны ответы, которые можно проверить. Я собрала весь сценарий — загрузку документов, чат с цитатами, встраиваемый виджет, аналитику и путь к расширению — в один спокойный, сфокусированный интерфейс. Задача была не в очередной AI-демо, а в инструменте, который ощущается точным, надёжным и готовым к реальной работе. На каждом экране — ясность важнее эффектности.',
+        disciplines: ['Продуктовый дизайн', 'UI / UX', 'Прототипирование', 'ИИ-продукт'] as const,
       },
       yeat: {
-        headline: '╨Ш╨┤╨╡╨╜╤В╨╕╤З╨╜╨╛╤Б╤В╤М ╤Б╨╛╨▓╤А╨╡╨╝╨╡╨╜╨╜╨╛╨│╨╛ ╨░╤А╤В╨╕╤Б╤В╨░',
+        headline: 'Идентичность современного артиста',
         overview:
-          'YEAT тАФ ╨╕╨╝╨╝╨╡╤А╤Б╨╕╨▓╨╜╨╛╨╡ ╨▓╨╡╨▒-╨┐╤А╨╕╤Б╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┤╨╗╤П ╤Б╨╛╨▓╤А╨╡╨╝╨╡╨╜╨╜╨╛╨│╨╛ ╨╝╤Г╨╖╤Л╨║╨░╨╗╤М╨╜╨╛╨│╨╛ ╨░╤А╤В╨╕╤Б╤В╨░. ╨п ╨┐╨╛╨┤╨╛╤И╨╗╨░ ╨║ ╨┐╤А╨╛╨╡╨║╤В╤Г ╨║╨░╨║ ╨║ ╨▓╨╕╨╖╤Г╨░╨╗╤М╨╜╨╛╨╝╤Г ╨┐╨╛╨▓╨╡╤Б╤В╨▓╨╛╨▓╨░╨╜╨╕╤О: ╤Б╨╝╨╡╨╗╨░╤П ╤В╨╕╨┐╨╛╨│╤А╨░╤Д╨╕╨║╨░, ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╜╨░╤П ╨║╨╛╨╝╨┐╨╛╨╖╨╕╤Ж╨╕╤П ╨╕ ╨▓╨╖╨░╨╕╨╝╨╛╨┤╨╡╨╣╤Б╤В╨▓╨╕╤П, ╨║╨╛╤В╨╛╤А╤Л╨╡ ╨┐╨╡╤А╨╡╨┤╨░╤О╤В ╤Н╨╜╨╡╤А╨│╨╕╤О ╨╝╤Г╨╖╤Л╨║╨╕, ╨╜╨╡ ╨┐╨╡╤А╨╡╨│╤А╤Г╨╢╨░╤П ╨╡╤С. ╨б╨░╨╣╤В ╨┤╨╛╨╗╨╢╨╡╨╜ ╨╖╨░╨┐╨╛╨╝╨╕╨╜╨░╤В╤М╤Б╤П ╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨▓╨╕╨╖╨╕╤В╨░ тАФ ╤Б╨╕╨╗╤М╨╜╨╛╨╡ ╨┐╨╡╤А╨▓╨╛╨╡ ╨▓╨┐╨╡╤З╨░╤В╨╗╨╡╨╜╨╕╨╡, ╨┐╨╛╨╜╤П╤В╨╜╨░╤П ╨╜╨░╨▓╨╕╨│╨░╤Ж╨╕╤П ╨╕ ╨╝╨░╨║╨╡╤В, ╨║╨╛╤В╨╛╤А╤Л╨╣ ╨╝╨░╤Б╤И╤В╨░╨▒╨╕╤А╤Г╨╡╤В╤Б╤П ╨╛╤В hero-╨╝╨╛╨╝╨╡╨╜╤В╨╛╨▓ ╨║ ╨│╨╗╤Г╨▒╨╕╨╜╨╡ ╨║╨░╤В╨░╨╗╨╛╨│╨░.',
-        disciplines: ['╨Т╨╡╨▒-╨┤╨╕╨╖╨░╨╣╨╜', 'UI / UX', '╨Т╨╕╨╖╤Г╨░╨╗╤М╨╜╤Л╨╣ ╨┤╨╕╨╖╨░╨╣╨╜'] as const,
+          'YEAT — иммерсивное веб-присутствие для современного музыкального артиста. Я подошла к проекту как к визуальному повествованию: смелая типографика, динамичная композиция и взаимодействия, которые передают энергию музыки, не перегружая её. Сайт должен запоминаться с первого визита — сильное первое впечатление, понятная навигация и макет, который масштабируется от hero-моментов к глубине каталога.',
+        disciplines: ['Веб-дизайн', 'UI / UX', 'Визуальный дизайн'] as const,
       },
       stillness: {
-        headline: '╨б╨┐╨╛╨║╨╛╨╣╤Б╤В╨▓╨╕╨╡ ╨▓ ╤И╤Г╨╝╨╜╨╛╨╣ ╨╗╨╡╨╜╤В╨╡',
+        headline: 'Спокойствие в шумной ленте',
         overview:
-          'Stillness тАФ ╤Ж╨╕╤Д╤А╨╛╨▓╨╛╨╡ ╨┐╤А╨╛╤Б╤В╤А╨░╨╜╤Б╤В╨▓╨╛ ╨┤╨╗╤П ╨╛╤Б╨╛╨╖╨╜╨░╨╜╨╜╨╛╤Б╤В╨╕, ╤Б╨╛╨╖╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨░╨╝╨╡╨┤╨╗╨╕╤В╤М ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П, ╨░ ╨╜╨╡ ╨▒╨╛╤А╨╛╤В╤М╤Б╤П ╨╖╨░ ╨▓╨╜╨╕╨╝╨░╨╜╨╕╨╡. ╨п ╤Б╨┤╨╡╨╗╨░╨╗╨░ ╨░╨║╤Ж╨╡╨╜╤В ╨╜╨░ ╤А╨╡╨┤╨░╨║╤Ж╨╕╨╛╨╜╨╜╨╛╨╣ ╤Б╨┤╨╡╤А╨╢╨░╨╜╨╜╨╛╤Б╤В╨╕: ╨▓╨╛╨╖╨┤╤Г╤Е, ╨╝╤П╨│╨║╨╕╨╡ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Л ╨╕ ╤В╨╕╨┐╨╛╨│╤А╨░╤Д╨╕╨║╨░, ╨║╨╛╤В╨╛╤А╨░╤П ╤З╨╕╤В╨░╨╡╤В╤Б╤П ╨║╨░╨║ ╤В╨╕╤Е╨╛╨╡ ╨┐╤А╨╕╨│╨╗╨░╤И╨╡╨╜╨╕╨╡. ╨Ю╨┐╤Л╤В ╨╜╨░╨╝╨╡╤А╨╡╨╜╨╜╨╛ ╨╝╨╕╨╜╨╕╨╝╨░╨╗╨╕╤Б╤В╨╕╤З╨╡╨╜ тАФ ╤З╤В╨╛╨▒╤Л ╤Н╨╝╨╛╤Ж╨╕╨╛╨╜╨░╨╗╤М╨╜╤Л╨╣ ╤В╨╛╨╜ (╨┐╨╛╨║╨╛╨╣, ╤Д╨╛╨║╤Г╤Б, ╨┐╤А╨╕╤Б╤Г╤В╤Б╤В╨▓╨╕╨╡) ╤З╤Г╨▓╤Б╤В╨▓╨╛╨▓╨░╨╗╤Б╤П ╨▓ ╨║╨░╨╢╨┤╨╛╨╝ ╤Б╨║╤А╨╛╨╗╨╗╨╡.',
-        disciplines: ['UI / UX', '╨Ю╨┐╤Л╤В ╨▓╨╖╨░╨╕╨╝╨╛╨┤╨╡╨╣╤Б╤В╨▓╨╕╤П', '╨Т╨╕╨╖╤Г╨░╨╗╤М╨╜╤Л╨╣ ╨┤╨╕╨╖╨░╨╣╨╜'] as const,
+          'Stillness — цифровое пространство для осознанности, созданное замедлить пользователя, а не бороться за внимание. Я сделала акцент на редакционной сдержанности: воздух, мягкие переходы и типографика, которая читается как тихое приглашение. Опыт намеренно минималистичен — чтобы эмоциональный тон (покой, фокус, присутствие) чувствовался в каждом скролле.',
+        disciplines: ['UI / UX', 'Опыт взаимодействия', 'Визуальный дизайн'] as const,
       },
     },
     contact: {
-      line1: '╨Ф╨░╨▓╨░╨╣╤В╨╡ ╤Б╨╛╨╖╨┤╨░╨┤╨╕╨╝',
-      line2: '╤З╤В╨╛-╤В╨╛ ╨╗╤Г╤З╤И╨╡:)',
-      copy: '╨Ъ╨╛╨┐╨╕╤А╨╛╨▓╨░╤В╤М',
-      copied: '╨б╨║╨╛╨┐╨╕╤А╨╛╨▓╨░╨╜╨╛',
+      line1: 'Давайте создадим',
+      line2: 'что-то лучше:)',
+      copy: 'Копировать',
+      copied: 'Скопировано',
     },
     tools: {
-      label: '╨п ╤А╨░╨▒╨╛╤В╨░╤О ╤Б',
+      label: 'Я работаю с',
     },
     footer: {
-      backToTop: '╨Э╨░╨▓╨╡╤А╤Е',
-      rights: '╨Т╤Б╨╡ ╨┐╤А╨░╨▓╨░ ╨╖╨░╤Й╨╕╤Й╨╡╨╜╤Л',
+      backToTop: 'Наверх',
+      rights: 'Все права защищены',
     },
   },
 } as const;

@@ -5,7 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const titleClass =
-  'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
+  'select-none whitespace-nowrap font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
 
 const labelClass =
   'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
@@ -23,7 +23,7 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
-      <div className="flex flex-1 items-center justify-center px-3 pb-[7.5rem] pt-24 min-[400px]:px-5 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
+      <div className="flex flex-1 items-center justify-center overflow-x-hidden px-3 pb-[7.5rem] pt-24 min-[400px]:px-5 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
         <motion.div
           className="flex w-full justify-center"
           initial={{ opacity: 0, y: 20 }}
@@ -31,60 +31,40 @@ export function HeroSection() {
           transition={{ duration: 0.9, ease: EASE }}
         >
           {/*
-            Screenshot lockup:
-            I'm + WEB  |  photo  |  Elena Arbuzova + DESIGNER
-            Same type size, DESIGNER stepped down, whole group centered.
+            Photo is the page center.
+            I'm sits on the right of WEB, flush to the photo.
+            DESIGNER steps down, Elena sits on the photo's top-right.
           */}
-          <div
-            className="grid items-stretch gap-x-1.5 min-[390px]:gap-x-2 sm:gap-x-4 md:gap-x-5"
-            style={{ gridTemplateColumns: 'max-content auto max-content' }}
-          >
-            {/* LEFT */}
-            <div className="relative">
-              <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={labelClass}>{t.hero.greetingLeft}</span>
-                <div className={`mt-2 ${titleClass}`}>{t.hero.left}</div>
-              </div>
-              <div className="absolute top-0 right-0 z-30 flex flex-col items-start">
-                <p className={labelClass}>{t.hero.greetingLeft}</p>
-                <h1
-                  aria-hidden
-                  className={`mt-2 whitespace-nowrap ${titleClass}`}
-                >
-                  {t.hero.left}
-                </h1>
-              </div>
-            </div>
+          <div className="relative aspect-[3/4] w-[6.25rem] min-[390px]:w-28 min-[430px]:w-32 sm:w-40 md:w-56 lg:w-64">
+            <img
+              src="/elena-portrait.png"
+              alt="Elena Arbuzova"
+              className="absolute inset-0 z-10 h-full w-full object-cover object-center"
+              width={400}
+              height={533}
+            />
 
-            {/* CENTER photo */}
-            <div className="relative z-10 aspect-[3/4] w-[5.5rem] min-[390px]:w-[6.25rem] min-[430px]:w-[7rem] sm:w-36 md:w-48 lg:w-56">
-              <img
-                src="/elena-portrait.png"
-                alt="Elena Arbuzova"
-                className="absolute inset-0 h-full w-full object-cover object-center"
-                width={400}
-                height={533}
-              />
-            </div>
+            <p className={`absolute top-0 right-full z-30 mr-1.5 sm:mr-3 md:mr-4 ${labelClass}`}>
+              {t.hero.greetingLeft}
+            </p>
 
-            {/* RIGHT */}
-            <div className="relative">
-              <div className="invisible flex flex-col items-start" aria-hidden>
-                <span className={labelClass}>{t.hero.greetingRight}</span>
-                <div className={`mt-2 ${titleClass}`}>{t.hero.right}</div>
-              </div>
-              <p className={`absolute top-0 left-0 z-30 ${labelClass}`}>
-                {t.hero.greetingRight}
-              </p>
-              <h1
-                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap ${titleClass}`}
-              >
-                <span className="sr-only">
-                  {t.hero.left} {t.hero.right}
-                </span>
-                <span aria-hidden>{t.hero.right}</span>
-              </h1>
-            </div>
+            <h1
+              aria-hidden
+              className={`absolute top-[0.95rem] right-full z-[1] mr-1.5 text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] sm:mr-3 md:top-[1.25rem] md:mr-4 ${titleClass}`}
+            >
+              {t.hero.left}
+            </h1>
+
+            <p className={`absolute top-0 left-full z-30 ml-1.5 sm:ml-3 md:ml-4 ${labelClass}`}>
+              {t.hero.greetingRight}
+            </p>
+
+            <h1 className={`absolute top-1/2 left-full z-[1] ml-1.5 text-left sm:ml-3 md:ml-4 ${titleClass}`}>
+              <span className="sr-only">
+                {t.hero.left} {t.hero.right}
+              </span>
+              <span aria-hidden>{t.hero.right}</span>
+            </h1>
           </div>
         </motion.div>
       </div>
