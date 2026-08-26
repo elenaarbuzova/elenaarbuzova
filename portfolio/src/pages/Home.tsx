@@ -5,7 +5,6 @@ import { PageEnter } from '@/components/layout/PageTransition';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { AboutSection } from '@/components/sections/AboutSection';
 import { WorkSection } from '@/components/sections/WorkSection';
-import { ToolsSection } from '@/components/sections/ToolsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -30,7 +29,6 @@ export default function Home() {
             <HeroSection />
             <AboutSection />
             <WorkSection />
-            <ToolsSection />
             <ContactSection />
           </main>
 
