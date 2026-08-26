@@ -55,7 +55,7 @@ export function HeroSection() {
               </p>
               <h1
                 aria-hidden
-                className={`absolute top-[1.35rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.45rem] sm:top-[1.65rem] md:top-[1.85rem] ${titleClass}`}
+                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${titleClass}`}
               >
                 {t.hero.leftLines.map((line) => (
                   <span key={line} className="block">
