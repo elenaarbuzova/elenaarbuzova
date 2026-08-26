@@ -4,10 +4,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const leftTitleClass =
-  'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(2.7rem,12vw,9.5rem)]';
-
-const rightTitleClass =
+const titleClass =
   'select-none font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,7.8vw,6.25rem)]';
 
 const labelClass =
@@ -41,7 +38,7 @@ export function HeroSection() {
             <div className="relative">
               <div className="invisible flex flex-col items-end" aria-hidden>
                 <span className={labelClass}>{t.hero.greetingLeft}</span>
-                <div className={`mt-[0.55rem] text-right ${leftTitleClass}`}>
+                <div className={`mt-[0.55rem] text-right ${titleClass}`}>
                   {t.hero.leftLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -54,7 +51,7 @@ export function HeroSection() {
               </p>
               <h1
                 aria-hidden
-                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${leftTitleClass}`}
+                className={`absolute top-[0.95rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.05rem] sm:top-[1.15rem] md:top-[1.25rem] ${titleClass}`}
               >
                 {t.hero.leftLines.map((line) => (
                   <span key={line} className="block">
@@ -82,7 +79,7 @@ export function HeroSection() {
                   <span>{t.hero.greetingRight}</span>
                   <span>{t.hero.greetingInitial}</span>
                 </span>
-                <div className={`mt-[0.55rem] text-left ${rightTitleClass}`}>
+                <div className={`mt-[0.55rem] text-left ${titleClass}`}>
                   {t.hero.rightLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -97,7 +94,7 @@ export function HeroSection() {
                 <span>{t.hero.greetingInitial}</span>
               </p>
               <h1
-                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${rightTitleClass}`}
+                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
               >
                 <span className="sr-only">
                   {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
