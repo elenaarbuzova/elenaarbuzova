@@ -24,37 +24,47 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          {/* Staggered ARCHITECTURE-style composition: WEB high-left, photo center, DESIGNER low-right */}
-          <div className="relative mx-auto h-[min(72vw,26rem)] w-full max-w-5xl sm:h-[28rem] md:h-[32rem] lg:h-[34rem]">
-            <p className="absolute left-[calc(50%+3.1rem)] top-[18%] z-20 w-max max-w-[10rem] text-[10px] font-medium uppercase leading-snug tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:left-[calc(50%+4.2rem)] sm:top-[20%] sm:max-w-[14rem] sm:text-xs sm:tracking-[0.2em] md:left-[calc(50%+5.2rem)] md:top-[22%]">
-              {t.hero.greeting}
-            </p>
-
+          <div className="relative mx-auto w-full max-w-5xl pb-[clamp(3.5rem,12vw,8rem)] pt-2">
+            {/* WEB — high left */}
             <h1
               aria-hidden
-              className="pointer-events-none absolute left-0 top-[22%] z-[1] select-none text-[clamp(4.5rem,18vw,12rem)] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] sm:top-[20%] md:left-[2%]"
+              className="pointer-events-none absolute left-0 top-0 z-[1] select-none text-[clamp(4.5rem,18vw,12rem)] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] md:left-2"
             >
               {t.hero.left}
             </h1>
 
-            <div className="absolute left-1/2 top-[42%] z-10 w-[5.25rem] -translate-x-1/2 -translate-y-1/2 sm:w-28 md:top-[44%] md:w-36 lg:w-40">
-              <div className="overflow-hidden bg-neutral-900 aspect-[3/4] w-full">
-                <img
-                  src="/elena-portrait.png"
-                  alt="Elena Arbuzova"
-                  className="h-full w-full object-cover object-center"
-                  width={400}
-                  height={533}
-                />
-              </div>
-            </div>
+            {/* Im | photo | Elena — photo bottom sits on DESIGNER top */}
+            <div className="relative z-10 mx-auto w-fit pt-[clamp(2.5rem,8vw,5.5rem)]">
+              <div className="flex items-start gap-3 sm:gap-5 md:gap-7">
+                <p className="mt-[2.75rem] shrink-0 text-[10px] font-medium uppercase tracking-[0.2em] text-foreground [font-family:Inter,sans-serif] sm:mt-14 sm:text-xs md:mt-16">
+                  {t.hero.greetingLeft}
+                </p>
 
-            <h1 className="pointer-events-none absolute right-0 top-[58%] z-[1] select-none text-right text-[clamp(2.4rem,10vw,7.25rem)] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] sm:top-[56%] md:right-[1%] lg:top-[54%]">
-              <span className="sr-only">
-                {t.hero.left} {t.hero.right}
-              </span>
-              <span aria-hidden>{t.hero.right}</span>
-            </h1>
+                <div className="w-[5.25rem] shrink-0 sm:w-28 md:w-36 lg:w-40">
+                  <div className="aspect-[3/4] w-full overflow-hidden bg-neutral-900">
+                    <img
+                      src="/elena-portrait.png"
+                      alt="Elena Arbuzova"
+                      className="h-full w-full object-cover object-center"
+                      width={400}
+                      height={533}
+                    />
+                  </div>
+                </div>
+
+                <p className="mt-[2.75rem] shrink-0 text-[10px] font-medium uppercase tracking-[0.2em] text-foreground [font-family:Inter,sans-serif] sm:mt-14 sm:text-xs md:mt-16">
+                  {t.hero.greetingRight}
+                </p>
+              </div>
+
+              {/* DESIGNER — top edge flush with photo bottom */}
+              <h1 className="pointer-events-none absolute top-full right-[-8%] z-[1] mt-0 select-none text-right text-[clamp(2.4rem,10vw,7.25rem)] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] sm:right-[-18%] md:right-[-28%] lg:right-[-36%]">
+                <span className="sr-only">
+                  {t.hero.left} {t.hero.right}
+                </span>
+                <span aria-hidden>{t.hero.right}</span>
+              </h1>
+            </div>
           </div>
         </motion.div>
       </div>
