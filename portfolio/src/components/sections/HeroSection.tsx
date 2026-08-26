@@ -83,7 +83,7 @@ export function HeroSection() {
           <a
             href="#work"
             onClick={scrollToWork}
-            className="text-[11px] font-medium uppercase tracking-[0.28em] text-foreground transition-opacity hover:opacity-50"
+            className="border-b border-foreground pb-1 text-[11px] font-medium uppercase tracking-[0.28em] text-foreground transition-opacity hover:opacity-50"
           >
             {t.hero.cta}
           </a>
