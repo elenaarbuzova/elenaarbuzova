@@ -10,6 +10,9 @@ const titleClass =
 const labelClass =
   'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
 
+const photoGap = 'mr-1.5 sm:mr-3 md:mr-4';
+const photoGapRight = 'ml-1.5 sm:ml-3 md:ml-4';
+
 export function HeroSection() {
   const { t } = useLanguage();
 
@@ -44,7 +47,7 @@ export function HeroSection() {
               height={533}
             />
 
-            <div className="absolute top-0 right-full z-30 mr-1.5 flex flex-col items-end sm:mr-3 md:mr-4">
+            <div className={`absolute top-0 right-full z-30 flex flex-col items-end ${photoGap}`}>
               <p className={labelClass}>{t.hero.greetingLeft}</p>
               <h1 aria-hidden className={`mt-2 text-right ${titleClass}`}>
                 {t.hero.leftLines.map((line) => (
@@ -56,14 +59,14 @@ export function HeroSection() {
             </div>
 
             <p
-              className={`absolute top-0 left-full z-30 ml-0 inline-flex items-baseline gap-4 sm:gap-5 md:gap-6 ${labelClass}`}
+              className={`absolute top-0 left-full z-30 inline-flex items-baseline gap-4 sm:gap-5 md:gap-6 ${photoGapRight} ${labelClass}`}
             >
               <span>{t.hero.greetingRight}</span>
               <span>{t.hero.greetingInitial}</span>
             </p>
 
             <h1
-              className={`absolute bottom-0 left-full z-30 ml-0 text-left ${titleClass}`}
+              className={`absolute bottom-0 left-full z-30 text-left ${photoGapRight} ${titleClass}`}
             >
               <span className="sr-only">
                 {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
