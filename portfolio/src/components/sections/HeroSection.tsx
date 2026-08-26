@@ -4,6 +4,12 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+const microClass =
+  'text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs';
+
+const titleLineClass =
+  'block font-black uppercase tracking-[-0.06em] text-foreground text-[clamp(2.75rem,14vw,8.5rem)] leading-none';
+
 export function HeroSection() {
   const { t } = useLanguage();
 
@@ -24,13 +30,9 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          {/*
-            Architecture lockup on a single vertical axis:
-            photo (top) → micro caption → overlapping WEB / DESIGNER
-          */}
           <div className="relative flex w-full flex-col items-center">
-            {/* Portrait — top of stack, centered on axis */}
-            <div className="relative z-20 aspect-[3/4] w-[5.75rem] sm:w-28 md:w-36 lg:w-40">
+            {/* Portrait — centered, behind large type at the shoulder line */}
+            <div className="relative z-[1] aspect-[3/4] w-[5.75rem] sm:w-28 md:w-36 lg:w-40">
               <img
                 src="/elena-portrait.png"
                 alt="Elena Arbuzova"
@@ -38,42 +40,52 @@ export function HeroSection() {
                 width={400}
                 height={533}
               />
+
+              {/*
+                Micro line sits in the clear band under the portrait
+                (between photo bottom and WEB top), never inside the letters.
+              */}
+              <div className="absolute top-[100%] left-1/2 z-30 mt-2 grid w-[min(100vw,34rem)] -translate-x-1/2 grid-cols-[1fr_auto_1fr] items-center gap-x-3 sm:mt-2.5 sm:w-[min(100vw,40rem)] sm:gap-x-4 md:w-[min(100vw,46rem)]">
+                <p className={`justify-self-end text-right ${microClass}`}>
+                  {t.hero.greetingLeft}
+                </p>
+                <p className={`justify-self-center text-center ${microClass}`}>
+                  {t.hero.greetingRight}
+                </p>
+                <p className={`justify-self-start text-left ${microClass}`}>
+                  {t.hero.greetingInitial}
+                </p>
+              </div>
             </div>
 
-            {/* Micro line — sits on photo bottom edge, 3 parts on the axis */}
-            <div className="relative z-30 -mt-1 grid w-[min(100%,36rem)] grid-cols-[1fr_auto_1fr] items-center gap-x-2 sm:w-[min(100%,42rem)] sm:gap-x-3 md:w-[min(100%,48rem)]">
-              <p className="justify-self-end text-right text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
-                {t.hero.greetingLeft}
-              </p>
-              <p className="justify-self-center text-center text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
-                {t.hero.greetingRight}
-              </p>
-              <p className="justify-self-start text-left text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] sm:text-[10px] sm:tracking-[0.2em] md:text-xs">
-                {t.hero.greetingInitial}
-              </p>
-            </div>
+            {/*
+              Reserve space for the micro band, then pull WEB up so only the
+              lower part of the photo (shoulders/clothes) tucks behind WEB.
+              Face + neck stay clear.
+            */}
+            <div className="h-10 sm:h-11 md:h-12" aria-hidden />
 
-            {/* Overlapping WEB / DESIGNER — same size, negative leading, DESIGNER shifted right */}
-            <h1 className="relative z-10 -mt-7 w-full select-none text-center [font-family:Inter,sans-serif] sm:-mt-9 md:-mt-11 lg:-mt-12">
+            <h1 className="relative z-10 -mt-[3.1rem] w-full select-none text-center [font-family:Inter,sans-serif] sm:-mt-[3.85rem] md:-mt-[4.75rem] lg:-mt-[5.25rem]">
               <span className="sr-only">
                 {t.hero.left} {t.hero.right}
               </span>
+              {/* WEB — upper step of the staircase */}
               <span
                 aria-hidden
-                className="block font-black uppercase tracking-[-0.07em] text-foreground text-[clamp(3.25rem,16vw,9.5rem)] leading-[0.7] -translate-x-[12%] sm:-translate-x-[14%] md:-translate-x-[16%]"
+                className={`${titleLineClass} -translate-x-[14%] sm:-translate-x-[16%] md:-translate-x-[18%]`}
               >
                 {t.hero.left}
               </span>
+              {/* DESIGNER — lower step, shifted right, only ~12–14% letter overlap */}
               <span
                 aria-hidden
-                className="block font-black uppercase tracking-[-0.07em] text-foreground text-[clamp(3.25rem,16vw,9.5rem)] leading-[0.7] -mt-[0.42em] translate-x-[10%] sm:translate-x-[12%] md:translate-x-[14%]"
+                className={`${titleLineClass} -mt-[0.13em] translate-x-[12%] sm:translate-x-[14%] md:translate-x-[16%]`}
               >
                 {t.hero.right}
               </span>
             </h1>
 
-            {/* Small role accent — ties the lockup together */}
-            <p className="relative z-10 mt-3 text-[9px] font-medium uppercase tracking-[0.22em] text-foreground/55 [font-family:Inter,sans-serif] sm:mt-4 sm:text-[10px] md:tracking-[0.28em]">
+            <p className="relative z-10 mt-6 text-[9px] font-medium uppercase tracking-[0.22em] text-foreground/55 [font-family:Inter,sans-serif] sm:mt-7 sm:text-[10px] md:tracking-[0.28em]">
               {t.hero.role}
             </p>
           </div>
