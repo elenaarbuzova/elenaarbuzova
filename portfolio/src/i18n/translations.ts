@@ -11,7 +11,7 @@ export const translations = {
     },
     hero: {
       role: 'Web Designer & AI Developer',
-      cta: 'Scroll',
+      cta: 'Selected Work ↓',
       greeting: "Hi I'm Elena Arbuzova",
       greetingLeft: "I'm",
       greetingRight: 'Elena Arbuzova',
@@ -88,7 +88,7 @@ export const translations = {
     },
     hero: {
       role: 'Веб-дизайнер и разработчик ИИ',
-      cta: 'Scroll',
+      cta: 'Избранные работы ↓',
       greeting: "Hi I'm Elena Arbuzova",
       greetingLeft: "I'm",
       greetingRight: 'Elena Arbuzova',

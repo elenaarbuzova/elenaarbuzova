@@ -77,6 +77,9 @@ export function HeroSection() {
           transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
           className="flex items-center justify-between"
         >
+          <p className="max-w-[50%] truncate text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
+            {t.hero.role}
+          </p>
           <a
             href="#work"
             onClick={scrollToWork}
@@ -84,9 +87,6 @@ export function HeroSection() {
           >
             {t.hero.cta}
           </a>
-          <p className="max-w-[50%] truncate text-right text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
-            {t.hero.role}
-          </p>
         </motion.div>
       </div>
     </section>
