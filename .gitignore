@@ -9,7 +9,7 @@ node_modules
 *.log
 .turbo
 sati
-stillness
+/stillness
 mockup-sandbox
 api-server
 _dev.log
