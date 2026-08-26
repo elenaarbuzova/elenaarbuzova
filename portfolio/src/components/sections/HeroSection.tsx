@@ -4,6 +4,9 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+const titleClass =
+  'select-none font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,6.8vw,4.75rem)]';
+
 export function HeroSection() {
   const { t } = useLanguage();
 
@@ -24,6 +27,10 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
+          {/*
+            Variant A — symmetry:
+            WEB DESIGNER (left, upper) | photo | AI DEVELOPER (right, lower)
+          */}
           <div className="relative aspect-[3/4] w-[4.75rem] min-[390px]:w-[5.25rem] min-[430px]:w-[5.85rem] sm:w-[7.5rem] md:w-40 lg:w-48">
             <img
               src="/elena-portrait.png"
@@ -43,16 +50,28 @@ export function HeroSection() {
 
             <h1
               aria-hidden
-              className="absolute right-full bottom-1/2 z-[1] mr-1.5 select-none whitespace-nowrap text-right text-[2.7rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] min-[390px]:mr-2 min-[390px]:text-[3.05rem] min-[430px]:text-[3.45rem] sm:mr-4 sm:text-[4.6rem] md:mr-5 md:text-[6.2rem] lg:text-[7.4rem]"
+              className={`absolute right-full bottom-1/2 z-[1] mr-1.5 whitespace-nowrap text-right sm:mr-4 md:mr-5 ${titleClass}`}
             >
-              {t.hero.left}
+              {t.hero.leftLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </h1>
 
-            <h1 className="absolute left-full top-1/2 z-[1] ml-1.5 select-none whitespace-nowrap text-left text-[1.55rem] font-black uppercase leading-none tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] min-[390px]:ml-2 min-[390px]:text-[1.75rem] min-[430px]:text-[2.05rem] sm:ml-4 sm:text-[3rem] md:ml-5 md:text-[4.15rem] lg:text-[5rem]">
+            <h1
+              className={`absolute left-full top-1/2 z-[1] ml-1.5 whitespace-nowrap text-left sm:ml-4 md:ml-5 ${titleClass}`}
+            >
               <span className="sr-only">
-                {t.hero.left} {t.hero.right}
+                {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
               </span>
-              <span aria-hidden>{t.hero.right}</span>
+              <span aria-hidden>
+                {t.hero.rightLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </span>
             </h1>
           </div>
         </motion.div>

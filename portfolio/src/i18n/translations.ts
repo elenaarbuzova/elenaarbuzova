@@ -17,6 +17,8 @@ export const translations = {
       greetingRight: 'Elena Arbuzova',
       left: 'WEB',
       right: 'DESIGNER',
+      leftLines: ['WEB', 'DESIGNER'] as const,
+      rightLines: ['AI', 'DEVELOPER'] as const,
       lines: ['DESIGN.', 'BUILD.', 'DELIVER'] as const,
     },
     about: {
@@ -94,6 +96,8 @@ export const translations = {
       greetingRight: 'Elena Arbuzova',
       left: 'WEB',
       right: 'DESIGNER',
+      leftLines: ['WEB', 'DESIGNER'] as const,
+      rightLines: ['AI', 'DEVELOPER'] as const,
       lines: ['ДИЗАЙН.', 'КОД.', 'РЕЛИЗ'] as const,
     },
     about: {
