@@ -7,6 +7,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const titleClass =
   'select-none font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground [font-family:Inter,sans-serif] text-[clamp(1.55rem,6.8vw,4.75rem)]';
 
+const labelClass =
+  'whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:text-[9px] sm:text-[11px] sm:tracking-[0.22em] md:text-xs';
+
 export function HeroSection() {
   const { t } = useLanguage();
 
@@ -22,57 +25,87 @@ export function HeroSection() {
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
       <div className="flex flex-1 items-center justify-center px-3 pb-[7.5rem] pt-24 min-[400px]:px-5 sm:px-8 sm:pb-28 sm:pt-28 md:pb-32 md:pt-32">
         <motion.div
-          className="flex w-full max-w-6xl justify-center"
+          className="flex w-full justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
         >
           {/*
-            Variant A — symmetry:
-            WEB DESIGNER (left, upper) | photo | AI DEVELOPER (right, lower)
+            Centered lockup grid: left titles | photo | right titles.
+            Invisible in-flow copy sets column width so the whole group centers.
           */}
-          <div className="relative aspect-[3/4] w-[4.75rem] min-[390px]:w-[5.25rem] min-[430px]:w-[5.85rem] sm:w-[7.5rem] md:w-40 lg:w-48">
-            <img
-              src="/elena-portrait.png"
-              alt="Elena Arbuzova"
-              className="absolute inset-0 z-10 h-full w-full object-cover object-center"
-              width={400}
-              height={533}
-            />
-
-            <p className="absolute top-0 right-full z-30 mr-1.5 whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.16em] text-foreground [font-family:Inter,sans-serif] min-[390px]:mr-2 min-[390px]:text-[9px] sm:mr-4 sm:text-[11px] sm:tracking-[0.22em] md:mr-5 md:text-xs">
-              {t.hero.greetingLeft}
-            </p>
-
-            <p className="absolute top-0 left-full z-30 ml-1.5 whitespace-nowrap text-[8px] font-medium uppercase leading-none tracking-[0.14em] text-foreground [font-family:Inter,sans-serif] min-[390px]:ml-2 min-[390px]:text-[9px] sm:ml-4 sm:text-[11px] sm:tracking-[0.22em] md:ml-5 md:text-xs">
-              {t.hero.greetingRight}
-            </p>
-
-            <h1
-              aria-hidden
-              className={`absolute right-full top-[1.35rem] z-[1] mr-1.5 whitespace-nowrap text-right min-[390px]:top-[1.45rem] sm:top-[1.65rem] sm:mr-4 md:top-[1.85rem] md:mr-5 ${titleClass}`}
-            >
-              {t.hero.leftLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h1>
-
-            <h1
-              className={`absolute left-full top-1/2 z-[1] ml-1.5 whitespace-nowrap text-left sm:ml-4 md:ml-5 ${titleClass}`}
-            >
-              <span className="sr-only">
-                {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
-              </span>
-              <span aria-hidden>
-                {t.hero.rightLines.map((line) => (
+          <div
+            className="grid items-stretch gap-x-1.5 min-[390px]:gap-x-2 sm:gap-x-4 md:gap-x-5"
+            style={{ gridTemplateColumns: 'max-content auto max-content' }}
+          >
+            {/* LEFT */}
+            <div className="relative">
+              <div className="invisible flex flex-col items-end" aria-hidden>
+                <span className={labelClass}>{t.hero.greetingLeft}</span>
+                <div className={`mt-[0.55rem] text-right ${titleClass}`}>
+                  {t.hero.leftLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <p className={`absolute top-0 right-0 z-30 ${labelClass}`}>
+                {t.hero.greetingLeft}
+              </p>
+              <h1
+                aria-hidden
+                className={`absolute top-[1.35rem] right-0 z-[1] whitespace-nowrap text-right min-[390px]:top-[1.45rem] sm:top-[1.65rem] md:top-[1.85rem] ${titleClass}`}
+              >
+                {t.hero.leftLines.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
                 ))}
-              </span>
-            </h1>
+              </h1>
+            </div>
+
+            {/* CENTER photo */}
+            <div className="relative z-10 aspect-[3/4] w-[4.75rem] min-[390px]:w-[5.25rem] min-[430px]:w-[5.85rem] sm:w-[7.5rem] md:w-40 lg:w-48">
+              <img
+                src="/elena-portrait.png"
+                alt="Elena Arbuzova"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                width={400}
+                height={533}
+              />
+            </div>
+
+            {/* RIGHT */}
+            <div className="relative">
+              <div className="invisible flex flex-col items-start" aria-hidden>
+                <span className={labelClass}>{t.hero.greetingRight}</span>
+                <div className={`mt-[0.55rem] text-left ${titleClass}`}>
+                  {t.hero.rightLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <p className={`absolute top-0 left-0 z-30 ${labelClass}`}>
+                {t.hero.greetingRight}
+              </p>
+              <h1
+                className={`absolute top-1/2 left-0 z-[1] whitespace-nowrap text-left ${titleClass}`}
+              >
+                <span className="sr-only">
+                  {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
+                </span>
+                <span aria-hidden>
+                  {t.hero.rightLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </h1>
+            </div>
           </div>
         </motion.div>
       </div>
