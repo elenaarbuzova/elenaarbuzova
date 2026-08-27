@@ -61,7 +61,7 @@ export function HeroSection() {
             </p>
 
             <h1
-              className={`absolute bottom-0 left-full z-30 text-left leading-[0.73] ${photoGapRight} ${titleClass}`}
+              className={`absolute bottom-0 left-full z-30 text-left leading-[0.88] ${photoGapRight} ${titleClass}`}
             >
               <span className="sr-only">
                 {t.hero.leftLines.join(' ')} {t.hero.rightLines.join(' ')}
