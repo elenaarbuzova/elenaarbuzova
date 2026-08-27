@@ -248,6 +248,11 @@
   }
 }
 
+.hero-right-title {
+  text-box-trim: trim-end;
+  text-box-edge: cap alphabetic;
+}
+
 @layer utilities {
   input[type='search']::-webkit-search-cancel-button {
     @apply hidden;
