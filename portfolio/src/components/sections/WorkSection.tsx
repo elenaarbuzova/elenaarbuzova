@@ -5,6 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
 import { saveWorkScroll } from '@/lib/homeScroll';
 import { projects } from '@/lib/projects';
+import { ProjectMeta } from '@/components/projects/ProjectMeta';
 
 function coverAspectClass(aspect: 'video' | 'wide' | undefined) {
   return aspect === 'video'
@@ -78,7 +79,7 @@ export function WorkSection() {
                 )}
               </Link>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+              <div className="flex flex-col gap-2">
                 <div className="min-w-0">
                   <Link
                     href={projectHref}
@@ -92,18 +93,16 @@ export function WorkSection() {
                       {project.title}
                     </h3>
                   </Link>
-                  <p className="mt-1 text-sm font-medium tracking-wide text-muted-foreground md:text-base">
-                    {t.work[project.subtitleKey]}
-                  </p>
                 </div>
-                <div className="flex items-center gap-5 pt-0.5 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:gap-8 sm:pt-1 sm:text-sm sm:tracking-widest">
-                  {project.tagKey ? (
-                    <span>{t.work[project.tagKey]}</span>
-                  ) : (
-                    project.categoryKey && <span>{t.work[project.categoryKey]}</span>
-                  )}
-                  <span>{project.year}</span>
-                </div>
+                <ProjectMeta
+                  items={[
+                    project.tagKey
+                      ? t.work[project.tagKey]
+                      : project.categoryKey && t.work[project.categoryKey],
+                    t.work[project.subtitleKey],
+                    project.year,
+                  ]}
+                />
               </div>
             </motion.div>
           );

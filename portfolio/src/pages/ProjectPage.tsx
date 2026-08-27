@@ -13,6 +13,7 @@ import {
   type ProjectSlug,
 } from '@/lib/projects';
 import { ProjectGalleryMarquee } from '@/components/projects/ProjectGalleryMarquee';
+import { ProjectMeta } from '@/components/projects/ProjectMeta';
 import NotFound from '@/pages/not-found';
 
 export default function ProjectPage() {
@@ -65,19 +66,10 @@ export default function ProjectPage() {
                   {caseCopy.headline}
                 </p>
 
-                <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium tracking-wide text-foreground/80 sm:mb-8 md:text-base">
-                  {disciplineLabel}
-                  <span className="text-muted-foreground" aria-hidden>
-                    ·
-                  </span>
-                  <span className="text-muted-foreground">{t.work[project.subtitleKey]}</span>
-                  <span className="text-muted-foreground" aria-hidden>
-                    ·
-                  </span>
-                  <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
-                    {project.year}
-                  </span>
-                </p>
+                <ProjectMeta
+                  className="mb-6 sm:mb-8"
+                  items={[disciplineLabel, t.work[project.subtitleKey], project.year]}
+                />
               </header>
 
               <section className="mb-12 max-w-3xl text-left md:mb-20">
@@ -103,11 +95,7 @@ export default function ProjectPage() {
                 <h2 className="mb-4 text-xs font-semibold tracking-widest uppercase text-muted-foreground sm:mb-6">
                   {t.caseStudy.disciplines}
                 </h2>
-                <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium tracking-wide md:text-base">
-                  {caseCopy.disciplines.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+                <ProjectMeta items={[...caseCopy.disciplines]} />
               </section>
             </div>
 
@@ -164,14 +152,20 @@ export default function ProjectPage() {
                     <Link
                       href={`/work/${other.slug}`}
                       onClick={scrollToTopInstant}
-                      className="group flex min-h-16 flex-col justify-center gap-1 py-5 transition-opacity hover:opacity-70 sm:min-h-0 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:py-6"
+                      className="group flex min-h-16 flex-col justify-center gap-2 py-5 transition-opacity hover:opacity-70 sm:py-6"
                     >
                       <span className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">
                         {other.title}
                       </span>
-                      <span className="text-sm tracking-wide text-muted-foreground">
-                        {t.work[other.subtitleKey]}
-                      </span>
+                      <ProjectMeta
+                        items={[
+                          other.tagKey
+                            ? t.work[other.tagKey]
+                            : other.categoryKey && t.work[other.categoryKey],
+                          t.work[other.subtitleKey],
+                          other.year,
+                        ]}
+                      />
                     </Link>
                   </li>
                 ))}
