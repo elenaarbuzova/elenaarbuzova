@@ -1,10 +1,11 @@
-import { Link, useParams } from 'wouter';
+import { Link, useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PageEnter } from '@/components/layout/PageTransition';
 import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
+import { rememberHomeSection } from '@/lib/homeScroll';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
   getOtherProjects,
@@ -16,6 +17,7 @@ import NotFound from '@/pages/not-found';
 
 export default function ProjectPage() {
   const params = useParams<{ slug: string }>();
+  const [, setLocation] = useLocation();
   const { t, contentVisible } = useLanguage();
   const project = getProject(params.slug);
 
@@ -43,6 +45,11 @@ export default function ProjectPage() {
             <div className="container mx-auto max-w-5xl px-5 sm:px-6">
               <a
                 href="/#work"
+                onClick={(event) => {
+                  event.preventDefault();
+                  rememberHomeSection('work');
+                  setLocation('/');
+                }}
                 className="mb-8 inline-flex min-h-11 items-center gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground sm:mb-16"
               >
                 <span className="h-px w-8 bg-current" aria-hidden />

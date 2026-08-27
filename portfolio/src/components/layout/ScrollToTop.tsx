@@ -1,5 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useLocation } from 'wouter';
+import { applyHomeScroll, PENDING_SECTION_KEY } from '@/lib/homeScroll';
 
 /** Jump to top with no animation — never inherits CSS smooth scrolling. */
 export function scrollToTopInstant() {
@@ -20,12 +21,21 @@ export function scrollToTopInstant() {
   });
 }
 
-/** Instant top on route change (e.g. opening a project from Work). */
+/** Instant top on route change, or restore Work/About/Contact position. */
 export function ScrollToTop() {
   const [location] = useLocation();
 
   useLayoutEffect(() => {
-    if (window.location.hash) return;
+    const pending = sessionStorage.getItem(PENDING_SECTION_KEY);
+    const hash = window.location.hash.replace(/^#/, '');
+
+    if (location === '/' && (pending || hash)) {
+      applyHomeScroll();
+      requestAnimationFrame(() => applyHomeScroll());
+      return;
+    }
+
+    if (hash) return;
     scrollToTopInstant();
   }, [location]);
 

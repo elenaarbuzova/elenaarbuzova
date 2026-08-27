@@ -1,4 +1,5 @@
 import { useState, type MouseEvent, type ReactNode } from 'react';
+import { useLocation } from 'wouter';
 import {
   motion,
   AnimatePresence,
@@ -6,6 +7,7 @@ import {
   useMotionValueEvent,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { rememberHomeSection } from '@/lib/homeScroll';
 
 export type FloatingNavItem = {
   name: string;
@@ -24,6 +26,7 @@ export function FloatingNav({
 }) {
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
+  const [location, setLocation] = useLocation();
 
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     if (typeof current !== 'number') return;
@@ -40,13 +43,24 @@ export function FloatingNav({
   });
 
   const onNavClick = (link: string) => (event: MouseEvent<HTMLAnchorElement>) => {
-    if (!link.startsWith('#')) return;
-    const id = link.slice(1);
+    const hashIndex = link.indexOf('#');
+    if (hashIndex < 0) return;
+
+    const id = link.slice(hashIndex + 1);
     const el = document.getElementById(id);
-    if (!el) return;
-    event.preventDefault();
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.history.replaceState(null, '', link);
+
+    if (el) {
+      event.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', `#${id}`);
+      return;
+    }
+
+    if (location !== '/') {
+      event.preventDefault();
+      rememberHomeSection(id);
+      setLocation('/');
+    }
   };
 
   return (

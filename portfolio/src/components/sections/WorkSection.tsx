@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { RevealText } from '../ui/animations';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { scrollToTopInstant } from '@/components/layout/ScrollToTop';
+import { saveWorkScroll } from '@/lib/homeScroll';
 import { projects } from '@/lib/projects';
 
 function coverAspectClass(aspect: 'video' | 'wide' | undefined) {
@@ -41,7 +42,10 @@ export function WorkSection() {
             >
               <Link
                 href={projectHref}
-                onClick={scrollToTopInstant}
+                onClick={() => {
+                  saveWorkScroll();
+                  scrollToTopInstant();
+                }}
                 className={`relative mb-5 block cursor-pointer overflow-hidden transition-opacity hover:opacity-90 sm:mb-8 ${mediaBg} ${coverAspectClass(project.coverAspect)}`}
               >
                 {project.coverShift ? (
@@ -78,7 +82,10 @@ export function WorkSection() {
                 <div className="min-w-0">
                   <Link
                     href={projectHref}
-                    onClick={scrollToTopInstant}
+                    onClick={() => {
+                      saveWorkScroll();
+                      scrollToTopInstant();
+                    }}
                     className="inline-flex min-h-11 items-center"
                   >
                     <h3 className="text-[1.75rem] font-bold tracking-tight transition-opacity hover:opacity-70 sm:text-3xl md:text-5xl">
